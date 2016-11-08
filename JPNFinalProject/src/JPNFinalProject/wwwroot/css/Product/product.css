@@ -1,7 +1,4 @@
-﻿ul{
-    float:right;
-}
-li {
+﻿li {
     display:block;
 }
 a {
@@ -14,15 +11,16 @@ a:hover{
     cursor:pointer;  
 }
 #leveringinfo {
-    margin-right: 5%;
     margin-top: 20px;
     text-align: center;
     font-size: 16px;
+    float:left;
+    margin-left:25%;
 }
 
 #leveringinfo ul li {
     display: inline-block;
-    padding-right: 10px;
+
 }
 #leveringinfo ul li span{
     opacity: 0.5;
@@ -50,6 +48,9 @@ span{
     margin-top: 30px;
     float:right;
     color:gray;
+}
+.products{
+    margin-left:25%
 }
 
 
