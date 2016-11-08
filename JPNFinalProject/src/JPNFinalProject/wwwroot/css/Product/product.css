@@ -1,8 +1,8 @@
-﻿li {
-    display:block;
+﻿ul{
+    float:right;
 }
-.glyphicon{
-    font-size:15px;
+li {
+    display:block;
 }
 a {
     color:black;
@@ -12,4 +12,19 @@ a:hover{
     color:dimgrey; 
     text-decoration:none; 
     cursor:pointer;  
+}
+#leveringinfo {
+    margin-right: 5%;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 16px;
+}
+
+#leveringinfo ul li {
+    display: inline-block;
+    padding-right: 10px;
+}
+#leveringinfo ul li span{
+    opacity: 0.5;
+    font-size: 20px;
 }
