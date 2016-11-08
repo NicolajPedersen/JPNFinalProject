@@ -96,17 +96,18 @@
         </ul>
     </div>
     <div>
-        <button class="form-control alert-info">Tilpas udvalg</button>
+        <button id="adjust" class="form-control alert-info">Tilpas udvalg</button>
     </div>
     <div class="extrasearch">
         <div>
-            <label>Aktuelt</label>
+            <label id="current">Aktuelt</label>
         </div>
         <div>
             <input type="checkbox" /><label>Tilbud</label>
         </div>
+        <hr />
         <div>
-            <label>Pris</label>
+            <label id="price">Pris</label>
         </div>
         <div>
             <input type="range" min="199" max="1399"/>
@@ -115,8 +116,9 @@
             <label style="font-size: 10px">199 kr</label>
             <label style="font-size: 10px; float:right">1399 kr</label>
         </div>
+        <hr />
         <div>
-            <label>Mærker</label>
+            <label id="labels">Mærker</label>
         </div>
         <div>
             <input type="checkbox" /><label>BaByliss</label>
