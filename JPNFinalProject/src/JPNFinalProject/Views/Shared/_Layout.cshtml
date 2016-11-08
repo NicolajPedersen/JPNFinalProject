@@ -8,6 +8,8 @@
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/Order/basket.css" />
+        <link rel="stylesheet" href="~/css/bootstrapoverride.css" />
         <link rel="stylesheet" href="~/css/Product/product.css" />
     </environment>
     <environment names="Staging,Production">
@@ -16,6 +18,8 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/css/Product/product.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/Order/basket.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/bootstrapoverride.css" asp-append-version="true" />
     </environment>
 </head>
 <body>
@@ -32,14 +36,18 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Product" asp-action="Index">Products</a></li>
+                    <li><a asp-area="" asp-controller="Product" asp-action="Index">Produkter</a></li>
+                    <li style="float: right; margin-left: 90px;"><a asp-area="" asp-controller="Order" asp-action="Basket">Indkøbskurv</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     </div>
     <div class="container body-content">
-        @RenderBody()
+        <div class="container body-content">
+            @RenderBody()
+        </div>
+        
         <hr />
         <footer>
             <p>&copy; 2016 - SignalR ProtoType</p>
