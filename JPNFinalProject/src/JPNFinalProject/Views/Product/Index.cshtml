@@ -1,3 +1,17 @@
 ﻿@{
     ViewData["Title"] = "Products";
 }
+
+<div>
+    <form class="category-list">
+        <div class="radio"><label><input type="radio" name="categoryRadio">Dufte</label></div>
+        <div class="radio"><label><input type="radio" name="categoryRadio">Hudpleje</label></div>
+        <div class="radio">
+            <label><input type="radio" name="categoryRadio">Barbering</label>
+            <ul>
+                <li><input type="radio" name="subcategoryRadio">Hårklippere</li>
+                <li><input type="radio" name="subcategoryRadio">Skrabere</li>
+            </ul>
+        </div>
+    </form>
+</div>
