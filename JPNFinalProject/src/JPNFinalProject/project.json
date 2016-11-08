@@ -1,4 +1,4 @@
-﻿{
+{
   "userSecretsId": "aspnet-JPNFinalProject-e00bb731-75df-4bc5-8cf4-d66ed7be1f5c",
 
   "dependencies": {
@@ -40,9 +40,10 @@
       "type": "build"
     },
     "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": {
-      "version": "1.0.0-preview2-final",
-      "type": "build"
-    }
+        "version": "1.0.0-preview2-final",
+        "type": "build"
+    },
+    "jQuery": "3.1.1"
   },
 
   "tools": {

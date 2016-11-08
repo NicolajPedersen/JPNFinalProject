@@ -1,0 +1,60 @@
+﻿@model JPNFinalProject.Models.OrderViewModels.DeliveryViewModel
+@{
+    ViewData["Title"] = "Delivery";
+}
+
+<div id="index" class="row">
+    <ul class="list-inline">
+        <li><b>Indkøbskurv</b></li>
+        <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
+        <li>Fakturering og levering</li>
+        <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
+        <li>Oversigt</li>
+        <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
+        <li>Betaling</li>
+    </ul>
+</div>
+
+<form action="/" method="post">
+    <div class="form-group row">
+        <label for="name-input" class="col-xs-2 col-form-label">Navn*</label>
+        <div class="col-xs-10">
+            <input class="form-control" id="name-input" type="text" name="name" value="" />
+        </div>
+    </div>
+    <div class="form-group row">
+
+        <label for="address-input" class="col-xs-2 col-form-label">Adresse*</label>
+        <div class="col-xs-10">
+            <input class="form-control" id="address-input" type="text" name="address" value="" />
+        </div>
+    </div>
+    <div class="form-group row">
+
+        <label for="zip-input" class="col-xs-2 col-form-label">Postnr.*</label>
+        <div class="col-xs-2">
+            <input id="zip-input" class="form-control" type="text" name="zip" value="" />
+        </div>
+        <label for="city-input" class="col-xs-1 col-form-label">By*</label>
+        <div class="col-xs-2">
+            <input id="city-input" class="form-control" type="text" name="city" value="" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="phone-input" class="col-sm-2 col-form-label">Telefon nr.*</label>
+        <div class="col-sm-10">
+            <input class="form-control" id="phone-input" type="tel" name="phone" value="" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="email-input" class="col-sm-2 col-form-label">Email*</label>
+        <div class="col-sm-10">
+            <input class="form-control" id="email-input" type="email" name="email" value="" />
+        </div>
+    </div>
+    <style>
+    </style>
+</form>
+
+
+

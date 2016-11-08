@@ -1,17 +1,137 @@
 ﻿@{
-    ViewData["Title"] = "Products";
+    ViewData["Title"] = "Produkter";
 }
 
-<div>
-    <form class="category-list">
-        <div class="radio"><label><input type="radio" name="categoryRadio">Dufte</label></div>
-        <div class="radio"><label><input type="radio" name="categoryRadio">Hudpleje</label></div>
-        <div class="radio">
-            <label><input type="radio" name="categoryRadio">Barbering</label>
-            <ul>
-                <li><input type="radio" name="subcategoryRadio">Hårklippere</li>
-                <li><input type="radio" name="subcategoryRadio">Skrabere</li>
-            </ul>
-        </div>
-    </form>
+<div id="leveringinfo" class="row">
+    <ul>
+        <li>Fragt fra 10 kr</li>
+        <li><span aria-hidden="true" >|</span></li>
+        <li>Fri Levering til Matas butik ved køb for over 249 kr</li>
+        <li><span aria-hidden="true" >|</span></li>
+        <li>Leveringstid 1-2 hverdage</li>
+        <li><span aria-hidden="true">|</span></li>
+        <li>Byt gaver frem til 31. Januar 2017</li>
+    </ul>
 </div>
+
+@*----Dette skal laves dynamisk, så den laver listen udfra database indholdet----*@
+<div class="col-lg-2">
+    <div>
+        <label>Kategori</label>
+    </div>
+    <div>
+        <ul>
+            <li>
+                <a href="/produkter/dufte">
+                    <span>Dufte</span>
+                </a>
+            </li>
+            <li>
+                <a href="/produkter/hudpleje">
+                    <span>Hudpleje</span>
+                </a>
+            </li>
+            <li>
+                <a href="/produkter/barbering">
+                    <span>Barbering</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/produkter/barbering/haarklippere">
+                            <span>Hårklippere</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/produkter/barbering/skrabere">
+                            <span>Skrabere</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/produkter/barbering/aftershaveogbalsam">
+                            <span>Aftershave & Balsam</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/produkter/barbering/skumspritoggel">
+                            <span>Skum, Sprit & Gel</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/produkter/barbering/skaegpleje">
+                            <span>Skægpleje</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/produkter/barbering/barbermaskiner">
+                            <span>BarberMaskiner</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/produkter/barbering/trimmere">
+                            <span>Trimmere</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/produkter/barbering/tilbehoer">
+                            <span>Tilbehør</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="/produkter/hårpleje">
+                    <span>Hårpleje</span>
+                </a>
+            </li>
+            <li>
+                <a href="/produkter/kropoghelse">
+                    <span>Krop og Helse</span>
+                </a>
+            </li>
+            <li>
+                <a href="/produkter/tilbehoer">
+                    <span>Tilbehør</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <button id="adjust" class="form-control alert-info">Tilpas udvalg</button>
+    </div>
+    <div class="extrasearch" style="display:none">
+        <div>
+            <label id="current">Aktuelt</label>
+        </div>
+        <div>
+            <input type="checkbox" /><label>Tilbud</label>
+        </div>
+        <hr />
+        <div>
+            <label id="price">Pris</label>
+        </div>
+        <div>
+            <input type="range" min="199" max="1399"/>
+        </div>
+        <div>
+            <label style="font-size: 10px">199 kr</label>
+            <label style="font-size: 10px; float:right">1399 kr</label>
+        </div>
+        <hr />
+        <div>
+            <label id="labels">Mærker</label>
+        </div>
+        <div>
+            <input type="checkbox" /><label>BaByliss</label>
+        </div>
+        <div>
+            <input type="checkbox" /><label>Braun</label>
+        </div>
+        <div>
+            <input type="checkbox" /><label>Philips</label>
+        </div>
+        <div>
+            <input type="checkbox" /><label>Remington</label>
+        </div>
+    </div>
+</div>
+
