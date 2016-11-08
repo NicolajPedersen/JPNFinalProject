@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace JPNFinalProject.Views.Order
-{
-    public class Delivery
+namespace JPNFinalProject.Models.OrderViewModels {
+    public class DeliveryViewModel
     {
     }
 }
