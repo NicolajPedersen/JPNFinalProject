@@ -17,23 +17,23 @@
 @*----Dette skal laves dynamisk, så den laver listen udfra database indholdet----*@
 <div class="col-lg-2">
     <div>
-        <label>Kategori</label>
+        <h3>Kategori</h3>
     </div>
     <div>
         <ul>
             <li>
                 <a href="/produkter/dufte">
-                    <span>Dufte</span>
+                    <h3>Dufte</h3>
                 </a>
             </li>
             <li>
                 <a href="/produkter/hudpleje">
-                    <span>Hudpleje</span>
+                    <h4>Hudpleje</h4>
                 </a>
             </li>
             <li>
                 <a href="/produkter/barbering">
-                    <span>Barbering</span>
+                    <h4>Barbering</h4>
                 </a>
                 <ul>
                     <li>
@@ -80,34 +80,34 @@
             </li>
             <li>
                 <a href="/produkter/hårpleje">
-                    <span>Hårpleje</span>
+                    <h4>Hårpleje</h4>
                 </a>
             </li>
             <li>
                 <a href="/produkter/kropoghelse">
-                    <span>Krop og Helse</span>
+                    <h4>Krop og Helse</h4>
                 </a>
             </li>
             <li>
                 <a href="/produkter/tilbehoer">
-                    <span>Tilbehør</span>
+                    <h4>Tilbehør</h4>
                 </a>
             </li>
         </ul>
     </div>
     <div>
-        <button id="adjust" class="form-control alert-info">Tilpas udvalg</button>
+        <button id="adjust" class="form-control btn-info">Tilpas udvalg</button>
     </div>
     <div class="extrasearch" style="display:none">
         <div>
-            <label id="current">Aktuelt</label>
+            <h3 id="current">Aktuelt</h3>
         </div>
         <div>
             <input type="checkbox" /><label>Tilbud</label>
         </div>
         <hr />
         <div>
-            <label id="price">Pris</label>
+            <h3 id="price">Pris</h3>
         </div>
         <div>
             <input type="range" min="199" max="1399"/>
@@ -118,7 +118,7 @@
         </div>
         <hr />
         <div>
-            <label id="labels">Mærker</label>
+            <h3 id="labels">Mærker</h3>
         </div>
         <div>
             <input type="checkbox" /><label>BaByliss</label>
@@ -134,4 +134,32 @@
         </div>
     </div>
 </div>
+<div class="col-lg-10">
+    <div class="row">
+        <div id="text">
+            <text readonly="readonly">Barberkost og kniv, skraber og gelé – en kær barbering har mange faconer. Uanset om du er til retro-metoden eller mere moderne værktøjer, er det vigtigt, at du bruger de rigtige redskaber. En god barbering er nemlig et must for en hver mand. Et skarpt blad, en fugtet hud og et blødgjort skæg er essentiel for din skægpleje. På matas.dk finder du flere forskellige produkter til skægpleje; fx skægbalsam, skægolie, barberblade, trimmere m.m. En god skægpleje holder dit skæg i god form. Læs også artiklen barberingsguide og få et perfekt skæg.</text>
+        </div>
+        <div>
+            <h2 class="selectedheader">Hårklippere</h2>
+        </div>
+        <div id="sorting">
+            <label>3 produkter</label>
+            <label>|</label>
+            <label>Sortér efter standard</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-3" id="product1">
+            <img />
+        </div>
+        <div class="col-lg-3" id="product2">
+            <label>test2</label>
+        </div>
+        <div class="col-lg-3" id="product3">
+            <label>test3</label>
+        </div>
+    </div>
+</div>
+
 

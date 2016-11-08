@@ -35,6 +35,22 @@ hr{
     border-top: 1px solid #808080;
     opacity: 0.5;
 }
+#text{
+    padding: 10px;
+    background-color: #f8f9fb;
+}
+span{
+    font-size:15px;
+    vertical-align:baseline;
+}
+.selectedheader{
+    float:left;
+}
+#sorting{
+    margin-top: 30px;
+    float:right;
+    color:gray;
+}
 
 
 
