@@ -1,4 +1,5 @@
-﻿.navbar-inverse {
-  background-color: yellow !important;
-  border-color: yellow !important;
+﻿body {
+}
+navbar-inverse {
+    background-color: yellow;
 }
