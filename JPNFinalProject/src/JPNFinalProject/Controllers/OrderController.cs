@@ -16,5 +16,9 @@ namespace JPNFinalProject.Controllers
         public IActionResult Basket() {
             return View();
         }
+        public IActionResult Delivery()
+        {
+            return View();
+        }
     }
 }
