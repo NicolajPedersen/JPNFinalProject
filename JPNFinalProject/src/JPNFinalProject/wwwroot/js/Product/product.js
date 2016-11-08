@@ -4,7 +4,7 @@
         {
             $('.extrasearch').css('display', 'unset');
         }
-        if ($('.extrasearch').css('display') == 'unset')
+        else
         {
             $('.extrasearch').css('display', 'none');
         }
