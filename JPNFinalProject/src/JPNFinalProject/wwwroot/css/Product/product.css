@@ -1,0 +1,15 @@
+﻿li {
+    display:block;
+}
+.glyphicon{
+    font-size:15px;
+}
+a {
+    color:black;
+    text-decoration: none;
+}
+a:hover{
+    color:dimgrey; 
+    text-decoration:none; 
+    cursor:pointer;  
+}

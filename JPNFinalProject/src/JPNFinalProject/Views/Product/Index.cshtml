@@ -1,17 +1,82 @@
 ﻿@{
-    ViewData["Title"] = "Products";
+    ViewData["Title"] = "Produkter";
 }
 
+
 <div>
-    <form class="category-list">
-        <div class="radio"><label><input type="radio" name="categoryRadio">Dufte</label></div>
-        <div class="radio"><label><input type="radio" name="categoryRadio">Hudpleje</label></div>
-        <div class="radio">
-            <label><input type="radio" name="categoryRadio">Barbering</label>
+    <ul>
+        <li>
+            <a class="glyphicon glyphicon-chevron-right" href="/produkter/dufte">
+                <span>Dufte</span>
+            </a>
+        </li>
+        <li>
+            <a class="glyphicon glyphicon-chevron-right" href="/produkter/hudpleje">
+                <span>Hudpleje</span>
+            </a>
+        </li>
+        <li>
+            <a class="glyphicon glyphicon-chevron-down" href="/produkter/barbering">
+                <span>Barbering</span>
+            </a>
             <ul>
-                <li><input type="radio" name="subcategoryRadio">Hårklippere</li>
-                <li><input type="radio" name="subcategoryRadio">Skrabere</li>
+                <li>
+                    <a class="glyphicon" href="/produkter/barbering/haarklippere">
+                        <span>Hårklippere</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="glyphicon" href="/produkter/barbering/skrabere">
+                        <span>Skrabere</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="glyphicon" href="/produkter/barbering/aftershaveogbalsam">
+                        <span>Aftershave & Balsam</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="glyphicon" href="/produkter/barbering/skumspritoggel">
+                        <span>Skum, Sprit & Gel</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="glyphicon" href="/produkter/barbering/skaegpleje">
+                        <span>Skægpleje</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="glyphicon" href="/produkter/barbering/barbermaskiner">
+                        <span>BarberMaskiner</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="glyphicon" href="/produkter/barbering/trimmere">
+                        <span>Trimmere</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="glyphicon" href="/produkter/barbering/tilbehoer">
+                        <span>Tilbehør</span>
+                    </a>
+                </li>
             </ul>
-        </div>
-    </form>
+        </li>
+        <li>
+            <a class="glyphicon glyphicon-chevron-right" href="/produkter/hårpleje">
+                <span>Hårpleje</span>
+            </a>
+        </li>
+        <li>
+            <a class="glyphicon glyphicon-chevron-right" href="/produkter/kropoghelse">
+                <span>Krop og Helse</span>
+            </a>
+        </li>
+        <li>
+            <a class="glyphicon glyphicon-chevron-right" href="/produkter/tilbehoer">
+                <span>Tilbehør</span>
+            </a>
+        </li>
+    </ul>
 </div>
+
