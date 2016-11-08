@@ -15,10 +15,44 @@
     </ul>
 </div>
 
-<div class="row">
-    <hr />
-    <h3>Produkter</h3>
-    <hr />
+<div id="productHeader" class="row"  style="padding-bottom: 0px;">
+    <div class="col-xs-6">
+        <h4>Produkter</h4>
+    </div>
+    <div class="col-xs-2">
+        <h4>Stk. pris</h4>
+    </div>
+    <div class="col-xs-2">
+        <h4>Antal</h4>
+    </div>
+    <div class="col-xs-2">
+        <h4>Samlet pris</h4>
+    </div>
 </div>
 
-
+<div id="productInfo" class="row"> @* Skal laves til en tabel, da man skal kunne tilføje og fjerne fra den *@
+    <div class="col-xs-1">
+        <a href="#"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>
+    </div>
+    <div class="col-xs-5">
+        <div style="float: left;">
+            <img src="https://images5.matas.dk/Assets/100001-200000/184001-185000/184401-184500/184409/ProductPage_350x262.png" class="img-rounded img-responsive" alt="Remington Apprentice Hårklipper" width="100" height="100">
+        </div>
+        <div style="float: left; margin: 20px 0px 0px 20px;">
+            <div>
+                <label>Remington Apprentice Hårklipper</label>
+            </div>
+            <input type="checkbox" id="rapping" style="height: 10px;" /> <label style="font-size: 12px;">Indpakning (10 kr)</label>
+            <input type="checkbox" id="swapBrand" style="margin-left: 10px; height: 10px;" /> <label style="font-size: 12px;">Byttemærke</label>
+        </div>
+    </div>
+    <div class="col-xs-2">
+        <h4 style="line-height: 70px;">199,00 kr</h4>
+    </div>
+    <div class="col-xs-2">
+        <h4 style="line-height: 70px;">199,00 kr</h4>
+    </div>
+    <div class="col-xs-2">
+        <h4 style="line-height: 70px;">199,00 kr</h4>
+    </div>
+</div>
