@@ -2,6 +2,9 @@
     ViewData["Title"] = "Produkter";
 }
 
+<link rel="stylesheet" href="~/css/Product/product.css" asp-append-version="true" />
+<script src="~/js/Product/product.js" asp-append-version="true"></script>
+
 <div id="leveringinfo">
     <ul>
         <li>Fragt fra 10 kr</li>
@@ -149,16 +152,52 @@
                 <label>Sortér efter standard</label>
             </div>
         </div>
-        <div class="products row">
-            @*<div class="col-lg-2"></div>*@
-            <div class="col-lg-3" id="product1">
-                <label>test1</label>
+        <div>
+            <div class="col-lg-2"></div>
+            <div class="products col-lg-3">
+                <div class="" id="product1">
+                    <img src="~/images/Product/ProductList_200x150.png" />
+                </div>
+                <div class="productInfo">
+                    <label id="priceLabel">300</label>
+                    <button id="basketbtn" class="btn btn-default">Læg i kurv</button>
+                </div>
+                <div class="productInfo">
+                    <label id="pointLabel">Køb og få 30 point</label>
+                </div>
+                <div class="productInfo">
+                    <label id="descriptionLabel">Remington HC5600 E51 Pro Power Hair Clipper</label>
+                </div>
             </div>
-            <div class="col-lg-3" id="product2">
-                <label>test2</label>
+            <div class="products col-lg-3">
+                <div id="product2">
+                    <img src="~/images/Product/ProductList_200x150 (1).png" />
+                </div>
+                <div class="productInfo">
+                    <label id="priceLabel">249</label>
+                    <button id="basketbtn" class="btn btn-default">Læg i kurv</button>
+                </div>
+                <div class="productInfo">
+                    <label id="pointLabel">Køb og få 25 point</label>
+                </div>
+                <div class="productInfo">
+                    <label id="descriptionLabel">Remington Pro Power Hårklipper HC5200</label>
+                </div>
             </div>
-            <div class="col-lg-3" id="product3">
-                <label>test3</label>
+            <div class="products col-lg-3">
+                <div id="product3">
+                    <img src="~/images/Product/ProductList_200x150 (2).png" />
+                </div>
+                <div class="productInfo">
+                    <label id="priceLabel">199</label>
+                    <button id="basketbtn" class="btn btn-default">Læg i kurv</button>
+                </div>
+                <div class="productInfo">
+                    <label id="pointLabel">Køb og få 20 point</label>
+                </div>
+                <div class="productInfo">
+                    <label id="descriptionLabel">Remington Apprentice Hårklipper</label>
+                </div>
             </div>
         </div>
     </div>

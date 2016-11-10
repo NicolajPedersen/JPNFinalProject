@@ -49,8 +49,12 @@ span{
     float:right;
     color:gray;
 }
-.products{
-    margin-left:25%
+#basketbtn{
+    background-color:deeppink;
+    color:white;
+}
+#pointLabel{
+    font-size: 10px;
 }
 
 
