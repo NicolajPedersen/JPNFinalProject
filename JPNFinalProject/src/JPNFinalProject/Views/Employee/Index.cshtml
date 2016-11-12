@@ -18,41 +18,91 @@
         </thead>
         <tbody>
             <tr>
-                <td>Remington HC5600 E51 Pro Power Hair Clipper</td>
+                <td id="item">Remington HC5600 E51 Pro Power Hair Clipper</td>
                 <td>300</td>
                 <td>1</td>
                 <td>phvorret@gmail.com</td>
-                <td>24553892</td>
-                <td><input type="checkbox" checked="checked" /></td>
+                <td id="ordreNumber">24553892</td>
+                <td><input id="doneOrNot" type="checkbox" checked="checked" disabled="disabled" /></td>
                 <td>
-                    <button disabled="disabled">Tilsidesæt</button>
-                    <button disabled="disabled">Ikke på lager</button>
+                    <button id="putAside" type="button" class="btn btn-sm" disabled="disabled">Tilsidesæt</button>
+                    <button id="outOfStock" type="button" class="btn btn-sm" data-toggle="modal" data-target="#SendMail" disabled="disabled">Ikke på lager</button>
+                    @*<button type="button" class="btn btn-sm" disabled="disabled">Ikke på lager</button>*@
                 </td>
             </tr>
             <tr>
-                <td>Remington Pro Power Hårklipper HC5200</td>
+                <td id="item">Remington Pro Power Hårklipper HC5200</td>
                 <td>249</td>
                 <td>1</td>
                 <td>phvorret@gmail.com</td>
-                <td>24553892</td>
-                <td><input type="checkbox"/></td>
+                <td id="ordreNumber">24553892</td>
+                <td><input id="doneOrNot" type="checkbox" disabled="disabled"/></td>
                 <td>
-                    <button>Tilsidesæt</button>
-                    <button>Ikke på lager</button>
+                    <button id="putAside" type="button" class="btn btn-sm">Tilsidesæt</button>
+                    <button id="outOfStock" type="button" class="btn btn-sm" data-toggle="modal" data-target="#SendMail">Ikke på lager</button>
+                    @*<button id="Outofstock" type="button" data-toggle="modal" data-target="#SendMail">Ikke på lager</button>*@
                 </td>
             </tr>
             <tr>
-                <td>Remington Apprentice Hårklipper</td>
+                <td id="item">Remington Apprentice Hårklipper</td>
                 <td>199</td>
                 <td>1</td>
                 <td>ngp@gmail.com</td>
-                <td>26836478</td>
-                <td><input type="checkbox"/></td>
+                <td id="ordreNumber">26836478</td>
+                <td><input id="doneOrNot" type="checkbox" disabled="disabled"/></td>
                 <td>
-                    <button>Tilsidesæt</button>
-                    <button>Ikke på lager</button>
+                    <button id="putAside" type="button" class="btn btn-sm">Tilsidesæt</button>
+                    <button id="outOfStock" type="button" class="btn btn-sm" data-toggle="modal" data-target="#SendMail">Ikke på lager</button>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
+
+<!-- Modal -->
+<div id="SendMail" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Send mail</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <label>Vare:</label>
+                    </div>
+                    <div class="col-xs-8">
+                        <p id="item"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <label>Ordrenummer:</label>
+                    </div>
+                    <div class="col-xs-8">
+                        <p id="ordreNumber"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <label>På lager igen den:</label>
+                    </div>
+                    <div class="col-xs-8">
+                        <input id="stockDate" type="date" class="form-control" />
+                    </div>
+                </div>                
+            </div>
+            <div class="modal-footer">
+                <button id="send" type="button" class="btn btn-default" data-dismiss="modal">Send mail</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/Employee/index.js"></script>
+}

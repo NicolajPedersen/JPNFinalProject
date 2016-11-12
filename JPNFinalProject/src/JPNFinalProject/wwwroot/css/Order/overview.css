@@ -40,6 +40,10 @@
     margin-top: 20px;
 }
 
+#productInfo > .row {
+    margin-top: 20px;
+}
+
 #productInfo > .col-xs-1 > a {
     text-decoration: none;
     color: inherit;

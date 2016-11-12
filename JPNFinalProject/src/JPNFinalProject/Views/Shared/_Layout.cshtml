@@ -8,20 +8,17 @@
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
-        @*<link rel="stylesheet" href="~/css/Order/basket.css" />*@
-        @*<link rel="stylesheet" href="~/css/Order/overview.css" />*@
-        <link rel="stylesheet" href="~/css/bootstrapoverride.css" />
-        @*<link rel="stylesheet" href="~/css/Product/product.css" />*@
+        <link rel="stylesheet" href="~/css/bootstrap-override.css" />
+        <link rel="stylesheet" href="~/css/center-modal.css" />
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-        @*<link rel="stylesheet" href="~/css/Product/product.css" asp-append-version="true" />*@
-        @*<link rel="stylesheet" href="~/css/Order/basket.css" asp-append-version="true" />*@
-        @*<link rel="stylesheet" href="~/css/Order/overview.css" asp-append-version="true" />*@
-        <link rel="stylesheet" href="~/css/bootstrapoverride.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/bootstrap-override.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/center-modal.css" asp-append-version="true" />
+
     </environment>
     @RenderSection("styles", false);
 </head>

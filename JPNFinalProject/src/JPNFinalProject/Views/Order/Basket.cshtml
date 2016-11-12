@@ -36,63 +36,66 @@
     </div>
 
     @* Skal laves til en tabel, da man skal kunne tilføje og fjerne fra den *@
-    <div id="productInfo" class="row">
-        <div class="col-xs-1">
-            <a href="#"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>
-        </div>
-        <div class="col-xs-5">
-            <div style="float: left; width: 85px; height: 85px; text-align: center;">
-                <img src="https://images5.matas.dk/Assets/100001-200000/184001-185000/184401-184500/184409/ProductPage_350x262.png" class="img-rounded" alt="Remington Apprentice Hårklipper" style="max-width: 100%; max-height: 100%;">
+    <div id="productInfo">
+        <div data-number="0" class="row">
+            <div class="col-xs-1">
+                <a id="remove" href="#"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>
             </div>
-            <div style="float: left; margin: 20px 0px 0px 5px;">
-                <div>
-                    <label>Remington Apprentice Hårklipper</label>
+            <div class="col-xs-5">
+                <div style="float: left; width: 85px; height: 85px; text-align: center;">
+                    <img src="https://images5.matas.dk/Assets/100001-200000/184001-185000/184401-184500/184409/ProductPage_350x262.png" class="img-rounded" alt="Remington Apprentice Hårklipper" style="max-width: 100%; max-height: 100%;">
                 </div>
-                <input type="checkbox" id="rapping" style="height: 10px;" /> <label style="font-size: 12px;">Indpakning (10 kr)</label>
-                <input type="checkbox" id="swapBrand" style="margin-left: 10px; height: 10px;" /> <label style="font-size: 12px;">Byttemærke</label>
+                <div style="float: left; margin: 20px 0px 0px 5px;">
+                    <div>
+                        <label>Remington Apprentice Hårklipper</label>
+                    </div>
+                    <input type="checkbox" id="rapping" style="height: 10px;" /> <label style="font-size: 12px;">Indpakning (10 kr)</label>
+                    <input type="checkbox" id="swapBrand" style="margin-left: 10px; height: 10px;" /> <label style="font-size: 12px;">Byttemærke</label>
+                </div>
+            </div>
+            <div class="col-xs-2">
+                <h4 style="line-height: 70px;">199,00 kr</h4>
+            </div>
+            <div id="quantity-picker" class="col-xs-2">
+                <a class="down" href="#"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+                <input type="text" class="quantity" value="1" />
+                <a class="up" href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+            </div>
+            <div class="col-xs-2">
+                <h4 style="line-height: 70px;">199,00 kr</h4>
             </div>
         </div>
-        <div class="col-xs-2">
-            <h4 style="line-height: 70px;">199,00 kr</h4>
-        </div>
-        <div id="quantity-picker" class="col-xs-2">
-            <a class="down" href="#"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
-            <input type="text" class="quantity" value="1" />
-            <a class="up" href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-        </div>
-        <div class="col-xs-2">
-            <h4 style="line-height: 70px;">199,00 kr</h4>
-        </div>
-    </div>
 
-    <div id="productInfo" class="row">
-        <div class="col-xs-1">
-            <a href="#"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>
-        </div>
-        <div class="col-xs-5">
-            <div style="float: left; width: 85px; height: 85px; text-align: center;">
-                <img src="https://images5.matas.dk/Assets/100001-200000/183001-184000/183801-183900/183839/ProductPage_350x262.png" class="img-rounded" alt="Matas Natur Havtorn & Blåbær Shampoo" style="max-width: 100%; max-height: 100%;">
+        <div data-number="1" class="row">
+            <div class="col-xs-1">
+                <a id="remove" href="#"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>
             </div>
-            <div style="float: left; margin: 20px 0px 0px 5px;">
-                <div>
-                    <label>Matas Natur Havtorn & Blåbær Shampoo</label>
+            <div class="col-xs-5">
+                <div style="float: left; width: 85px; height: 85px; text-align: center;">
+                    <img src="https://images5.matas.dk/Assets/100001-200000/183001-184000/183801-183900/183839/ProductPage_350x262.png" class="img-rounded" alt="Matas Natur Havtorn & Blåbær Shampoo" style="max-width: 100%; max-height: 100%;">
                 </div>
-                <input type="checkbox" id="rapping" style="height: 10px;" /> <label style="font-size: 12px;">Indpakning (10 kr)</label>
-                <input type="checkbox" id="swapBrand" style="margin-left: 10px; height: 10px;" /> <label style="font-size: 12px;">Byttemærke</label>
+                <div style="float: left; margin: 20px 0px 0px 5px;">
+                    <div>
+                        <label>Matas Natur Havtorn & Blåbær Shampoo</label>
+                    </div>
+                    <input type="checkbox" id="rapping" style="height: 10px;" /> <label style="font-size: 12px;">Indpakning (10 kr)</label>
+                    <input type="checkbox" id="swapBrand" style="margin-left: 10px; height: 10px;" /> <label style="font-size: 12px;">Byttemærke</label>
+                </div>
             </div>
-        </div>
-        <div class="col-xs-2">
-            <h4 style="line-height: 70px;">74,95 kr</h4>
-        </div>
-        <div id="quantity-picker" class="col-xs-2">
-            <a class="down" href="#"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
-            <input type="text" class="quantity" value="1" />
-            <a class="up" href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-        </div>
-        <div class="col-xs-2">
-            <h4 style="line-height: 70px;">74,95 kr</h4>
+            <div class="col-xs-2">
+                <h4 style="line-height: 70px;">74,95 kr</h4>
+            </div>
+            <div id="quantity-picker" class="col-xs-2">
+                <a class="down" href="#"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+                <input type="text" class="quantity" value="1" />
+                <a class="up" href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+            </div>
+            <div class="col-xs-2">
+                <h4 style="line-height: 70px;">74,95 kr</h4>
+            </div>
         </div>
     </div>
+    
 
     <div id="summary" class="row">
         <div id="freight" class="col-xs-7">
@@ -153,3 +156,7 @@
         </div>
     </div>
 </div>
+
+@section scripts {
+    <script src="~/js/Basket/basket.js"></script>
+}

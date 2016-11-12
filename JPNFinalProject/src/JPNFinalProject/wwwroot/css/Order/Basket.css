@@ -40,7 +40,11 @@
     margin-top: 20px;
 }
 
-#productInfo > .col-xs-1 > a {
+#productInfo > .row {
+    margin-top: 20px;
+}
+
+#productInfo > .row > .col-xs-1 > a {
     text-decoration: none;
     color: inherit;
     line-height: 90px;
