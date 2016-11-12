@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 
 namespace JPNFinalProject.Models.OrderViewModels
 {
-    public class BasketViewModel
+    public class OverviewViewModel
     {
-        public int SelectedDeliveryType { get; set; }
     }
 }

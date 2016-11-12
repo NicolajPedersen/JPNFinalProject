@@ -1,23 +1,39 @@
-﻿@model JPNFinalProject.Models.OrderViewModels.BasketViewModel
+﻿@model JPNFinalProject.Models.OrderViewModels.OverviewViewModel
 @{
-    ViewData["Title"] = "Basket";
+    ViewData["Title"] = "Overview";
 }
 
 @section styles {
-    <link rel="stylesheet" href="~/css/Order/basket.css" />
+    <link rel="stylesheet" href="~/css/Order/overview.css" />
 }
 
 <div class="col-xs-10">
     <div id="index" class="row">
         <ul class="list-inline">
-            <li><b>Indkøbskurv</b></li>
-            <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></li>
+            <li>Indkøbskurv</li>
+            <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
             <li>Fakturering og levering</li>
             <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
-            <li>Oversigt</li>
-            <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
+            <li><b>Oversigt</b></li>
+            <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></li>
             <li>Betaling</li>
         </ul>
+    </div>
+
+    <div id="delivery-and-invoice-info" class="row">
+        <div id="invoice" class="col-xs-6">
+            <h3 style="text-align: center; background-color: #f3f5f6;">FAKTURERES TIL</h3>
+            <p id="name">Navn</p>
+            <p id="address">Adresse</p>
+            <p id="postalCode">Postnummer</p>
+        </div>
+        <div id="delivery" class="col-xs-6">
+            <h3 style="text-align: center; background-color: #f3f5f6;">LEVERES TIL</h3>
+            <p id="store"><b>Matas</b></p>
+            <p id="name">Navn</p>
+            <p id="address">Adresse</p>
+            <p id="postalCode">Postnummer</p>
+        </div>
     </div>
 
     <div id="productHeader" class="row" style="padding-bottom: 0px;">
@@ -27,7 +43,7 @@
         <div class="col-xs-2" style="padding-left: 20px;">
             <h4>Stk. pris</h4>
         </div>
-        <div class="col-xs-2" style="padding-left: 25px;">
+        <div class="col-xs-2" style="padding-left: 15px;">
             <h4>Antal</h4>
         </div>
         <div class="col-xs-2">
@@ -37,10 +53,7 @@
 
     @* Skal laves til en tabel, da man skal kunne tilføje og fjerne fra den *@
     <div id="productInfo" class="row">
-        <div class="col-xs-1">
-            <a href="#"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>
-        </div>
-        <div class="col-xs-5">
+        <div class="col-xs-6">
             <div style="float: left; width: 85px; height: 85px; text-align: center;">
                 <img src="https://images5.matas.dk/Assets/100001-200000/184001-185000/184401-184500/184409/ProductPage_350x262.png" class="img-rounded" alt="Remington Apprentice Hårklipper" style="max-width: 100%; max-height: 100%;">
             </div>
@@ -48,28 +61,29 @@
                 <div>
                     <label>Remington Apprentice Hårklipper</label>
                 </div>
-                <input type="checkbox" id="rapping" style="height: 10px;" /> <label style="font-size: 12px;">Indpakning (10 kr)</label>
-                <input type="checkbox" id="swapBrand" style="margin-left: 10px; height: 10px;" /> <label style="font-size: 12px;">Byttemærke</label>
+                <div>
+                    <p style="display: inline-block">Indpakning:</p> <p style="display: inline-block">Nej</p>
+                </div>
+                <div>
+                    <p style="display: inline-block">Byttemærke:</p> <p style="display: inline-block">Nej</p>
+                </div>
             </div>
         </div>
         <div class="col-xs-2">
             <h4 style="line-height: 70px;">199,00 kr</h4>
         </div>
-        <div id="quantity-picker" class="col-xs-2">
-            <a class="down" href="#"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
-            <input type="text" class="quantity" value="1" />
-            <a class="up" href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+        <div id="quantity" class="col-xs-2">
+            <h4 style="line-height: 70px;">1 stk.</h4>
         </div>
         <div class="col-xs-2">
             <h4 style="line-height: 70px;">199,00 kr</h4>
         </div>
     </div>
 
+    <hr />
+
     <div id="productInfo" class="row">
-        <div class="col-xs-1">
-            <a href="#"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>
-        </div>
-        <div class="col-xs-5">
+        <div class="col-xs-6">
             <div style="float: left; width: 85px; height: 85px; text-align: center;">
                 <img src="https://images5.matas.dk/Assets/100001-200000/183001-184000/183801-183900/183839/ProductPage_350x262.png" class="img-rounded" alt="Matas Natur Havtorn & Blåbær Shampoo" style="max-width: 100%; max-height: 100%;">
             </div>
@@ -77,17 +91,19 @@
                 <div>
                     <label>Matas Natur Havtorn & Blåbær Shampoo</label>
                 </div>
-                <input type="checkbox" id="rapping" style="height: 10px;" /> <label style="font-size: 12px;">Indpakning (10 kr)</label>
-                <input type="checkbox" id="swapBrand" style="margin-left: 10px; height: 10px;" /> <label style="font-size: 12px;">Byttemærke</label>
+                <div>
+                    <p style="display: inline-block">Indpakning:</p> <p style="display: inline-block">Nej</p>
+                </div>
+                <div>
+                    <p style="display: inline-block">Byttemærke:</p> <p style="display: inline-block">Nej</p>
+                </div>
             </div>
         </div>
         <div class="col-xs-2">
             <h4 style="line-height: 70px;">74,95 kr</h4>
         </div>
-        <div id="quantity-picker" class="col-xs-2">
-            <a class="down" href="#"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
-            <input type="text" class="quantity" value="1" />
-            <a class="up" href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+        <div id="quantity" class="col-xs-2">
+            <h4 style="line-height: 70px;">1 stk.</h4>
         </div>
         <div class="col-xs-2">
             <h4 style="line-height: 70px;">74,95 kr</h4>
@@ -95,30 +111,17 @@
     </div>
 
     <div id="summary" class="row">
-        <div id="freight" class="col-xs-7">
-            <div style="padding-left: 15px; padding-top: 15px;">
-                <h4>Levering</h4>
-            </div>
-            <div>
-                @* 1 er det id som jeg gerne vil have valgt *@
-                @*SelectList DeliveryTypes = new SelectList(Model.DeliveryTypes, "Id", "Name", 1);*@
-                @*@Html.DropDownListFor(x => x.SelectedDeliveryType, DeliveryTypes, "Please select an order template");*@
-                <select class="form-control" style="max-width: 100%; margin-top: 25px;">
-                    <option>Matas - Afhent i butik</option>
-                </select>
-            </div>
-        </div>
-        <div id="details" class="col-xs-5" style="padding-left: 0px; padding-top: 26px;">
+        <div id="details" class="col-xs-5 col-xs-offset-7" style="padding-left: 0px; padding-top: 26px;">
             <div class="col-xs-8">
                 <p>Subtotal</p>
             </div>
             <div id="price" class="col-xs-4">
                 <p>273,95 kr</p>
             </div>
-            <div class="col-xs-8" style="background-color: #f3f5f6;">
+            <div class="col-xs-8">
                 <p>Matas - Afhent i butik</p>
             </div>
-            <div id="price" class="col-xs-4" style="background-color: #f3f5f6;">
+            <div id="price" class="col-xs-4">
                 <p>0,00 kr</p>
             </div>
             <div class="col-xs-12" style="margin-top: -5px; height: 25px;">
@@ -131,8 +134,11 @@
             <div id="price" class="col-xs-4">
                 <p>273,95 kr</p>
             </div>
+            <div class="col-xs-12" style="text-align: center;">
+                <input id="conditions" type="checkbox" style="display: inline-block" /> <p style="display: inline-block;">Jeg accepterer handelsbetingelserne</p>
+            </div>
             <div class="col-xs-12" style="text-align: center; padding-left: 30px; padding-right: 30px;">
-                <button class="btn btn-success form-control">Fortsæt til levering</button>
+                <button class="btn btn-success form-control">Godkend og betal</button>
             </div>
         </div>
     </div>
@@ -148,8 +154,11 @@
         <div id="price" class="col-xs-4">
             <p>273,95 kr</p>
         </div>
-        <div class="col-xs-12" style="text-align: center; margin-top: 15px;">
-            <button class="btn btn-success">Fortsæt til levering</button>
+        <div class="col-xs-12">
+            <input id="conditions" type="checkbox" style="float: left" /> <p style="float: left; margin-left: 2px;">Jeg accepterer handelsbetingelserne</p>
+        </div>
+        <div class="col-xs-12" style="text-align: center;">
+            <button class="btn btn-success">Godkend og betal</button>
         </div>
     </div>
 </div>
