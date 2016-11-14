@@ -13,6 +13,7 @@
                 <th>Produkt navn</th>
                 <th>Pris</th>
                 <th>Antal</th>
+                <th>Lager antal</th>
                 <th>Kundemail</th>
                 <th>Ordrenummer</th>
                 <th>Tilsidesat</th>
@@ -27,7 +28,8 @@
                     <tr>
                         <td id="item">@product.Name</td>
                         <td>@product.Price</td>
-                        <td>product.Amount</td>
+                        <td>@product.Amount</td>
+                        <td>@product.StockAmount</td>
                         <td>@order.CustomerMail</td>
                         <td id="ordreNumber">@order.OrderNumber</td>
                         @if (!product.PutAside)
@@ -40,8 +42,16 @@
                         }
 
                         <td>
-                            <button id="putAside" type="button" class="btn btn-sm" disabled="disabled">Tilsidesæt</button>
-                            @if (product.StockAmount == 0)
+                            @if (product.StockAmount == 0 || product.PutAside)
+                            {
+                                <button id="putAside" type="button" class="btn btn-sm" disabled="disabled">Tilsidesæt</button>
+                            }
+                            else
+                            {
+                                <button id="putAside" type="button" class="btn btn-sm">Tilsidesæt</button>
+                            }
+
+                            @if (product.PutAside || product.StockAmount != 0)
                             {
                                 <button id="outOfStock" type="button" class="btn btn-sm" data-toggle="modal" data-target="#SendMail" disabled="disabled">Ikke på lager</button>
                             }
@@ -53,42 +63,6 @@
                     </tr>
                 }
             }
-            @*<tr>
-                <td id="item">Remington HC5600 E51 Pro Power Hair Clipper</td>
-                <td>300</td>
-                <td>1</td>
-                <td>phvorret@gmail.com</td>
-                <td id="ordreNumber">24553892</td>
-                <td><input id="doneOrNot" type="checkbox" checked="checked" disabled="disabled" /></td>
-                <td>
-                    <button id="putAside" type="button" class="btn btn-sm" disabled="disabled">Tilsidesæt</button>
-                    <button id="outOfStock" type="button" class="btn btn-sm" data-toggle="modal" data-target="#SendMail" disabled="disabled">Ikke på lager</button>
-                </td>
-            </tr>
-            <tr>
-                <td id="item">Remington Pro Power Hårklipper HC5200</td>
-                <td>249</td>
-                <td>1</td>
-                <td>phvorret@gmail.com</td>
-                <td id="ordreNumber">24553892</td>
-                <td><input id="doneOrNot" type="checkbox" disabled="disabled"/></td>
-                <td>
-                    <button id="putAside" type="button" class="btn btn-sm">Tilsidesæt</button>
-                    <button id="outOfStock" type="button" class="btn btn-sm" data-toggle="modal" data-target="#SendMail">Ikke på lager</button>
-                </td>
-            </tr>
-            <tr>
-                <td id="item">Remington Apprentice Hårklipper</td>
-                <td>199</td>
-                <td>1</td>
-                <td>ngp@gmail.com</td>
-                <td id="ordreNumber">26836478</td>
-                <td><input id="doneOrNot" type="checkbox" disabled="disabled"/></td>
-                <td>
-                    <button id="putAside" type="button" class="btn btn-sm">Tilsidesæt</button>
-                    <button id="outOfStock" type="button" class="btn btn-sm" data-toggle="modal" data-target="#SendMail">Ikke på lager</button>
-                </td>
-            </tr>*@
         </tbody>
     </table>
 </div>

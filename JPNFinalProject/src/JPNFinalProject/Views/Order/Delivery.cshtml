@@ -15,45 +15,121 @@
     </ul>
 </div>
 
-<form action="/" method="post">
-    <div class="form-group row">
-        <label for="name-input" class="col-xs-2 col-form-label">Navn*</label>
-        <div class="col-xs-10">
-            <input class="form-control" id="name-input" type="text" name="name" value="" />
+<div class="page-header text-center">
+    <h3 style="center; background-color: #f3f5f6;">DINE OPLYSNINGER</h3>
+</div>
+<div class="col-sm-6">
+    <form id="delivery-form" class="form-horizontal">
+        <div class="row">
+            <label for="name-input" class="col-sm-2">Navn*</label>
+            <div class="col-sm-10"><input type="text" class="form-control" id="name-input" name="name" value="" /></div>
         </div>
-    </div>
-    <div class="form-group row">
+        <div class="row">
+            <label for="address-input" class="col-sm-2">Adresse*</label>
+            <div class="col-sm-10"><input type="text" class="form-control" id="address-input" name="address" value="" /></div>
+        </div>
+        <div class="row">
+            <label for="zip-input" class="col-sm-2">Postnr.*</label>
+            <div class="col-sm-2"><input type="text" id="zip-input" class="form-control" name="zip" value="" /></div>
+            <label for="city-input" class="col-sm-1">By*</label>
+            <div class="col-sm-7"><input type="text" id="city-input" class="form-control" name="city" value="" /></div>
+        </div>
+        <div class="row">
+            <label for="phone-input" class="col-sm-2">Tlfnr.*</label>
+            <div class="col-sm-10"><input type="text" class="form-control" id="phone-input" name="phone" value="" /></div>
+        </div>
+        <div class="row">
+            <label for="email-input" class="col-sm-2">Email*</label>
+            <div class="col-sm-10"><input type="text" class="form-control" id="email-input" name="address" value="" /></div>
+        </div>
+    </form>
+</div>
+<div class="clearfix"></div>
 
-        <label for="address-input" class="col-xs-2 col-form-label">Adresse*</label>
-        <div class="col-xs-10">
-            <input class="form-control" id="address-input" type="text" name="address" value="" />
-        </div>
+    <div class="page-header text-center">
+        <h3 style="center; background-color: #f3f5f6;">AFHENTNING/LEVERING</h3>
     </div>
-    <div class="form-group row">
 
-        <label for="zip-input" class="col-xs-2 col-form-label">Postnr.*</label>
-        <div class="col-xs-2">
-            <input id="zip-input" class="form-control" type="text" name="zip" value="" />
+    <div style="margin-left:0;" class="row">
+        <div style="border: 1px solid black" class="col-xs-2">
+            <h4>1</h4>
+            <p class="text-right">49,50</p>
         </div>
-        <label for="city-input" class="col-xs-1 col-form-label">By*</label>
-        <div class="col-xs-2">
-            <input id="city-input" class="form-control" type="text" name="city" value="" />
+        <div style="border: 1px solid black" class="col-xs-2 col-half-offset">
+            <h4>1</h4>
+            <p class="text-right">49,50</p>
+        </div>
+        <div style="border: 1px solid black" class="col-xs-2 col-half-offset">
+            <h4>1</h4>
+            <p class="text-right">49,50</p>
+        </div>
+        <div style="border: 1px solid black" class="col-xs-2 col-half-offset">
+            <h4>1</h4>
+            <p class="text-right">49,50</p>
+        </div>
+        <div style="border: 1px solid black" class="col-xs-2 col-half-offset">
+            <h4>1</h4>
+            <p class="text-right">49,50</p>
         </div>
     </div>
-    <div class="form-group row">
-        <label for="phone-input" class="col-sm-2 col-form-label">Telefon nr.*</label>
-        <div class="col-sm-10">
-            <input class="form-control" id="phone-input" type="tel" name="phone" value="" />
+<div class="col-sm-6">
+    <form id="zip-search-form" class="form-horizontal">
+        <div class="row">
+            <label for="search-zip-input" class="col-sm-12">Find afhentningssted ved at indtaste postnummer</label>
         </div>
-    </div>
-    <div class="form-group row">
-        <label for="email-input" class="col-sm-2 col-form-label">Email*</label>
-        <div class="col-sm-10">
-            <input class="form-control" id="email-input" type="email" name="email" value="" />
-        </div>
-    </div>
-    <style>
-    </style>
-</form>
 
+        <div class="row">
+            <div class="col-sm-10"><input type="text" id="search-zip-input" class="form-control" name="seach-zip" value="" /></div>
+            <div class="col-sm-2"><button class="btn btn-secondary">opdatér</button></div>
+        </div>
+    </form>
+    <div class="search-result">
+       <div class="row">
+           <div class="col-sm-3">butik navn</div>
+           <div class="col-sm-3">Hverdage</div>
+       </div>
+        <div class="row">
+            <input class="pull-left" type="radio" style="margin-left:-15px" />
+            <div class="col-sm-3">gade navn</div>
+            <div class="col-sm-3">Søndage hellige</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">postnummer by</div>
+            <div class="col-sm-3">status</div>
+        </div>
+    </div>
+    <div class="search-result">
+        <div class="row">
+            <div class="col-sm-3">butik navn</div>
+            <div class="col-sm-3">Hverdage</div>
+        </div>
+        <div class="row">
+            <input class="pull-left" type="radio" style="margin-left:-15px" />
+            <div class="col-sm-3">gade navn</div>
+            <div class="col-sm-3">Søndage hellige</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">postnummer by</div>
+            <div class="col-sm-3">status</div>
+        </div>
+    </div>
+    <div class="search-result">
+        <div class="row">
+            <div class="col-sm-3">butik navn</div>
+            <div class="col-sm-3">Hverdage</div>
+        </div>
+        <div class="row">
+            <input class="pull-left" type="radio" style="margin-left:-15px" />
+            <div class="col-sm-3">gade navn</div>
+            <div class="col-sm-3">Søndage hellige</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">postnummer by</div>
+            <div class="col-sm-3">status</div>
+        </div>
+    </div>
 
+</div>
+<div class="clearfix"></div>
+<div class="pull-right"><button class="btn btn-primary">FORTSÆT TIL OVERSIGT</button>
+</div>
