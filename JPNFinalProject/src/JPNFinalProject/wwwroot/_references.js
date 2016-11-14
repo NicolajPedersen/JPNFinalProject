@@ -1,5 +1,6 @@
 ﻿/// <autosync enabled="true" />
 /// <reference path="js/basket/basket.js" />
+/// <reference path="js/delivery/javascript.js" />
 /// <reference path="js/employee/index.js" />
 /// <reference path="js/product/product.js" />
 /// <reference path="js/site.js" />

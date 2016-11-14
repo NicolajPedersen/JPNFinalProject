@@ -22,25 +22,25 @@
     <form id="delivery-form" class="form-horizontal">
         <div class="row">
             <label for="name-input" class="col-sm-2">Navn*</label>
-            <div class="col-sm-10"><input type="text" class="form-control" id="name-input" name="name" value="" /></div>
+            <div class="col-sm-10"><input type="text" class="form-control" id="name-input" name="name" value="" required/></div>
         </div>
         <div class="row">
             <label for="address-input" class="col-sm-2">Adresse*</label>
-            <div class="col-sm-10"><input type="text" class="form-control" id="address-input" name="address" value="" /></div>
+            <div class="col-sm-10"><input type="text" class="form-control" id="address-input" name="address" value="" required/></div>
         </div>
         <div class="row">
             <label for="zip-input" class="col-sm-2">Postnr.*</label>
-            <div class="col-sm-2"><input type="text" id="zip-input" class="form-control" name="zip" value="" /></div>
+            <div class="col-sm-2"><input type="text" id="zip-input" class="form-control" name="zip" value="" pattern="[0-9]{3,4}" required/></div>
             <label for="city-input" class="col-sm-1">By*</label>
-            <div class="col-sm-7"><input type="text" id="city-input" class="form-control" name="city" value="" /></div>
+            <div class="col-sm-7"><input type="text" id="city-input" class="form-control" name="city" value="" required/></div>
         </div>
         <div class="row">
             <label for="phone-input" class="col-sm-2">Tlfnr.*</label>
-            <div class="col-sm-10"><input type="text" class="form-control" id="phone-input" name="phone" value="" /></div>
+            <div class="col-sm-10"><input type="tel" class="form-control" id="phone-input" name="phone" value="" required/></div>
         </div>
         <div class="row">
             <label for="email-input" class="col-sm-2">Email*</label>
-            <div class="col-sm-10"><input type="text" class="form-control" id="email-input" name="address" value="" /></div>
+            <div class="col-sm-10"><input type="email" class="form-control" id="email-input" name="address" value="" required/></div>
         </div>
     </form>
 </div>
@@ -79,7 +79,7 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-10"><input type="text" id="search-zip-input" class="form-control" name="seach-zip" value="" /></div>
+            <div class="col-sm-10"><input type="text" id="search-zip-input" class="form-control" name="search-zip" value="" pattern="[0-9]{3,4}"/></div>
             <div class="col-sm-2"><button class="btn btn-secondary">opdatér</button></div>
         </div>
     </form>
