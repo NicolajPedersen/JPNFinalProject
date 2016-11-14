@@ -60,6 +60,7 @@ textarea {
 }
 #zip-search-form{
     margin-top:50px;
+    margin-bottom:30px;
 }
 
 #zip-search-form > div{
@@ -74,4 +75,7 @@ textarea {
 #zip-search-form > div > label{
     padding-right:0;
     padding-left:0;
+}
+.search-result{
+    margin-bottom:15px;
 }
