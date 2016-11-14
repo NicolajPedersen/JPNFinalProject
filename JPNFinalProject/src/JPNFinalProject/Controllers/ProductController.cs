@@ -4,26 +4,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using JPNFinalProject.Models.ProductViewModels;
+using JPNFinalProject.Data.DTO;
 
 namespace JPNFinalProject.Controllers
 {
     public class ProductController : Controller
     {
-        List<ProductViewModel> productList;
+        List<ProductDTO> productList;
 
         public ProductController()
         {
-            productList = new List<ProductViewModel>()
+            productList = new List<ProductDTO>()
             {
-               new ProductViewModel()
+               new ProductDTO()
                {
                    Id = 1 ,Name = "Remington HC5600 E51 Pro Power Hair Clipper", Price = 300, PointGain = 30, Description = "Remington HC5600 E51 Pro Power Hair Clipper", ImageSource = "ProductList_200x150.png"
                },
-               new ProductViewModel()
+               new ProductDTO()
                {
-                   Id = 2 ,Name = "Remington Pro Power Hårklipper HC5200", Price = 249, PointGain = 25, Description = "Remington Pro Power Hårklipper HC5200", ImageSource = "ProductList_200x150 (1).png"
+                   Id = 2 ,Name = "Remington Pro Power Hårklipper HC5200", Price = 249, PointGain = 25, Amount = 0, Description = "Remington Pro Power Hårklipper HC5200", ImageSource = "ProductList_200x150 (1).png"
                },
-               new ProductViewModel()
+               new ProductDTO()
                {
                    Id = 3 ,Name = "Remington Apprentice Hårklipper", Price = 199, PointGain = 20, Description = "Remington Apprentice Hårklipper", ImageSource = "ProductList_200x150 (2).png"
                }

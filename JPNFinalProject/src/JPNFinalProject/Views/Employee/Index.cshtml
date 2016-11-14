@@ -1,4 +1,7 @@
-﻿@{
+﻿@using JPNFinalProject.Models.EmployeeViewModels
+@model EmployeeViewModel
+
+@{
     ViewData["Title"] = "Bestilte produkter";
 }
 
@@ -17,7 +20,40 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            @foreach (var order in Model.OrderList)
+            {
+                @foreach (var product in order.ProductList)
+                {
+                    <tr>
+                        <td id="item">@product.Name</td>
+                        <td>@product.Price</td>
+                        <td>product.Amount</td>
+                        <td>@order.CustomerMail</td>
+                        <td id="ordreNumber">@order.OrderNumber</td>
+                        @if (!product.PutAside)
+                        {
+                            <td><input id="doneOrNot" type="checkbox" disabled="disabled" /></td>
+                        }
+                        else
+                        {
+                            <td><input id="doneOrNot" type="checkbox" checked="checked" disabled="disabled" /></td>
+                        }
+
+                        <td>
+                            <button id="putAside" type="button" class="btn btn-sm" disabled="disabled">Tilsidesæt</button>
+                            @if (product.StockAmount == 0)
+                            {
+                                <button id="outOfStock" type="button" class="btn btn-sm" data-toggle="modal" data-target="#SendMail" disabled="disabled">Ikke på lager</button>
+                            }
+                            else
+                            {
+                                <button id="outOfStock" type="button" class="btn btn-sm" data-toggle="modal" data-target="#SendMail">Ikke på lager</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            @*<tr>
                 <td id="item">Remington HC5600 E51 Pro Power Hair Clipper</td>
                 <td>300</td>
                 <td>1</td>
@@ -27,7 +63,6 @@
                 <td>
                     <button id="putAside" type="button" class="btn btn-sm" disabled="disabled">Tilsidesæt</button>
                     <button id="outOfStock" type="button" class="btn btn-sm" data-toggle="modal" data-target="#SendMail" disabled="disabled">Ikke på lager</button>
-                    @*<button type="button" class="btn btn-sm" disabled="disabled">Ikke på lager</button>*@
                 </td>
             </tr>
             <tr>
@@ -40,7 +75,6 @@
                 <td>
                     <button id="putAside" type="button" class="btn btn-sm">Tilsidesæt</button>
                     <button id="outOfStock" type="button" class="btn btn-sm" data-toggle="modal" data-target="#SendMail">Ikke på lager</button>
-                    @*<button id="Outofstock" type="button" data-toggle="modal" data-target="#SendMail">Ikke på lager</button>*@
                 </td>
             </tr>
             <tr>
@@ -54,7 +88,7 @@
                     <button id="putAside" type="button" class="btn btn-sm">Tilsidesæt</button>
                     <button id="outOfStock" type="button" class="btn btn-sm" data-toggle="modal" data-target="#SendMail">Ikke på lager</button>
                 </td>
-            </tr>
+            </tr>*@
         </tbody>
     </table>
 </div>
