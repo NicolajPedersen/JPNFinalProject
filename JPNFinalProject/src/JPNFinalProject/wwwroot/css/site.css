@@ -10,13 +10,13 @@
     padding-right: 15px;
 }
 
-/* Set widths on the form inputs since otherwise they're 100% wide */
+/* Set widths on the form inputs since otherwise they're 100% wide 
 input,
 select,
 textarea {
     max-width: 280px;
 }
-
+*/
 /* Carousel */
 .carousel-caption p {
     font-size: 20px;
@@ -47,4 +47,31 @@ textarea {
   .carousel-caption {
     display: none
   }
+}
+
+#delivery-form{
+}
+#delivery-form > div{
+    margin-bottom:15px;
+}
+
+.col-half-offset{
+    margin-left:3.79666667%
+}
+#zip-search-form{
+    margin-top:50px;
+}
+
+#zip-search-form > div{
+    padding-right:0;
+    margin-left:-20px;
+    padding-left:0;
+}
+#zip-search-form > div > div{
+    padding-right:0;
+    padding-left:0;
+}
+#zip-search-form > div > label{
+    padding-right:0;
+    padding-left:0;
 }
