@@ -52,6 +52,18 @@
     margin-left: 35%;
 }
 
+#productInfo #productPrice {
+    line-height: 70px; 
+    margin-left: 20px; 
+    display: inline-block;
+}
+
+#productInfo #totalPrice {
+    line-height: 70px; 
+    margin-left: 20px; 
+    display: inline-block;
+}
+
 #quantity-picker > a {
     position: absolute;
     top: 30px;
@@ -113,6 +125,11 @@
     margin: 10px 0 10px;
 }
 
-#price {
+.price {
     text-align: right;
+}
+
+.price p {
+    display: inline-block;
+    padding-right: 5px;
 }
