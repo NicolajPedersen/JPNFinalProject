@@ -1,11 +1,14 @@
-﻿@{
+﻿@using JPNFinalProject.Models.ProductViewModels
+@model ProductViewModel
+
+@{
     ViewData["Title"] = "Produkter";
 }
 
 <link rel="stylesheet" href="~/css/Product/product.css" asp-append-version="true" />
 <script src="~/js/Product/product.js" asp-append-version="true"></script>
 
-<div id="leveringinfo">
+<div id="leveringinfo" class="col-lg-12 row">
     <ul>
         <li>Fragt fra 10 kr</li>
         <li><span aria-hidden="true" >|</span></li>
@@ -100,9 +103,9 @@
             </ul>
         </div>
         <div class="col-lg-7">
-            <button id="adjust" class="form-control btn-info">Tilpas udvalg</button>
+            <button id="adjust" data-toggle="collapse" data-target="#extrasearch" class="form-control btn-info">Tilpas udvalg</button>
         </div>
-        <div class="extrasearch col-lg-7" style="display:none">
+        <div id="extrasearch" class="extrasearch collapse col-lg-7">
             <div>
                 <h3 id="current">Aktuelt</h3>
             </div>
@@ -141,7 +144,13 @@
     <div class="col-lg-9 row">
         <div class="row">
             <div id="text">
-                <text readonly="readonly">Barberkost og kniv, skraber og gelé – en kær barbering har mange faconer. Uanset om du er til retro-metoden eller mere moderne værktøjer, er det vigtigt, at du bruger de rigtige redskaber. En god barbering er nemlig et must for en hver mand. Et skarpt blad, en fugtet hud og et blødgjort skæg er essentiel for din skægpleje. På matas.dk finder du flere forskellige produkter til skægpleje; fx skægbalsam, skægolie, barberblade, trimmere m.m. En god skægpleje holder dit skæg i god form. Læs også artiklen barberingsguide og få et perfekt skæg.</text>
+                <text readonly="readonly">
+                    Barberkost og kniv, skraber og gelé – en kær barbering har mange faconer. 
+                    Uanset om du er til retro-metoden eller mere moderne værktøjer, er det vigtigt, at du bruger de rigtige redskaber. 
+                    En god barbering er nemlig et must for en hver mand. Et skarpt blad, en fugtet hud og et blødgjort skæg er essentiel for din skægpleje. 
+                    På matas.dk finder du flere forskellige produkter til skægpleje; fx skægbalsam, skægolie, barberblade, trimmere m.m. 
+                    En god skægpleje holder dit skæg i god form. Læs også artiklen barberingsguide og få et perfekt skæg.
+                </text>
             </div>
             <div>
                 <h2 class="selectedheader">Hårklippere</h2>
@@ -153,8 +162,26 @@
             </div>
         </div>
         <div>
-            <div class="col-lg-2"></div>
-            <div class="products col-lg-3">
+            @foreach (var product in Model.ProductList)
+            {
+                <div class="product col-lg-1"></div>
+                <div class="product col-lg-3">
+                    <div id="@product.Id">
+                        <img src="~/images/Product/@product.ImageSource" />
+                    </div>
+                    <div class="productInfo">
+                        <label id="priceLabel">@product.Price</label>
+                        <button id="basketbtn" class="btn btn-default">Læg i kurv</button>
+                    </div>
+                    <div class="productInfo">
+                        <label id="pointLabel">Køb og få @product.PointGain point</label>
+                    </div>
+                    <div class="productInfo">
+                        <label id="descriptionLabel">@product.Name</label>
+                    </div>
+                </div>
+            }
+            @*<div class="products col-lg-3">
                 <div class="" id="product1">
                     <img src="~/images/Product/ProductList_200x150.png" />
                 </div>
@@ -197,7 +224,7 @@
                 </div>
                 <div class="productInfo">
                     <label id="descriptionLabel">Remington Apprentice Hårklipper</label>
-                </div>
+                </div>*@
             </div>
         </div>
     </div>

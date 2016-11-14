@@ -15,7 +15,6 @@ a:hover{
     text-align: center;
     font-size: 16px;
     float:left;
-    margin-left:25%;
 }
 
 #leveringinfo ul li {
@@ -55,6 +54,9 @@ span{
 }
 #pointLabel{
     font-size: 10px;
+}
+.product{
+    padding-top: 2%;
 }
 
 
