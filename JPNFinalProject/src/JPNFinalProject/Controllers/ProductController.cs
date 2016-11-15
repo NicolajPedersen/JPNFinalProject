@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using JPNFinalProject.Models.ProductViewModels;
 using JPNFinalProject.Data.DTO;
+using JPNFinalProject.Services;
 
 namespace JPNFinalProject.Controllers
 {
@@ -39,5 +40,15 @@ namespace JPNFinalProject.Controllers
             model.ProductList = productList;
             return View(model);
         }
+
+        [HttpPost]
+        public void AddToBasket([FromBody] int productId)
+        {
+            SessionContainer sessionContainer = new SessionContainer();
+
+            sessionContainer.AddToSession("test", productId.ToString());
+
+        }
+
     }
 }

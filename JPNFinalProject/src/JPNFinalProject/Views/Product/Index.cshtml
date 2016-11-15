@@ -6,7 +6,6 @@
 }
 
 <link rel="stylesheet" href="~/css/Product/product.css" asp-append-version="true" />
-<script src="~/js/Product/product.js" asp-append-version="true"></script>
 
 <div id="leveringinfo" class="col-lg-12 row">
     <ul>
@@ -166,12 +165,15 @@
             {
                 <div class="product col-lg-1"></div>
                 <div class="product col-lg-3">
+                    <div>
+                        <label id="productId" hidden="hidden">@product.Id</label>
+                    </div>
                     <div id="@product.Id">
                         <img src="~/images/Product/@product.ImageSource" />
                     </div>
                     <div class="productInfo">
                         <label id="priceLabel">@product.Price</label>
-                        <button id="basketbtn" class="btn btn-default">Læg i kurv</button>
+                        <button id="@product.Id" class="basketbtn btn btn-default">Læg i kurv</button>
                     </div>
                     <div class="productInfo">
                         <label id="pointLabel">Køb og få @product.PointGain point</label>
@@ -181,52 +183,32 @@
                     </div>
                 </div>
             }
-            @*<div class="products col-lg-3">
-                <div class="" id="product1">
-                    <img src="~/images/Product/ProductList_200x150.png" />
-                </div>
-                <div class="productInfo">
-                    <label id="priceLabel">300</label>
-                    <button id="basketbtn" class="btn btn-default">Læg i kurv</button>
-                </div>
-                <div class="productInfo">
-                    <label id="pointLabel">Køb og få 30 point</label>
-                </div>
-                <div class="productInfo">
-                    <label id="descriptionLabel">Remington HC5600 E51 Pro Power Hair Clipper</label>
-                </div>
-            </div>
-            <div class="products col-lg-3">
-                <div id="product2">
-                    <img src="~/images/Product/ProductList_200x150 (1).png" />
-                </div>
-                <div class="productInfo">
-                    <label id="priceLabel">249</label>
-                    <button id="basketbtn" class="btn btn-default">Læg i kurv</button>
-                </div>
-                <div class="productInfo">
-                    <label id="pointLabel">Køb og få 25 point</label>
-                </div>
-                <div class="productInfo">
-                    <label id="descriptionLabel">Remington Pro Power Hårklipper HC5200</label>
-                </div>
-            </div>
-            <div class="products col-lg-3">
-                <div id="product3">
-                    <img src="~/images/Product/ProductList_200x150 (2).png" />
-                </div>
-                <div class="productInfo">
-                    <label id="priceLabel">199</label>
-                    <button id="basketbtn" class="btn btn-default">Læg i kurv</button>
-                </div>
-                <div class="productInfo">
-                    <label id="pointLabel">Køb og få 20 point</label>
-                </div>
-                <div class="productInfo">
-                    <label id="descriptionLabel">Remington Apprentice Hårklipper</label>
-                </div>*@
             </div>
         </div>
-    </div>
 </div>
+
+
+    @*$(document).on("click", "#basketbtn", function () {
+        addToBasket();
+    });
+
+    var productId = $("#productId").val();
+
+    function addToBasket() {
+        $.ajax({
+            type: "POST",
+            url: '/Product/AddToBasket',
+            data: JSON.stringify(productId),
+            dataType: "json",
+            traditional: true,
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+
+            },
+        });
+    }*@
+
+@section scripts {
+    <script src="~/js/Product/product.js"></script>
+}
 
