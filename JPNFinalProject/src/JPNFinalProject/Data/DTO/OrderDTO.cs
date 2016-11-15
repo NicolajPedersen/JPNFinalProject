@@ -9,6 +9,7 @@ namespace JPNFinalProject.Data.DTO
     {
         public int OrderNumber { get; set; }
         public string CustomerMail { get; set; }
+        //public BusinessDTO Business { get; set; }
         public List<ProductDTO> ProductList { get; set; }
     }
 }

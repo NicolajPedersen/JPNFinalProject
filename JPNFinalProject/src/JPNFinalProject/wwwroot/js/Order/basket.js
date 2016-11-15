@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     (function () {
-        setSubtotalPrice();
+        setPrices();
     })();
 
     $(document).on("click", "#productInfo #remove", function () {
@@ -16,7 +16,7 @@
             var totalPrice = parseFloat($(this).parent().parent().children().find("#totalPrice").html());
             var price = totalPrice - productPrice;
             $(this).parent().parent().children().find("#totalPrice").html(price);
-            setSubtotalPrice();
+            setPrices();
         }
     });
 
@@ -28,19 +28,23 @@
         var totalPrice = parseFloat($(this).parent().parent().children().find("#totalPrice").html());
         var price = totalPrice + productPrice;
         $(this).parent().parent().children().find("#totalPrice").html(price);
-        setSubtotalPrice();
+        setPrices();
     });
 });
 
-function setSubtotalPrice() {
-    console.log($("#productInfo > .row"))
-    var totalPrice = 0.0;
+function setPrices() {
+    var subtotalPrice = 0.00;
     $("#productInfo > .row").each(function () {
-        //$(this).each(function() {console.log($(this).html())});
-        console.log($(this).find("#totalPrice").html());
-        var price = parseFloat($(this).find("#totalPrice").html());
-        totalPrice = totalPrice + price;
+        var productPrice = $(this).find("#productPrice").html();
+        var quantity = $(this).find(".quantity").val();
+        var price = productPrice * quantity;
+        $(this).find("#totalPrice").html(price);
+        subtotalPrice = subtotalPrice + price;
     });
-    console.log(parseFloat(totalPrice));
-    $("#details #subtotalPrice").html(totalPrice);
+    var VATFromPrice = (subtotalPrice / 100) * 25;
+    var priceWithVAT = subtotalPrice + VATFromPrice;
+    $("#details #subtotalPrice").html(subtotalPrice.toFixed(2));
+    $("#details #totalPrice").html(priceWithVAT.toFixed(2));
+    $("#details #VATFromPrice").html(VATFromPrice.toFixed(2));
+    $("#totals #totalPrice").html(priceWithVAT.toFixed(2));
 }
