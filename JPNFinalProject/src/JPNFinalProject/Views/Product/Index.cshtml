@@ -187,27 +187,6 @@
         </div>
 </div>
 
-
-    @*$(document).on("click", "#basketbtn", function () {
-        addToBasket();
-    });
-
-    var productId = $("#productId").val();
-
-    function addToBasket() {
-        $.ajax({
-            type: "POST",
-            url: '/Product/AddToBasket',
-            data: JSON.stringify(productId),
-            dataType: "json",
-            traditional: true,
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-
-            },
-        });
-    }*@
-
 @section scripts {
     <script src="~/js/Product/product.js"></script>
 }
