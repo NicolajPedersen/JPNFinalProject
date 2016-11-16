@@ -37,8 +37,13 @@ namespace JPNFinalProject.Controllers
             }
             return View(model);
         }
-
+        [HttpGet]
         public IActionResult Delivery()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Delivery(int a)
         {
             return View();
         }
