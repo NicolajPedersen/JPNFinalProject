@@ -14,6 +14,7 @@ namespace JPNFinalProject.Controllers
     public class ProductController : Controller
     {
         public static List<ProductDTO> productList;
+        private SessionContainer _sessionContainer;
 
         public ProductController()
         {
@@ -32,6 +33,8 @@ namespace JPNFinalProject.Controllers
                    Id = 3, Name = "Remington Apprentice Hårklipper", Price = 199, PointGain = 20, Description = "Remington Apprentice Hårklipper", ImageSource = "ProductList_200x150 (2).png"
                }
             };
+
+            _sessionContainer = new SessionContainer();
         }
 
 
@@ -43,39 +46,9 @@ namespace JPNFinalProject.Controllers
             return View(model);
         }
 
-        //[HttpPost]
-        //public void AddToBasket([FromBody] int productId)
-        //{
-        //    SessionContainer sessionContainer = new SessionContainer();
-
-        //    sessionContainer.AddToSession("test1", productId.ToString());
-        //}
-
         [HttpPost]
         public void AddToBasket([FromBody] int productId) {
-            //SessionContainer sessionContainer = new SessionContainer();
-            //HttpContextAccessor accessor = new HttpContextAccessor();
-            //sessionContainer.AddToSession("basket", productId.ToString());
-            var item = HttpContext.Session.GetString("basket");
-            if (HttpContext.Session.GetString("basket") != null) {
-                List<int> basket1 = JsonConvert.DeserializeObject(item);
-                HttpContext.Session.SetString("basket", JsonConvert.SerializeObject(basket));
-            }
-            List<int> basket = new List<int>();
-            basket.Add(productId);
-            
-            HttpContext.Session.SetString("basket", JsonConvert.SerializeObject(basket));
+            _sessionContainer.AddToSession(HttpContext, "basket", productId);
         }
     }
 }
-
-//public static class SessionExtensions {
-//    static SessionContainer sessionContainer = new SessionContainer();
-//    public static void SetObject(ISession session, string key, string value) {
-//        sessionContainer.AddToSession(session, key, value);
-//    }
-
-//    public static List<int> GetBasket(string key) {
-//        return sessionContainer.GetBasket(key);
-//    }
-//}
