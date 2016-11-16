@@ -25,27 +25,20 @@ namespace JPNFinalProject.Controllers
         public IActionResult Basket() {
             BasketViewModel model = new BasketViewModel();
             model.Products = new List<ProductDTO>();
-            var productIds = _sessionContainer.GetBasket(HttpContext, "basket");
-            if (productIds != null) {
-                foreach (var p in ProductController.productList) {
-                    foreach (var id in productIds)
-                        if (p.Id == id) {
-                            p.Amount = 1;
-                            model.Products.Add(p);
-                        }
-                }
+
+            if (_sessionContainer.GetBasket(HttpContext, "basket") != null) {
+                model.Products = _sessionContainer.GetBasket(HttpContext, "basket");
             }
+
             return View(model);
         }
 
-        public IActionResult Delivery()
-        {
+        [HttpGet]
+        public IActionResult Delivery() {
             return View();
         }
 
         public IActionResult Overview() {
-            OverviewViewModel model = new OverviewViewModel();
-
             return View();
         }
     }

@@ -4,10 +4,23 @@
     })();
 
     $(document).on("click", "#productInfo #remove", function () {
+        var id = $(this).parent().parent().attr("id");
         $(this).parent().parent().remove();
+
+        //$.ajax({
+        //    type: "POST",
+        //    url: "/Product/RemoveFromBasket",
+        //    data: data2,
+        //    dataType: "json",
+        //    contentType: "application/json; charset=utf-8",
+        //    success: function (result) {
+        //        $(".navbar-collapse").find(".badge").html(result);
+        //    }
+        //});
     });
 
     $(document).on("click", "#quantity-picker > .down", function () {
+        var id = $(this).parent().parent().attr("id");
         var value = parseInt($(this).parent().find("input").val());
         if (value > 0) {
             var value = value - 1;
@@ -17,10 +30,22 @@
             var price = totalPrice - productPrice;
             $(this).parent().parent().children().find("#totalPrice").html(price);
             setPrices();
+
+            $.ajax({
+                type: "POST",
+                url: "/Product/RemoveFromBasket",
+                data: JSON.stringify(id),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    $(".navbar-collapse").find(".badge").html(result);
+                }
+            });
         }
     });
 
     $(document).on("click", "#quantity-picker > .up", function () {
+        var id = $(this).parent().parent().attr("id");
         var value = parseInt($(this).parent().find("input").val());
         var value = value + 1;
         $(this).parent().find("input").val(value);
@@ -29,6 +54,17 @@
         var price = totalPrice + productPrice;
         $(this).parent().parent().children().find("#totalPrice").html(price);
         setPrices();
+
+        $.ajax({
+            type: "POST",
+            url: "/Product/AddToBasket",
+            data: JSON.stringify(id),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                $(".navbar-collapse").find(".badge").html(result);
+            }
+        });
     });
 });
 
