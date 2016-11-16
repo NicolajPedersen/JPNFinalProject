@@ -5,11 +5,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using JPNFinalProject.Models.OrderViewModels;
 using JPNFinalProject.Data.DTO;
+using JPNFinalProject.Services;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace JPNFinalProject.Controllers
 {
     public class OrderController : Controller
     {
+        private SessionContainer _sessionContainer;
+        public OrderController() {
+            _sessionContainer = new SessionContainer();
+        }
         public IActionResult Index()
         {
             return View();
@@ -17,14 +24,21 @@ namespace JPNFinalProject.Controllers
 
         public IActionResult Basket() {
             BasketViewModel model = new BasketViewModel();
-            model.Products = new List<ProductDTO>() {
-                new ProductDTO () {Name = "Remington Apprentice Hårklipper", Price = 199.00, ImageSource = "ProductList_200x150 (2).png" },
-                new ProductDTO () {Name = "Matas Natur Havtorn & Blåbær Shampoo", Price = 74.95, ImageSource = "ProductPage_350x262.png" },
-            };
+            model.Products = new List<ProductDTO>();
+
+            if (_sessionContainer.GetBasket(HttpContext, "basket") != null) {
+                model.Products = _sessionContainer.GetBasket(HttpContext, "basket");
+            }
+
             return View(model);
         }
 
-        public IActionResult Delivery()
+        [HttpGet]
+        public IActionResult Delivery() {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Delivery(int a)
         {
             return View();
         }

@@ -13,14 +13,13 @@
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/css/bootstrap-override.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/css/center-modal.css" asp-append-version="true" />
-
     </environment>
-    @RenderSection("styles", false);
+    @RenderSection("styles", false)
 </head>
 <body>
     <div class="custom navbar navbar-inverse navbar-fixed-top">
@@ -37,7 +36,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Product" asp-action="Index">Produkter</a></li>
-                    <li style="float: right; margin-left: 90px;"><a asp-area="" asp-controller="Order" asp-action="Basket">Indkøbskurv</a></li>
+                    <li style="float: right; margin-left: 90px;"><a asp-area="" asp-controller="Order" asp-action="Basket">Indkøbskurv <span class="badge"></span></a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
@@ -71,6 +70,6 @@
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
 
-    @RenderSection("scripts", required: false);
+    @RenderSection("scripts", required: false)
 </body>
 </html>

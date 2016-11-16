@@ -1,13 +1,26 @@
 ﻿$(document).ready(function () {
     (function () {
-        setSubtotalPrice();
+        setPrices();
     })();
 
     $(document).on("click", "#productInfo #remove", function () {
+        var id = $(this).parent().parent().attr("id");
         $(this).parent().parent().remove();
+
+        //$.ajax({
+        //    type: "POST",
+        //    url: "/Product/RemoveFromBasket",
+        //    data: data2,
+        //    dataType: "json",
+        //    contentType: "application/json; charset=utf-8",
+        //    success: function (result) {
+        //        $(".navbar-collapse").find(".badge").html(result);
+        //    }
+        //});
     });
 
     $(document).on("click", "#quantity-picker > .down", function () {
+        var id = $(this).parent().parent().attr("id");
         var value = parseInt($(this).parent().find("input").val());
         if (value > 0) {
             var value = value - 1;
@@ -16,11 +29,23 @@
             var totalPrice = parseFloat($(this).parent().parent().children().find("#totalPrice").html());
             var price = totalPrice - productPrice;
             $(this).parent().parent().children().find("#totalPrice").html(price);
-            setSubtotalPrice();
+            setPrices();
+
+            $.ajax({
+                type: "POST",
+                url: "/Product/RemoveFromBasket",
+                data: JSON.stringify(id),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    $(".navbar-collapse").find(".badge").html(result);
+                }
+            });
         }
     });
 
     $(document).on("click", "#quantity-picker > .up", function () {
+        var id = $(this).parent().parent().attr("id");
         var value = parseInt($(this).parent().find("input").val());
         var value = value + 1;
         $(this).parent().find("input").val(value);
@@ -28,19 +53,34 @@
         var totalPrice = parseFloat($(this).parent().parent().children().find("#totalPrice").html());
         var price = totalPrice + productPrice;
         $(this).parent().parent().children().find("#totalPrice").html(price);
-        setSubtotalPrice();
+        setPrices();
+
+        $.ajax({
+            type: "POST",
+            url: "/Product/AddToBasket",
+            data: JSON.stringify(id),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                $(".navbar-collapse").find(".badge").html(result);
+            }
+        });
     });
 });
 
-function setSubtotalPrice() {
-    console.log($("#productInfo > .row"))
-    var totalPrice = 0.0;
+function setPrices() {
+    var subtotalPrice = 0.00;
     $("#productInfo > .row").each(function () {
-        //$(this).each(function() {console.log($(this).html())});
-        console.log($(this).find("#totalPrice").html());
-        var price = parseFloat($(this).find("#totalPrice").html());
-        totalPrice = totalPrice + price;
+        var productPrice = $(this).find("#productPrice").html();
+        var quantity = $(this).find(".quantity").val();
+        var price = productPrice * quantity;
+        $(this).find("#totalPrice").html(price);
+        subtotalPrice = subtotalPrice + price;
     });
-    console.log(parseFloat(totalPrice));
-    $("#details #subtotalPrice").html(totalPrice);
+    var VATFromPrice = (subtotalPrice / 100) * 25;
+    var priceWithVAT = subtotalPrice + VATFromPrice;
+    $("#details #subtotalPrice").html(subtotalPrice.toFixed(2));
+    $("#details #totalPrice").html(priceWithVAT.toFixed(2));
+    $("#details #VATFromPrice").html(VATFromPrice.toFixed(2));
+    $("#totals #totalPrice").html(priceWithVAT.toFixed(2));
 }
