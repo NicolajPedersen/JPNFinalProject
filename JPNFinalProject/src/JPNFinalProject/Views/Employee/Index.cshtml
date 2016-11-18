@@ -27,10 +27,10 @@
                 {
                     <tr>
                         <td id="item">@product.Name</td>
-                        <td>@product.Price</td>
-                        <td>@product.Amount</td>
-                        <td>@product.StockAmount</td>
-                        <td>@order.CustomerMail</td>
+                        <td id="price">@product.Price</td>
+                        <td id="amount">@product.Amount</td>
+                        <td id="stockAmount">@product.StockAmount</td>
+                        <td id="customerMail">@order.CustomerMail</td>
                         <td id="ordreNumber">@order.OrderNumber</td>
                         @if (!product.PutAside)
                         {
@@ -59,6 +59,7 @@
                             {
                                 <button id="outOfStock" type="button" class="btn btn-sm" data-toggle="modal" data-target="#SendMail">Ikke på lager</button>
                             }
+                            <label id="productId" hidden="hidden">@product.Id</label>
                         </td>
                     </tr>
                 }

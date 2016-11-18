@@ -8,6 +8,10 @@ namespace JPNFinalProject.Models.ProductViewModels
 {
     public class ProductViewModel
     {
+        public ProductViewModel()
+        {
+            ProductList = new List<ProductDTO>();
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
