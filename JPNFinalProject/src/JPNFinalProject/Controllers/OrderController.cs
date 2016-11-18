@@ -22,6 +22,7 @@ namespace JPNFinalProject.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult Basket() {
             BasketViewModel model = new BasketViewModel();
             model.Products = new List<ProductDTO>();
@@ -43,8 +44,59 @@ namespace JPNFinalProject.Controllers
             return View();
         }
 
-        public IActionResult Overview() {
-            return View();
+        [HttpGet]
+        public IActionResult Overview(OrderDTO order) {
+            OverviewViewModel model = new OverviewViewModel();
+
+            if (_sessionContainer.GetBasket(HttpContext, "basket") != null) {
+                model.Order = new OrderDTO() {
+                    Id = 1,
+                    OrderNumber = 12345,
+                    Person = new PersonDTO() {
+                        Id = 1,
+                        FirstName = "Test",
+                        LastName = "Test",
+                        Email = "test1@test1.com",
+                        Password = "",
+                        Phone = "21345678",
+                        Type = "",
+                        Address = new AddressDTO() {
+                            Id = 1,
+                            Address = "Test 1",
+                            ZipCode = "1111",
+                            City = "Test City",
+                            Country = "Test Country"
+                        }
+                    },
+                    Business = new BusinessDTO() {
+                        Id = 1,
+                        Name = "Matas",
+                        Address = new AddressDTO() {
+                            Id = 2,
+                            Address = "Test 2",
+                            ZipCode = "2222",
+                            City = "Test City",
+                            Country = "Test Country"
+                        },
+                        Phone = "23456789",
+                        Email = "test2@test2.com",
+                        OperationalHour = ""
+                    }
+                };
+                model.Order.Products = _sessionContainer.GetBasket(HttpContext, "basket");
+            }
+            else {
+                model.Order = new OrderDTO() {
+                    Person = new PersonDTO() { Address = new AddressDTO() },
+                    Business = new BusinessDTO() { Address = new AddressDTO() }
+                };
+                model.Order.Products = new List<ProductDTO>();
+            }
+
+            model.Subtotal = model.Order.Products.Select(x => x.Price).Sum();
+            model.VATFromPrice = (model.Subtotal / 100) * 25;
+            model.PriceWithVAT = model.Subtotal + model.VATFromPrice;
+            return View(model);
         }
     }
 }

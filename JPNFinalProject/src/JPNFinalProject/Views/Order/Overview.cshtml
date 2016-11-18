@@ -23,16 +23,16 @@
     <div id="delivery-and-invoice-info" class="row">
         <div id="invoice" class="col-xs-6">
             <h3 style="text-align: center; background-color: #f3f5f6;">FAKTURERES TIL</h3>
-            <p id="name">Navn</p>
-            <p id="address">Adresse</p>
-            <p id="postalCode">Postnummer</p>
+            <p id="name">@Model.Order.Person.FirstName @Model.Order.Person.LastName</p>
+            <p id="address">@Model.Order.Person.Address.Address</p>
+            <p id="zipCode">@Model.Order.Person.Address.ZipCode</p>
         </div>
         <div id="delivery" class="col-xs-6">
             <h3 style="text-align: center; background-color: #f3f5f6;">LEVERES TIL</h3>
-            <p id="store"><b>Matas</b></p>
-            <p id="name">Navn</p>
-            <p id="address">Adresse</p>
-            <p id="postalCode">Postnummer</p>
+            <p id="store"><b>@Model.Order.Business.Name</b></p>
+            <p id="name">@Model.Order.Business.Name</p>
+            <p id="address">@Model.Order.Business.Address.Address</p>
+            <p id="zipCode">@Model.Order.Business.Address.ZipCode</p>
         </div>
     </div>
 
@@ -51,65 +51,40 @@
         </div>
     </div>
 
-    @* Skal laves til en tabel, da man skal kunne tilføje og fjerne fra den *@
     <div id="productInfo">
-        <div class="row">
-            <div class="col-xs-6">
-                <div style="float: left; width: 85px; height: 85px; text-align: center;">
-                    <img src="https://images5.matas.dk/Assets/100001-200000/184001-185000/184401-184500/184409/ProductPage_350x262.png" class="img-rounded" alt="Remington Apprentice Hårklipper" style="max-width: 100%; max-height: 100%;">
+        @foreach (var product in Model.Order.Products) {
+            <div class="row">
+                <div class="col-xs-6">
+                    <div style="float: left; width: 85px; height: 85px; text-align: center;">
+                        <img src="~/images/Product/@product.ImageSource" class="img-rounded" alt="Remington Apprentice Hårklipper" style="max-width: 100%; max-height: 100%;">
+                    </div>
+                    <div style="float: left; margin: 20px 0px 0px 5px;">
+                        <div>
+                            <label>@product.Name</label>
+                        </div>
+                        <div>
+                            <p style="display: inline-block">Indpakning:</p> <p style="display: inline-block">Nej</p>
+                        </div>
+                        <div>
+                            <p style="display: inline-block">Byttemærke:</p> <p style="display: inline-block">Nej</p>
+                        </div>
+                    </div>
                 </div>
-                <div style="float: left; margin: 20px 0px 0px 5px;">
-                    <div>
-                        <label>Remington Apprentice Hårklipper</label>
-                    </div>
-                    <div>
-                        <p style="display: inline-block">Indpakning:</p> <p style="display: inline-block">Nej</p>
-                    </div>
-                    <div>
-                        <p style="display: inline-block">Byttemærke:</p> <p style="display: inline-block">Nej</p>
-                    </div>
+                <div class="col-xs-2">
+                    <h4 style="line-height: 70px; display: inline-block; margin-left: 12px;">@product.Price</h4><h4 style="display: inline-block; margin-left: 5px;">kr</h4>
+                </div>
+                <div id="quantity" class="col-xs-2">
+                    <h4 style="line-height: 70px; display: inline-block;">@product.Amount</h4><h4 style="display: inline-block; margin-left: 5px;">stk.</h4>
+                </div>
+                <div class="col-xs-2">
+                    <h4 style="line-height: 70px; display: inline-block; margin-left: 20px;">@product.Price</h4><h4 style="display: inline-block; margin-left: 5px;">kr</h4>
                 </div>
             </div>
-            <div class="col-xs-2">
-                <h4 style="line-height: 70px;">199,00 kr</h4>
-            </div>
-            <div id="quantity" class="col-xs-2">
-                <h4 style="line-height: 70px;">1 stk.</h4>
-            </div>
-            <div class="col-xs-2">
-                <h4 style="line-height: 70px;">199,00 kr</h4>
-            </div>
-        </div>
 
-        <hr />
-
-        <div class="row">
-            <div class="col-xs-6">
-                <div style="float: left; width: 85px; height: 85px; text-align: center;">
-                    <img src="https://images5.matas.dk/Assets/100001-200000/183001-184000/183801-183900/183839/ProductPage_350x262.png" class="img-rounded" alt="Matas Natur Havtorn & Blåbær Shampoo" style="max-width: 100%; max-height: 100%;">
-                </div>
-                <div style="float: left; margin: 20px 0px 0px 5px;">
-                    <div>
-                        <label>Matas Natur Havtorn & Blåbær Shampoo</label>
-                    </div>
-                    <div>
-                        <p style="display: inline-block">Indpakning:</p> <p style="display: inline-block">Nej</p>
-                    </div>
-                    <div>
-                        <p style="display: inline-block">Byttemærke:</p> <p style="display: inline-block">Nej</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-2">
-                <h4 style="line-height: 70px;">74,95 kr</h4>
-            </div>
-            <div id="quantity" class="col-xs-2">
-                <h4 style="line-height: 70px;">1 stk.</h4>
-            </div>
-            <div class="col-xs-2">
-                <h4 style="line-height: 70px;">74,95 kr</h4>
-            </div>
-        </div>
+            @if (Model.Order.Products.Count > 1) {
+                <hr />
+            }
+        }
     </div>
 
     <div id="summary" class="row">
@@ -118,7 +93,7 @@
                 <p>Subtotal</p>
             </div>
             <div id="price" class="col-xs-4">
-                <p>273,95 kr</p>
+                <p>@Model.Subtotal kr</p>
             </div>
             <div class="col-xs-8">
                 <p>Matas - Afhent i butik</p>
@@ -131,13 +106,13 @@
             </div>
             <div class="col-xs-8">
                 <p><b>Pris i alt (inkl. moms)</b></p>
-                <p>(Heraf 25% moms 54,79kr)</p>
+                <p>(Heraf 25% moms @Model.VATFromPrice kr)</p>
             </div>
             <div id="price" class="col-xs-4">
-                <p>273,95 kr</p>
+                <p>@Model.PriceWithVAT kr</p>
             </div>
             <div class="col-xs-12" style="text-align: center;">
-                <input id="conditions" type="checkbox" style="display: inline-block" /> <p style="display: inline-block;">Jeg accepterer handelsbetingelserne</p>
+                <input id="conditions" type="checkbox" style="display: inline-block" asp-for="IAcceptTheConditions" /> <p style="display: inline-block;">Jeg accepterer handelsbetingelserne</p>
             </div>
             <div class="col-xs-12" style="text-align: center; padding-left: 30px; padding-right: 30px;">
                 <button class="btn btn-success form-control">Godkend og betal</button>
@@ -154,10 +129,10 @@
             <p>Pris i alt</p>
         </div>
         <div id="price" class="col-xs-4">
-            <p>273,95 kr</p>
+            <p>@Model.PriceWithVAT kr</p>
         </div>
         <div class="col-xs-12">
-            <input id="conditions" type="checkbox" style="float: left" /> <p style="float: left; margin-left: 2px;">Jeg accepterer handelsbetingelserne</p>
+            <input id="conditions" type="checkbox" style="float: left" asp-for="IAcceptTheConditions" /> <p style="float: left; margin-left: 2px;">Jeg accepterer handelsbetingelserne</p>
         </div>
         <div class="col-xs-12" style="text-align: center;">
             <button class="btn btn-success">Godkend og betal</button>

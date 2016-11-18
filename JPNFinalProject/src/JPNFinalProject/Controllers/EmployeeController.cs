@@ -18,7 +18,7 @@ namespace JPNFinalProject.Controllers
             {
                new OrderDTO()
                {
-                   OrderNumber = 24553892, CustomerMail = "phvorret@gmail.com" , ProductList = new List<ProductDTO>()
+                   OrderNumber = 24553892, CustomerMail = "phvorret@gmail.com" , Products = new List<ProductDTO>()
                                                                                 {
                                                                                     new ProductDTO()
                                                                                     {
@@ -43,7 +43,7 @@ namespace JPNFinalProject.Controllers
                },
                new OrderDTO()
                {
-                   OrderNumber = 26836478, CustomerMail = "ngp@gmail.com" , ProductList = new List<ProductDTO>()
+                   OrderNumber = 26836478, CustomerMail = "ngp@gmail.com" , Products = new List<ProductDTO>()
                                                                             {
                                                                                 new ProductDTO()
                                                                                 {

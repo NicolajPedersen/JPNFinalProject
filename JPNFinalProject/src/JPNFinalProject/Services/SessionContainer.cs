@@ -87,20 +87,20 @@ namespace JPNFinalProject.Services
             }
         }
 
-        //public void RemoveAllFromSession(HttpContext context, string key, int value) {
-        //    try {
-        //        var item = context.Session.GetString(key);
-        //        List<int> productIds = JsonConvert.DeserializeObject<List<int>>(item);
-        //        foreach(var i in productIds) {
-        //            if(i == value) {
-        //                productIds.Remove(value);
-        //            }
-        //        }
-        //        context.Session.SetString(key, JsonConvert.SerializeObject(productIds));
-        //    }
-        //    catch {
+        public void RemoveAllFromSession(HttpContext context, string key, int value) {
+            try {
+                var item = context.Session.GetString(key);
+                List<int> productIds = JsonConvert.DeserializeObject<List<int>>(item);
+                foreach (var i in productIds.ToList()) {
+                    if (i == value) {
+                        productIds.Remove(i);
+                    }
+                }
+                context.Session.SetString(key, JsonConvert.SerializeObject(productIds));
+            }
+            catch {
 
-        //    }
-        //}
+            }
+        }
     }
 }

@@ -9,5 +9,9 @@ namespace JPNFinalProject.Models.OrderViewModels
     public class OverviewViewModel
     {
         public OrderDTO Order { get; set; }
+        public double Subtotal { get; set; }
+        public double VATFromPrice { get; set; }
+        public double PriceWithVAT { get; set; }
+        public bool IAcceptTheConditions { get; set; }
     }
 }

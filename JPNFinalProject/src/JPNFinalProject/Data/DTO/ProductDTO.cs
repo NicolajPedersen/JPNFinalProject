@@ -15,7 +15,7 @@ namespace JPNFinalProject.Data.DTO
         public string ItemNumber { get; set; }
         public int Amount { get; set; }
         public int StockAmount { get; set; }
-        //public BusinessDTO Business { get; set; }
+        public BusinessDTO Business { get; set; }
         public DateTimeOffset DeliveryDate { get; set; }
         public int PointGain { get; set; }
         public string ImageSource { get; set; }

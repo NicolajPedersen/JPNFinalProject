@@ -60,6 +60,12 @@ namespace JPNFinalProject.Controllers
         }
 
         [HttpPost]
+        public int RemoveAllFromBasket([FromBody] int id) {
+            _sessionContainer.RemoveAllFromSession(HttpContext, "basket", id);
+            return _sessionContainer.BasketCount(HttpContext, "basket");
+        }
+
+        [HttpPost]
         public int BasketCount() {
             return _sessionContainer.BasketCount(HttpContext, "basket");
         }

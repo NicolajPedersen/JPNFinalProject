@@ -7,16 +7,18 @@
         var id = $(this).parent().parent().attr("id");
         $(this).parent().parent().remove();
 
-        //$.ajax({
-        //    type: "POST",
-        //    url: "/Product/RemoveFromBasket",
-        //    data: data2,
-        //    dataType: "json",
-        //    contentType: "application/json; charset=utf-8",
-        //    success: function (result) {
-        //        $(".navbar-collapse").find(".badge").html(result);
-        //    }
-        //});
+        $.ajax({
+            type: "POST",
+            url: "/Product/RemoveAllFromBasket",
+            data: JSON.stringify(id),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                $(".navbar-collapse").find(".badge").html(result);
+            }
+        });
+
+        setPrices();
     });
 
     $(document).on("click", "#quantity-picker > .down", function () {
@@ -29,6 +31,7 @@
             var totalPrice = parseFloat($(this).parent().parent().children().find("#totalPrice").html());
             var price = totalPrice - productPrice;
             $(this).parent().parent().children().find("#totalPrice").html(price);
+
             setPrices();
 
             $.ajax({
@@ -53,6 +56,7 @@
         var totalPrice = parseFloat($(this).parent().parent().children().find("#totalPrice").html());
         var price = totalPrice + productPrice;
         $(this).parent().parent().children().find("#totalPrice").html(price);
+
         setPrices();
 
         $.ajax({
@@ -63,6 +67,20 @@
             contentType: "application/json; charset=utf-8",
             success: function (result) {
                 $(".navbar-collapse").find(".badge").html(result);
+            }
+        });
+    });
+
+    $(document).on("click", "#continueToDelivery", function () {
+        $.ajax({
+            type: "POST",
+            url: "/Product/BasketCount",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                if (result !== 0) {
+                    window.location = "Delivery";
+                }
             }
         });
     });
