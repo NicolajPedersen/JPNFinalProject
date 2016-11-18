@@ -21,5 +21,12 @@ namespace JPNFinalProject.Data.DTO
         public string ImageSource { get; set; }
         public bool OutOfStock { get; set; }
         public bool PutAside { get; set; }
+
+
+        //Kun til testing
+        public string mainCategory { get; set; }
+        public string subCategory { get; set; }
+        public string subsubCategory { get; set; }
+
     }
 }

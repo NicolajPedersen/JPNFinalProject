@@ -5,6 +5,12 @@
         addToBasket();
     });
 
+    $("#barbering").click(function () {
+        if($(this).css("display") == "none"){
+            console.log("test");
+        }
+    });
+
 
 
     function addToBasket() {
