@@ -23,7 +23,6 @@
             traditional: true,
             contentType: "application/json; charset=utf-8",
             success: function (result) {
-                console.log("number " + result);
                 $(".navbar-collapse").find(".badge").html(result);
             }
         });
