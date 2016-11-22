@@ -4,7 +4,7 @@
     $(document).on("click", "#putAside", function () {
         //console.log($(this).closest("tr").find("#doneOrNot"));
 
-        console.log($(this).closest("tr").find("#stockAmount").html());
+        console.log($(this).closest("tr").find("#stockAmount"));
         if ($(this).closest("tr").find("#stockAmount").html() <= 10 && !isChecked)
         {
             confirm("Databasen er muligvis ikke opdateret endnu, tjek om der er flere af varen: " + $(this).closest("tr").find("#item").html());

@@ -5,13 +5,13 @@
         addToBasket();
     });
 
-    $("#barbering").click(function () {
-        console.log($(this).closest("li").find("#subCategory").css("display"));
-        if ($("#subCategory").css("display") == "none")
-        {
-            console.log("test1");
-        }
-    });
+    //$("#barbering").click(function () {
+    //    console.log($(this).closest("li").find(".subCategory").css("display"));
+    //    if ($(this).closest("li").find(".subCategory").css("display") == "none")
+    //    {
+    //        $(this).closest("li").find(".subCategory").css("display", "inline");
+    //    }
+    //});
 
 
 
