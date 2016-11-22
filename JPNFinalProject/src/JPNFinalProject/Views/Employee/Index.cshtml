@@ -23,7 +23,7 @@
         <tbody>
             @foreach (var order in Model.OrderList)
             {
-                @foreach (var product in order.ProductList)
+                @foreach (var product in order.Products)
                 {
                     <tr>
                         <td id="item">@product.Name</td>
