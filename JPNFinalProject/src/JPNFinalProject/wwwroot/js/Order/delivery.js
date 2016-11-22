@@ -12,11 +12,11 @@
         },
     })
 })
-$("input[type=radio][name=parcel-pickup]").change(function () {
+$("input[type=radio][name=parcel]").change(function () {
     $("#parcel-pickup").val(parcelPickup());
 })
   function parcelPickup () {
-    var parcelPickups = document.getElementsByName('parcel-pickup');
+    var parcelPickups = document.getElementsByName('parcel');
     for (var i = 0; i < parcelPickups.length; i++) {
         if (parcelPickups[i].checked) {
             return parcelPickups[i].value;

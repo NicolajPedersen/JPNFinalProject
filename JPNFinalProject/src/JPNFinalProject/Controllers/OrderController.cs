@@ -40,13 +40,14 @@ namespace JPNFinalProject.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Delivery(int a)
+        public IActionResult Delivery(DeliveryViewModel dModel)
         {
-            return View();
+            var a = dModel;
+            return RedirectToAction("Overview", 2);
         }
 
         [HttpGet]
-        public IActionResult Overview() {
+        public IActionResult Overview(OrderDTO order) {
             OverviewViewModel model = new OverviewViewModel();
 
             if (_sessionContainer.BasketCount(HttpContext, "basket") != 0) {
