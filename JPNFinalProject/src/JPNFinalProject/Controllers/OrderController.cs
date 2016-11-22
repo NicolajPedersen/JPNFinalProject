@@ -42,31 +42,32 @@ namespace JPNFinalProject.Controllers
         [HttpPost]
         public IActionResult Delivery(DeliveryViewModel dModel)
         {
-            var a = dModel;
-            return RedirectToAction("Overview", 2);
+            var delivery = dModel;
+            return RedirectToAction("Overview", delivery);
         }
 
         [HttpGet]
-        public IActionResult Overview(OrderDTO order) {
+        public IActionResult Overview(DeliveryViewModel delivery) {
             OverviewViewModel model = new OverviewViewModel();
 
             if (_sessionContainer.BasketCount(HttpContext, "basket") != 0) {
                 model.Order = new OrderDTO() {
                     Id = 1,
                     OrderNumber = 12345,
+                    CustomerMail = "",
                     Person = new PersonDTO() {
                         Id = 1,
-                        FirstName = "Test",
-                        LastName = "Test",
-                        Email = "test1@test1.com",
+                        FirstName = delivery.Name,
+                        LastName = delivery.Name,
+                        Email = delivery.Email,
                         Password = "",
-                        Phone = "21345678",
+                        Phone = delivery.Phone,
                         Type = "",
                         Address = new AddressDTO() {
                             Id = 1,
-                            Address = "Test 1",
-                            ZipCode = "1111",
-                            City = "Test City",
+                            Address = delivery.Street,
+                            ZipCode = delivery.Zip,
+                            City = delivery.City,
                             Country = "Test Country"
                         }
                     },
@@ -98,6 +99,7 @@ namespace JPNFinalProject.Controllers
             model.Subtotal = model.Order.Products.Select(x => x.Price).Sum();
             model.VATFromPrice = (model.Subtotal / 100) * 25;
             model.PriceWithVAT = model.Subtotal + model.VATFromPrice;
+            model.Order.Products = new List<ProductDTO>();
 
             return View(model);
         }
