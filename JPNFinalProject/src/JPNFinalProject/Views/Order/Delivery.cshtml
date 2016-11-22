@@ -3,12 +3,17 @@
     ViewData["Title"] = "Delivery";
 }
 
+@section styles {
+    <link rel="stylesheet" href="~/css/Order/delivery.css" />
+}
+
+
 <div id="index" class="row">
     <ul class="list-inline">
-        <li><b>Indkøbskurv</b></li>
+        <li>Indkøbskurv</li>
         <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
-        <li>Fakturering og levering</li>
-        <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
+        <li><strong>Fakturering og levering</strong></li>
+        <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></li>
         <li>Oversigt</li>
         <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
         <li>Betaling</li>
@@ -22,27 +27,28 @@
     <form id="delivery-form" class="form-horizontal" method="post">
         <div class="row">
             <label for="name-input" class="col-sm-2">Navn*</label>
-            <div class="col-sm-10"><input type="text" class="form-control" id="name-input" name="name" value="" required/></div>
+            <div class="col-sm-10"><input type="text" class="form-control" id="name-input" name="name" value="" required asp-for="Name"/></div>
         </div>
         <div class="row">
-            <label for="address-input" class="col-sm-2">Adresse*</label>
-            <div class="col-sm-10"><input type="text" class="form-control" id="address-input" name="address" value="" required/></div>
+            <label for="street-input" class="col-sm-2">Adresse*</label>
+            <div class="col-sm-10"><input type="text" class="form-control" id="street-input" name="street" value="" required asp-for="Street"/></div>
         </div>
         <div class="row">
             <label for="zip-input" class="col-sm-2">Postnr.*</label>
-            <div class="col-sm-2"><input type="text" id="zip-input" class="form-control" name="zip" value="" pattern="[0-9]{3,4}" required/></div>
+            <div class="col-sm-2"><input type="text" id="zip-input" class="form-control" name="zip" value="" pattern="[0-9]{3,4}" required asp-for="Zip"/></div>
             <label for="city-input" class="col-sm-1">By*</label>
-            <div class="col-sm-7"><input type="text" id="city-input" class="form-control" name="city" value="" required/></div>
+            <div class="col-sm-7"><input type="text" id="city-input" class="form-control" name="city" value="" required asp-for="City"/></div>
         </div>
         <div class="row">
             <label for="phone-input" class="col-sm-2">Tlfnr.*</label>
-            <div class="col-sm-10"><input type="tel" class="form-control" id="phone-input" name="phone" value="" required/></div>
+            <div class="col-sm-10"><input type="tel" class="form-control" id="phone-input" name="phone" value="" required asp-for="Phone"/></div>
         </div>
         <div class="row">
             <label for="email-input" class="col-sm-2">Email*</label>
-            <div class="col-sm-10"><input type="email" class="form-control" id="email-input" name="address" value="" required/></div>
+            <div class="col-sm-10"><input type="email" class="form-control" id="email-input" name="email" value="" required asp-for="Email"/></div>
+            <input type="hidden" id="parcel-pickup" name="parcelpickup" value="" asp-for="ParcelPickup" />
         </div>
-        <input type="hidden" id="parcel-pickup" name="parcel_pickup" value="" />
+
     </form>
 </div>
 <div class="clearfix"></div>
@@ -132,7 +138,7 @@
 
 </div>
 <div class="clearfix"></div>
-<div class="pull-right"><input id="deliver-submit" type="submit"  form="delivery-form" class="btn btn-primary" value="FORTSÆT TIL OVERSIGT">
+<div class="pull-right"><input id="delivery-submit" type="submit"  form="delivery-form" class="btn btn-success" value="FORTSÆT TIL OVERSIGT">
 </div>
 
 @section scripts {

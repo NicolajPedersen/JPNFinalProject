@@ -21,5 +21,5 @@ $("input[type=radio][name=parcel-pickup]").change(function () {
         if (parcelPickups[i].checked) {
             return parcelPickups[i].value;
         }
-    }
+  }
 };
