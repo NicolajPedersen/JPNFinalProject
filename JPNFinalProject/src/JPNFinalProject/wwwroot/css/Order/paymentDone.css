@@ -9,9 +9,6 @@
 
 #index ul li {
     display: inline-block;
-    /*Hvis det skal være på den store*/
-    /*padding-right: 50px;*/
-    /*Hvis det skal være på den lille*/
     padding-right: 20px;
     padding-left: 30px;
 }
@@ -24,9 +21,6 @@
 
 #status ul li {
     display: inline-block;
-    /*Hvis det skal være på den store*/
-    /*padding-right: 50px;*/
-    /*Hvis det skal være på den lille*/
     padding-right: 20px;
     padding-left: 30px;
 }
@@ -42,8 +36,6 @@
     width: 280px;
     height: 160px;
     margin-top: 75px;
-    /*Hvis det skal være på den store*/
-    /*margin-left: 150px;*/
     margin-left: 10px;
 }
 
