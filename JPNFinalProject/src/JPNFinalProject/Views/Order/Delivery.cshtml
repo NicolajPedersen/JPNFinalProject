@@ -3,12 +3,17 @@
     ViewData["Title"] = "Delivery";
 }
 
+@section styles {
+    <link rel="stylesheet" href="~/css/Order/delivery.css" />
+}
+
+
 <div id="index" class="row">
     <ul class="list-inline">
-        <li><b>Indkøbskurv</b></li>
+        <li>Indkøbskurv</li>
         <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
-        <li>Fakturering og levering</li>
-        <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
+        <li><strong>Fakturering og levering</strong></li>
+        <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></li>
         <li>Oversigt</li>
         <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
         <li>Betaling</li>
@@ -133,7 +138,7 @@
 
 </div>
 <div class="clearfix"></div>
-<div class="pull-right"><input id="deliver-submit" type="submit"  form="delivery-form" class="btn btn-primary" value="FORTSÆT TIL OVERSIGT">
+<div class="pull-right"><input id="delivery-submit" type="submit"  form="delivery-form" class="btn btn-success" value="FORTSÆT TIL OVERSIGT">
 </div>
 
 @section scripts {
