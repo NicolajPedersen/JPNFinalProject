@@ -1,0 +1,150 @@
+﻿@model JPNFinalProject.Models.OrderViewModels.PaymentDoneViewModel
+@{
+    ViewData["Title"] = "Payment Done";
+}
+
+@section styles {
+    <link rel="stylesheet" href="~/css/Order/paymentDone.css"/>
+}
+
+<div class="col-xs-10">
+    <div id="index" class="row">
+        <ul class="list-inline">
+            <li>Indkøbskurv</li>
+            <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
+            <li>Fakturering og levering</li>
+            <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
+            <li>Oversigt</li>
+            <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
+            <li>Betaling</li>
+        </ul>
+    </div>
+
+    <hr />
+
+    <div id="status" class="row">
+        <h4><b>Bestillings status:</b></h4>
+        <ul class="list-inline">
+            <li>Venter respons</li>
+            <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
+            <li>Bestilling modtaget</li>
+            <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
+            <li>Tjekker lager</li>
+            <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
+            <li>Vare tilsidesat</li>
+        </ul>
+    </div>
+
+    <hr />
+
+    <div id="delivery-and-invoice-info" class="row">
+        <div id="invoice" class="col-xs-6">
+            <h3 style="text-align: center; background-color: #f3f5f6;">FAKTURERES TIL</h3>
+            <p id="name">@Model.Order.Person.FirstName @Model.Order.Person.LastName</p>
+            <p id="address">@Model.Order.Person.Address.Address</p>
+            <p id="zipCode">@Model.Order.Person.Address.ZipCode</p>
+        </div>
+        <div id="delivery" class="col-xs-6">
+            <h3 style="text-align: center; background-color: #f3f5f6;">LEVERES TIL</h3>
+            <p id="store"><b>@Model.Order.Business.Name</b></p>
+            <p id="name">@Model.Order.Business.Name</p>
+            <p id="address">@Model.Order.Business.Address.Address</p>
+            <p id="zipCode">@Model.Order.Business.Address.ZipCode</p>
+        </div>
+    </div>
+
+    <div id="productHeader" class="row" style="padding-bottom: 0px;">
+        <div class="col-xs-6">
+            <h4>Produkter</h4>
+        </div>
+        <div class="col-xs-2" style="padding-left: 20px;">
+            <h4>Stk. pris</h4>
+        </div>
+        <div class="col-xs-2" style="padding-left: 15px;">
+            <h4>Antal</h4>
+        </div>
+        <div class="col-xs-2">
+            <h4>Samlet pris</h4>
+        </div>
+    </div>
+
+    <div id="productInfo">
+        @foreach (var product in Model.Order.Products) {
+            <div class="row">
+                <div class="col-xs-6">
+                    <div style="float: left; width: 85px; height: 85px; text-align: center;">
+                        <img src="~/images/Product/@product.ImageSource" class="img-rounded" alt="Remington Apprentice Hårklipper" style="max-width: 100%; max-height: 100%;">
+                    </div>
+                    <div style="float: left; margin: 20px 0px 0px 5px;">
+                        <div>
+                            <label>@product.Name</label>
+                        </div>
+                        <div>
+                            <p style="display: inline-block">Indpakning:</p> <p style="display: inline-block">Nej</p>
+                        </div>
+                        <div>
+                            <p style="display: inline-block">Byttemærke:</p> <p style="display: inline-block">Nej</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <h4 style="line-height: 70px; display: inline-block; margin-left: 12px;">@product.Price</h4><h4 style="display: inline-block; margin-left: 5px;">kr</h4>
+                </div>
+                <div id="quantity" class="col-xs-2">
+                    <h4 style="line-height: 70px; display: inline-block;">@product.Amount</h4><h4 style="display: inline-block; margin-left: 5px;">stk.</h4>
+                </div>
+                <div class="col-xs-2">
+                    <h4 style="line-height: 70px; display: inline-block; margin-left: 20px;">@product.Price</h4><h4 style="display: inline-block; margin-left: 5px;">kr</h4>
+                </div>
+            </div>
+
+            @if (Model.Order.Products.Count > 1) {
+                <hr />
+            }
+        }
+    </div>
+
+    <div id="summary" class="row">
+        <div id="details" class="col-xs-5 col-xs-offset-7" style="padding-left: 0px; padding-top: 26px;">
+            <div class="col-xs-8">
+                <p>Subtotal</p>
+            </div>
+            <div id="price" class="col-xs-4">
+                <p>@Model.Subtotal kr</p>
+            </div>
+            <div class="col-xs-8">
+                <p>Matas - Afhent i butik</p>
+            </div>
+            <div id="price" class="col-xs-4">
+                <p>0,00 kr</p>
+            </div>
+            <div class="col-xs-12" style="margin-top: -5px; height: 25px;">
+                <hr />
+            </div>
+            <div class="col-xs-8">
+                <p><b>Pris i alt (inkl. moms)</b></p>
+                <p>(Heraf 25% moms @Model.VATFromPrice kr)</p>
+            </div>
+            <div id="price" class="col-xs-4">
+                <p>@Model.PriceWithVAT kr</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xs-2">
+    <div id="totals">
+        <div style="padding-left: 15px; padding-top: 15px;">
+            <h4>Din ordre</h4>
+        </div>
+        <div class="col-xs-8">
+            <p>Pris i alt</p>
+        </div>
+        <div id="price" class="col-xs-4">
+            <p>@Model.PriceWithVAT kr</p>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/Order/paymentDone.js"></script>
+}

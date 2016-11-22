@@ -12,6 +12,12 @@ namespace JPNFinalProject.Services
 {
     public class SessionContainer : Controller
     {
+        /*
+         * Add the Microsoft.AspNetCore.Session NuGet package to your project.
+         * Open up startup.cs and add the AddSession() and AddDistributedMemoryCache() lines to the ConfigureServices(IServiceCollection services)
+         * Add the UseSession() call below to the Configure(IApplicationBulider app, ...) // IMPORTANT: This session call MUST go before UseMvc()
+        */
+
         public void AddToSession(HttpContext context, string key, int value) {
             try {
                 var item = context.Session.GetString(key);
