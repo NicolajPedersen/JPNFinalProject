@@ -6,8 +6,10 @@
     });
 
     $("#barbering").click(function () {
-        if($(this).css("display") == "none"){
-            console.log("test");
+        console.log($(this).closest("li").find("#subCategory").css("display"));
+        if ($("#subCategory").css("display") == "none")
+        {
+            console.log("test1");
         }
     });
 
