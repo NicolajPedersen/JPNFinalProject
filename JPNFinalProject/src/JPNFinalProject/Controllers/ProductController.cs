@@ -22,19 +22,19 @@ namespace JPNFinalProject.Controllers
             {
                new ProductDTO()
                {
-                   Id = 1, Name = "Remington HC5600 E51 Pro Power Hair Clipper", Price = 300.00, PointGain = 30, Description = "Remington HC5600 E51 Pro Power Hair Clipper", ImageSource = "ProductList_200x150.png", mainCategory = "barbering", subCategory = "haarklippere"
+                   Id = 1, Name = "Remington HC5600 E51 Pro Power Hair Clipper", Price = 300.00, PointGain = 30, Description = "Remington HC5600 E51 Pro Power Hair Clipper", ImageSource = "ProductList_200x150.png", Category = new List<CategoryDTO>() { new CategoryDTO() { Id = 1, Name = "barbering", ParentId = 0}, new CategoryDTO() { Id = 2,  Name = "haarklippere" , ParentId = 1} }
                },
                new ProductDTO()
                {
-                   Id = 2, Name = "Remington Pro Power Hårklipper HC5200", Price = 249.00, PointGain = 25, Amount = 0, Description = "Remington Pro Power Hårklipper HC5200", ImageSource = "ProductList_200x150 (1).png", mainCategory = "barbering", subCategory = "haarklippere"
+                   Id = 2, Name = "Remington Pro Power Hårklipper HC5200", Price = 249.00, PointGain = 25, Amount = 0, Description = "Remington Pro Power Hårklipper HC5200", ImageSource = "ProductList_200x150 (1).png", Category = new List<CategoryDTO>() { new CategoryDTO() { Name = "barbering" }, new CategoryDTO() { Id = 2, Name = "haarklippere", ParentId = 1 } }
                },
                new ProductDTO()
                {
-                   Id = 3, Name = "Remington Apprentice Hårklipper", Price = 199.00, PointGain = 20, Description = "Remington Apprentice Hårklipper", ImageSource = "ProductList_200x150 (2).png", mainCategory = "barbering", subCategory = "haarklippere"
+                   Id = 3, Name = "Remington Apprentice Hårklipper", Price = 199.00, PointGain = 20, Description = "Remington Apprentice Hårklipper", ImageSource = "ProductList_200x150 (2).png", Category = new List<CategoryDTO>() { new CategoryDTO() { Name = "barbering" }, new CategoryDTO() { Id = 2, Name = "haarklippere", ParentId = 1 } }
                },
                new ProductDTO()
                {
-                   Id = 4, Name = "Remington Apprentice", Price = 149.00, PointGain = 15, Description = "Remington Apprentice", ImageSource = "ProductList_200x150 (2).png", mainCategory = "barbering", subCategory = "skrabere"
+                   Id = 4, Name = "Remington Apprentice", Price = 149.00, PointGain = 15, Description = "Remington Apprentice", ImageSource = "ProductList_200x150 (2).png", Category = new List<CategoryDTO>() { new CategoryDTO() { Name = "barbering" }, new CategoryDTO() {Id = 3, Name = "skrabere", ParentId = 1} }
                }
             };
 
@@ -46,6 +46,13 @@ namespace JPNFinalProject.Controllers
         public IActionResult Index()
         {
             var model = new ProductViewModel();
+            foreach (var product in productList)
+            {
+                foreach (var category in product.Category)
+                {
+                    model.CategoryList.Add(category);
+                }
+            }
             //model.ProductList = productList;
             return View(model);
         }
@@ -59,20 +66,28 @@ namespace JPNFinalProject.Controllers
                 {
                     foreach (var product in productList)
                     {
-                        if (product.subsubCategory == subsubCategory)
+                        foreach (var category in product.Category)
                         {
-                            model.ProductList.Add(product);
+                            if (category.Name == subsubCategory)
+                            {
+                                model.ProductList.Add(product);
+                            }
                         }
+
                     }
                 }
                 else
                 {
                     foreach (var product in productList)
                     {
-                        if (product.subCategory == subCategory)
+                        foreach (var category in product.Category)
                         {
-                            model.ProductList.Add(product);
+                            if (category.Name == subCategory)
+                            {
+                                model.ProductList.Add(product);
+                            }
                         }
+
                     }
                 }
 
