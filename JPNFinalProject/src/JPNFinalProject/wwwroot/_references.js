@@ -3,6 +3,7 @@
 /// <reference path="js/employee/index.js" />
 /// <reference path="js/order/basket.js" />
 /// <reference path="js/order/delivery.js" />
+/// <reference path="js/order/payment.js" />
 /// <reference path="js/order/paymentdone.js" />
 /// <reference path="js/product/product.js" />
 /// <reference path="js/site.js" />
