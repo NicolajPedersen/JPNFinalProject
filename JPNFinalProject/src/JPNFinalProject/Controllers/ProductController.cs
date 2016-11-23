@@ -22,19 +22,23 @@ namespace JPNFinalProject.Controllers
             {
                new ProductDTO()
                {
-                   Id = 1, Name = "Remington HC5600 E51 Pro Power Hair Clipper", Price = 300.00, PointGain = 30, Description = "Remington HC5600 E51 Pro Power Hair Clipper", ImageSource = "ProductList_200x150.png", Category = new List<CategoryDTO>() { new CategoryDTO() { Id = 1, Name = "barbering", ParentId = 0}, new CategoryDTO() { Id = 2,  Name = "haarklippere" , ParentId = 1} }
+                   Id = 1, Name = "Remington HC5600 E51 Pro Power Hair Clipper", Price = 300.00, PointGain = 30, Description = "Remington HC5600 E51 Pro Power Hair Clipper", ImageSource = "ProductList_200x150.png", Category = new CategoryDTO() { Id = 2, Name = "haarklippere", ParentCategory = new CategoryDTO() { Id = 0, Name = "barbering" } }
                },
                new ProductDTO()
                {
-                   Id = 2, Name = "Remington Pro Power Hårklipper HC5200", Price = 249.00, PointGain = 25, Amount = 0, Description = "Remington Pro Power Hårklipper HC5200", ImageSource = "ProductList_200x150 (1).png", Category = new List<CategoryDTO>() { new CategoryDTO() { Name = "barbering" }, new CategoryDTO() { Id = 2, Name = "haarklippere", ParentId = 1 } }
+                   Id = 2, Name = "Remington Pro Power Hårklipper HC5200", Price = 249.00, PointGain = 25, Amount = 0, Description = "Remington Pro Power Hårklipper HC5200", ImageSource = "ProductList_200x150 (1).png", Category = new CategoryDTO() { Id = 2, Name = "haarklippere", ParentCategory = new CategoryDTO() { Id = 0, Name = "barbering" } }
                },
                new ProductDTO()
                {
-                   Id = 3, Name = "Remington Apprentice Hårklipper", Price = 199.00, PointGain = 20, Description = "Remington Apprentice Hårklipper", ImageSource = "ProductList_200x150 (2).png", Category = new List<CategoryDTO>() { new CategoryDTO() { Name = "barbering" }, new CategoryDTO() { Id = 2, Name = "haarklippere", ParentId = 1 } }
+                   Id = 3, Name = "Remington Apprentice Hårklipper", Price = 199.00, PointGain = 20, Description = "Remington Apprentice Hårklipper", ImageSource = "ProductList_200x150 (2).png", Category = new CategoryDTO() { Id = 2, Name = "haarklippere", ParentCategory = new CategoryDTO() { Id = 0, Name = "barbering" } }
                },
                new ProductDTO()
                {
-                   Id = 4, Name = "Remington Apprentice", Price = 149.00, PointGain = 15, Description = "Remington Apprentice", ImageSource = "ProductList_200x150 (2).png", Category = new List<CategoryDTO>() { new CategoryDTO() { Name = "barbering" }, new CategoryDTO() {Id = 3, Name = "skrabere", ParentId = 1} }
+                   Id = 4, Name = "Remington Apprentice", Price = 149.00, PointGain = 15, Description = "Remington Apprentice", ImageSource = "ProductList_200x150 (2).png", Category = new CategoryDTO() { Id = 3, Name = "skrabere", ParentCategory = new CategoryDTO() { Id = 0, Name = "barbering" } }
+               },
+               new ProductDTO()
+               {
+                   Id = 5, Name = "Apprentice", Price = 149.00, PointGain = 15, Description = "Apprentice", ImageSource = "ProductList_200x150 (2).png", Category = new CategoryDTO() { Id = 4, Name = "gaveaesker", ParentCategory = new CategoryDTO() { Id = 1, Name = "dufte"} }
                }
             };
 
@@ -48,10 +52,22 @@ namespace JPNFinalProject.Controllers
             var model = new ProductViewModel();
             foreach (var product in productList)
             {
-                foreach (var category in product.Category)
+                if(!model.SubCategoryList.Select(x => x.Id).Contains(product.Category.Id) && product.Category.ParentCategory != null)
                 {
-                    model.CategoryList.Add(category);
+                    if(!model.MainCategoryList.Select(x => x.Id).Contains(product.Category.ParentCategory.Id) && product.Category.ParentCategory.ParentCategory == null)
+                    {
+                        model.MainCategoryList.Add(product.Category.ParentCategory);
+                    }
+                    model.SubCategoryList.Add(product.Category);
                 }
+                if (!model.MainCategoryList.Select(x => x.Id).Contains(product.Category.Id) && product.Category.ParentCategory == null)
+                {
+                    model.MainCategoryList.Add(product.Category);
+                }
+                //if(!model.CategoryList.Select(x => x.Id).Contains(product.Category.Id))
+                //{
+                //    model.CategoryList.Add(product.Category);
+                //}
             }
             //model.ProductList = productList;
             return View(model);
@@ -66,12 +82,9 @@ namespace JPNFinalProject.Controllers
                 {
                     foreach (var product in productList)
                     {
-                        foreach (var category in product.Category)
+                        if (product.Category.Name == subsubCategory && product.Category.ParentCategory != null && product.Category.ParentCategory.ParentCategory != null)
                         {
-                            if (category.Name == subsubCategory)
-                            {
-                                model.ProductList.Add(product);
-                            }
+                            model.ProductList.Add(product);
                         }
 
                     }
@@ -80,12 +93,9 @@ namespace JPNFinalProject.Controllers
                 {
                     foreach (var product in productList)
                     {
-                        foreach (var category in product.Category)
+                        if (product.Category.Name == subCategory && product.Category.ParentCategory != null)
                         {
-                            if (category.Name == subCategory)
-                            {
-                                model.ProductList.Add(product);
-                            }
+                            model.ProductList.Add(product);
                         }
 
                     }

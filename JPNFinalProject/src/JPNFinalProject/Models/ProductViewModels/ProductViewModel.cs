@@ -12,6 +12,8 @@ namespace JPNFinalProject.Models.ProductViewModels
         {
             ProductList = new List<ProductDTO>();
             CategoryList = new List<CategoryDTO>();
+            MainCategoryList = new List<CategoryDTO>();
+            SubCategoryList = new List<CategoryDTO>();
         }
         //public int Id { get; set; }
         //public string Name { get; set; }
@@ -29,6 +31,8 @@ namespace JPNFinalProject.Models.ProductViewModels
 
         public List<ProductDTO> ProductList { get; set; }
         public List<CategoryDTO> CategoryList { get; set; }
+        public List<CategoryDTO> MainCategoryList { get; set; }
+        public List<CategoryDTO> SubCategoryList { get; set; }
 
     }
 }

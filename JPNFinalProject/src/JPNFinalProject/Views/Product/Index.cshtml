@@ -25,31 +25,41 @@
         <div>
             <h3>Kategori</h3>
         </div>
-        <div>
+        <div id="accordion">
             <ul>
-                @foreach (var category in Model.CategoryList)
+                @foreach (var category in Model.MainCategoryList)
                 {
-                    @foreach (var subCategory in category.SubCategories)
+                    @*if (category.ParentCategory == null)
                     {
-                        if (category.Id == 0)
-                        {
-                            <li>
-                                <h4>
-                                    <a id="@category.Name" href="/Product/Index/@category.Name">@category.Name</a>
-                                </h4>
-                            </li>
-                        }
-                        if(category.Id == subCategory.ParentId)
-                        {
-                            <li>
-                                <h4>
-                                    <a id="@category.Name" data-toggle="collapse" href="#@subCategory.Name">@category.Name</a>
-                                </h4>
-                            </li>
-                        }
-
-                    }
-
+                        <li>
+                            <h4>
+                                <a id="@category.Name" href="/Product/Index/@category.Name">@category.Name</a>
+                            </h4>
+                        </li>
+                    }*@
+                    //if (category.ParentCategory != null)
+                    //{
+                        <li>
+                            <h4>
+                                <a id="@category.Id" data-toggle="collapse" data-parent="#accordion" href="#@category.Name">@category.Name</a>
+                            </h4>
+                            <div id="@category.Name" class="collapse">
+                                <ul>    
+                                    @foreach (var subCategory in Model.SubCategoryList)
+                                    {
+                                        if (subCategory.ParentCategory.Id == category.Id)
+                                        {
+                                            <li>
+                                                <a href="/Product/@category.Name/@subCategory.Name">
+                                                    <span>@subCategory.Name</span>
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </li>
+                    //}
                 }
                 @*<li>
                     <a href="/Product/Index/dufte">
