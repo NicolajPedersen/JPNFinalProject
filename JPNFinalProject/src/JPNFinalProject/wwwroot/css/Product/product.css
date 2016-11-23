@@ -58,6 +58,14 @@ span{
 .product{
     padding-top: 2%;
 }
+.panel{
+    margin-bottom: 0px;
+    background-color: white;
+    border: 0px solid;
+    border-radius: 0px;
+    -webkit-box-shadow: 0 0px 0px;
+    box-shadow: 0 0px 0px;
+}
 /*.subCategory{
     display: none;
 }*/

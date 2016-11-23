@@ -84,11 +84,15 @@ namespace JPNFinalProject
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "maincategoryRoute",
+                    template: "{controller}/{action}/{mainCategory}");
+                routes.MapRoute(
                     name: "subcategoryRoute",
-                    template: "{controller}/{action}/{subCategory}/{subsubCateogry}");
+                    template: "{controller}/{action}/{mainCategory}/{subCategory}/{subsubCateogry}");
                 routes.MapRoute(
                     name: "categoryRoute",
-                    template: "{controller}/{action}/{subCategory}");
+                    template: "{controller}/{action}/{mainCategory}/{subCategory}");
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

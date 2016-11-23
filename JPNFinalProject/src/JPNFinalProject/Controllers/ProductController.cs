@@ -50,6 +50,7 @@ namespace JPNFinalProject.Controllers
         public IActionResult Index()
         {
             var model = new ProductViewModel();
+            model.ActiveCategory = "index";
             foreach (var product in productList)
             {
                 if(!model.SubCategoryList.Select(x => x.Id).Contains(product.Category.Id) && product.Category.ParentCategory != null)
@@ -64,19 +65,31 @@ namespace JPNFinalProject.Controllers
                 {
                     model.MainCategoryList.Add(product.Category);
                 }
-                //if(!model.CategoryList.Select(x => x.Id).Contains(product.Category.Id))
-                //{
-                //    model.CategoryList.Add(product.Category);
-                //}
             }
-            //model.ProductList = productList;
             return View(model);
         }
 
-        public IActionResult barbering(string subCategory, string subsubCategory)
+        public IActionResult MainCategory(string mainCategory, string subCategory, string subsubCategory)
         {
             var model = new ProductViewModel();
-            if(subCategory != null)
+            model.ActiveCategory = mainCategory;
+            foreach (var product in productList)
+            {
+                if (!model.SubCategoryList.Select(x => x.Id).Contains(product.Category.Id) && product.Category.ParentCategory != null)
+                {
+                    if (!model.MainCategoryList.Select(x => x.Id).Contains(product.Category.ParentCategory.Id) && product.Category.ParentCategory.ParentCategory == null)
+                    {
+                        model.MainCategoryList.Add(product.Category.ParentCategory);
+                    }
+                    model.SubCategoryList.Add(product.Category);
+                }
+                if (!model.MainCategoryList.Select(x => x.Id).Contains(product.Category.Id) && product.Category.ParentCategory == null)
+                {
+                    model.MainCategoryList.Add(product.Category);
+                }
+            }
+
+            if (subCategory != null)
             {
                 if(subsubCategory != null)
                 {
@@ -104,8 +117,18 @@ namespace JPNFinalProject.Controllers
             }
             else
             {
-                model.ProductList = productList;
+                foreach (var product in productList)
+                {
+                    if (product.Category.ParentCategory != null && product.Category.ParentCategory.Name == mainCategory && !model.ProductList.Select(x => x.Id).Contains(product.Id))
+                    {
+                        model.ProductList.Add(product);
+                    }
+                }
+
             }
+            //Skal fås fra db
+            model.ProductText = "Barberkost og kniv, skraber og gelé – en kær barbering har mange faconer. Uanset om du er til retro-metoden eller mere moderne værktøjer, er det vigtigt, at du bruger de rigtige redskaber. En god barbering er nemlig et must for en hver mand.Et skarpt blad, en fugtet hud og et blødgjort skæg er essentiel for din skægpleje. \nPå matas.dk finder du flere forskellige produkter til skægpleje; fx skægbalsam, skægolie, barberblade, trimmere m.m. En god skægpleje holder dit skæg i god form.Læs også artiklen barberingsguide og få et perfekt skæg.";
+
             return View("index", model);
         }
 

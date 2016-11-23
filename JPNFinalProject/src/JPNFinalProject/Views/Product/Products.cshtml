@@ -1,0 +1,52 @@
+﻿@using JPNFinalProject.Models.ProductViewModels
+@model ProductViewModel
+
+@{
+    ViewData["Title"] = "Produkter";
+}
+
+<div class="col-lg-9 row">
+    @if (Model.ProductText != null)
+    {
+        <div class="row">
+            <div id="text">
+                <text readonly="readonly">
+                    @Model.ProductText
+                </text>
+            </div>
+            <div>
+                <h2 class="selectedheader"></h2>
+            </div>
+            <div id="sorting">
+                <label>@Model.ProductList.Count produkter</label>
+                <label>|</label>
+                <label>Sortér efter standard</label>
+            </div>
+        </div>
+    }
+    <div>
+        @foreach (var product in Model.ProductList)
+            {
+            <div class="product col-lg-1"></div>
+                <div class="product col-lg-3">
+                    <div>
+                        <label id="productId" hidden="hidden">@product.Id</label>
+                    </div>
+                    <div id="@product.Id">
+                        <img src="~/images/Product/@product.ImageSource" />
+                    </div>
+                    <div class="productInfo">
+                        <label id="priceLabel">@product.Price</label>
+                        <button id="@product.Id" class="basketbtn btn btn-default">Læg i kurv</button>
+                    </div>
+                    <div class="productInfo">
+                        <label id="pointLabel">Køb og få @product.PointGain point</label>
+                    </div>
+                    <div class="productInfo">
+                        <label id="descriptionLabel">@product.Name</label>
+                    </div>
+                </div>
+        }
+    </div>
+</div>
+

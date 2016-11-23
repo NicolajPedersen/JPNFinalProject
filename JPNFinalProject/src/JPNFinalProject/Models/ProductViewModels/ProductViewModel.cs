@@ -28,7 +28,8 @@ namespace JPNFinalProject.Models.ProductViewModels
         //public string ImageSource { get; set; }
         //public bool OutOfStock { get; set; }
 
-
+        public string ProductText { get; set; }
+        public string ActiveCategory { get; set; }
         public List<ProductDTO> ProductList { get; set; }
         public List<CategoryDTO> CategoryList { get; set; }
         public List<CategoryDTO> MainCategoryList { get; set; }

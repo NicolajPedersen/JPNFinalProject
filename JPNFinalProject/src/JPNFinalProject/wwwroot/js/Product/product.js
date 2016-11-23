@@ -7,14 +7,14 @@
 
     //$("#barbering").click(function () {
     //    console.log(window.location.href);
-    //    if (window.location.href != "http://localhost:5000/Product/barbering")
+    //    if (window.location.href != "http://localhost:5000/Product/mainCategory/barbering")
     //    {
     //        console.log(window.location.href);
-    //        window.location = window.location.href + "/barbering";
+    //        window.location = window.location.href + "/mainCategory/barbering";
     //    }
     //});
 
-
+    $(".selectedheader").val(window.location.pathname);
 
     function addToBasket() {
         console.log(productId);
