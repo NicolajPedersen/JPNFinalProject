@@ -15,6 +15,7 @@ namespace JPNFinalProject.Controllers
     {
         //https://docs.microsoft.com/en-us/ef/core/get-started/aspnetcore/existing-db //Sådan benytter du dig af Entity Framework - Existing Database
         private SessionContainer _sessionContainer;
+
         public OrderController() {
             _sessionContainer = new SessionContainer();
         }
