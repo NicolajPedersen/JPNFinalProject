@@ -13,6 +13,8 @@ using JPNFinalProject.Data;
 using JPNFinalProject.Models;
 using JPNFinalProject.Services;
 
+using JPNFinalProject.Data.DatabaseModels;
+
 namespace JPNFinalProject
 {
     public class Startup
@@ -39,12 +41,19 @@ namespace JPNFinalProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
+            //Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddDbContext<JPNFinalProjectContext>(options =>
+                options.UseSqlServer(@"Server=dev-db02\sql2016;Initial Catalog=JPNFinalProject;User ID=JPNFinalProject;Password=JPNFinalProject2016;"));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<JPNFinalProjectContext>()
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
@@ -54,6 +63,9 @@ namespace JPNFinalProject
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+
+            //var connection = @"Source=dev-db02\sql2016;Initial Catalog=JPNFinalProject;User ID=JPNFinalProject;Password=JPNFinalProject2016;";
+            //services.AddDbContext<JPNFinalProjectContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
