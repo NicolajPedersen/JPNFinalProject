@@ -13,6 +13,7 @@ namespace JPNFinalProject.Data.DatabaseModels
         public int ProductCategoryId { get; set; }
         public string Name { get; set; }
         public int? Parent { get; set; }
+        public string ProductText { get; set; }
 
         public virtual ICollection<Product> Product { get; set; }
     }

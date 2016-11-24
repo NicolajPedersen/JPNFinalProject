@@ -22,23 +22,23 @@ namespace JPNFinalProject.Controllers
             {
                new ProductDTO()
                {
-                   Id = 1, Name = "Remington HC5600 E51 Pro Power Hair Clipper", Price = 300.00, PointGain = 30, Description = "Remington HC5600 E51 Pro Power Hair Clipper", ImageSource = "ProductList_200x150.png", Category = new CategoryDTO() { Id = 2, Name = "haarklippere", ParentCategory = new CategoryDTO() { Id = 0, Name = "barbering" } }
+                   Id = 1, Name = "Remington HC5600 E51 Pro Power Hair Clipper", Price = 300.00, PointGain = 30, Description = "Remington HC5600 E51 Pro Power Hair Clipper", ImageSource = "ProductList_200x150.png", Category = new CategoryDTO() { Id = 2, Name = "Haarklippere", ParentCategory = new CategoryDTO() { Id = 0, Name = "Barbering" } }
                },
                new ProductDTO()
                {
-                   Id = 2, Name = "Remington Pro Power Hårklipper HC5200", Price = 249.00, PointGain = 25, Amount = 0, Description = "Remington Pro Power Hårklipper HC5200", ImageSource = "ProductList_200x150 (1).png", Category = new CategoryDTO() { Id = 2, Name = "haarklippere", ParentCategory = new CategoryDTO() { Id = 0, Name = "barbering" } }
+                   Id = 2, Name = "Remington Pro Power Hårklipper HC5200", Price = 249.00, PointGain = 25, Amount = 0, Description = "Remington Pro Power Hårklipper HC5200", ImageSource = "ProductList_200x150 (1).png", Category = new CategoryDTO() { Id = 2, Name = "Haarklippere", ParentCategory = new CategoryDTO() { Id = 0, Name = "Barbering" } }
                },
                new ProductDTO()
                {
-                   Id = 3, Name = "Remington Apprentice Hårklipper", Price = 199.00, PointGain = 20, Description = "Remington Apprentice Hårklipper", ImageSource = "ProductList_200x150 (2).png", Category = new CategoryDTO() { Id = 2, Name = "haarklippere", ParentCategory = new CategoryDTO() { Id = 0, Name = "barbering" } }
+                   Id = 3, Name = "Remington Apprentice Hårklipper", Price = 199.00, PointGain = 20, Description = "Remington Apprentice Hårklipper", ImageSource = "ProductList_200x150 (2).png", Category = new CategoryDTO() { Id = 2, Name = "Haarklippere", ParentCategory = new CategoryDTO() { Id = 0, Name = "Barbering" } }
                },
                new ProductDTO()
                {
-                   Id = 4, Name = "Remington Apprentice", Price = 149.00, PointGain = 15, Description = "Remington Apprentice", ImageSource = "ProductList_200x150 (2).png", Category = new CategoryDTO() { Id = 3, Name = "skrabere", ParentCategory = new CategoryDTO() { Id = 0, Name = "barbering" } }
+                   Id = 4, Name = "Remington Apprentice", Price = 149.00, PointGain = 15, Description = "Remington Apprentice", ImageSource = "ProductList_200x150 (2).png", Category = new CategoryDTO() { Id = 3, Name = "Skrabere", ParentCategory = new CategoryDTO() { Id = 0, Name = "Barbering" } }
                },
                new ProductDTO()
                {
-                   Id = 5, Name = "Apprentice", Price = 149.00, PointGain = 15, Description = "Apprentice", ImageSource = "ProductList_200x150 (2).png", Category = new CategoryDTO() { Id = 4, Name = "gaveaesker", ParentCategory = new CategoryDTO() { Id = 1, Name = "dufte"} }
+                   Id = 5, Name = "Apprentice", Price = 149.00, PointGain = 15, Description = "Apprentice", ImageSource = "ProductList_200x150 (2).png", Category = new CategoryDTO() { Id = 4, Name = "Gaveaesker", ParentCategory = new CategoryDTO() { Id = 1, Name = "Dufte"} }
                }
             };
 
