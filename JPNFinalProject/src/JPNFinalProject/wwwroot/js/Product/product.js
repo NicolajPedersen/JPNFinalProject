@@ -14,8 +14,6 @@
     //    }
     //});
 
-    $(".selectedheader").val(window.location.pathname);
-
     function addToBasket() {
         console.log(productId);
         $.ajax({
