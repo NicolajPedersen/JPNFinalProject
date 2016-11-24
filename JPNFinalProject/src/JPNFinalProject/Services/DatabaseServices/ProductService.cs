@@ -1,6 +1,7 @@
 ﻿using JPNFinalProject.Data.DatabaseBrokers;
 using JPNFinalProject.Data.DatabaseModels;
 using JPNFinalProject.Data.DTO;
+using JPNFinalProject.Services.DBModelsMappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +18,14 @@ namespace JPNFinalProject.Services.DatabaseServices
         }
         public List<ProductDTO> GetAllProducts()
         {
-            using (var db = new JPNFinalProjectContext())
-            {
-                var temp = db.Product.ToList();
-            }
             var tempList = broker.GetAllProducts();
-            return null;
+            List<ProductDTO> productList = new List<ProductDTO>();
+
+            foreach (var product in tempList)
+            {
+                productList.Add(DBProductMapper.DBProductToProductDTO(product));
+            }
+            return productList;
         }
     }
 }
