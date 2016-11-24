@@ -10,6 +10,6 @@ namespace JPNFinalProject.Data.DTO
         public int Id { get; set; }
         public string Name { get; set; }
         public CategoryDTO ParentCategory { get; set; }
-
+        public string ProductText { get; internal set; }
     }
 }
