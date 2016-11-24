@@ -8,6 +8,7 @@ using JPNFinalProject.Data.DTO;
 using JPNFinalProject.Services;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
+using JPNFinalProject.Services.DatabaseServices;
 
 namespace JPNFinalProject.Controllers
 {
@@ -15,9 +16,11 @@ namespace JPNFinalProject.Controllers
     {
         public static List<ProductDTO> productList;
         private SessionContainer _sessionContainer;
+        private ProductService _productService;
 
         public ProductController()
         {
+            _productService = new ProductService();
             productList = new List<ProductDTO>()
             {
                new ProductDTO()
@@ -49,6 +52,7 @@ namespace JPNFinalProject.Controllers
 
         public IActionResult Index()
         {
+            var temp = _productService.GetAllProducts();
             var model = new ProductViewModel();
             model.ActiveCategory = "index";
             foreach (var product in productList)
