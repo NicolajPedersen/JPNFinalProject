@@ -80,6 +80,7 @@ namespace JPNFinalProject.Controllers
                     if (!model.MainCategoryList.Select(x => x.Id).Contains(product.Category.ParentCategory.Id) && product.Category.ParentCategory.ParentCategory == null)
                     {
                         model.MainCategoryList.Add(product.Category.ParentCategory);
+                        model.ProductText = product.Category.ParentCategory.ProductText;
                     }
                     model.SubCategoryList.Add(product.Category);
                 }
@@ -127,7 +128,7 @@ namespace JPNFinalProject.Controllers
 
             }
             //Skal fås fra db
-            model.ProductText = "Barberkost og kniv, skraber og gelé – en kær barbering har mange faconer. Uanset om du er til retro-metoden eller mere moderne værktøjer, er det vigtigt, at du bruger de rigtige redskaber. En god barbering er nemlig et must for en hver mand.Et skarpt blad, en fugtet hud og et blødgjort skæg er essentiel for din skægpleje. \nPå matas.dk finder du flere forskellige produkter til skægpleje; fx skægbalsam, skægolie, barberblade, trimmere m.m. En god skægpleje holder dit skæg i god form.Læs også artiklen barberingsguide og få et perfekt skæg.";
+            //model.ProductText = "Barberkost og kniv, skraber og gelé – en kær barbering har mange faconer. Uanset om du er til retro-metoden eller mere moderne værktøjer, er det vigtigt, at du bruger de rigtige redskaber. En god barbering er nemlig et must for en hver mand.Et skarpt blad, en fugtet hud og et blødgjort skæg er essentiel for din skægpleje. På matas.dk finder du flere forskellige produkter til skægpleje; fx skægbalsam, skægolie, barberblade, trimmere m.m. En god skægpleje holder dit skæg i god form. Læs også artiklen barberingsguide og få et perfekt skæg.";
 
             return View("index", model);
         }
