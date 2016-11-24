@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace JPNFinalProject.Data.DatabaseBrokers
 {
-    public class Class
+    public static class ProductBroker
     {
     }
 }

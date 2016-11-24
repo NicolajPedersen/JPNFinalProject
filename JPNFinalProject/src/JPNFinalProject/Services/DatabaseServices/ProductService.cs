@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace JPNFinalProject.Services.DatabaseServices
 {
-    public class Class
+    public class ProductService
     {
     }
 }
