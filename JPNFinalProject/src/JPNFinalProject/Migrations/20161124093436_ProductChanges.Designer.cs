@@ -5,12 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using JPNFinalProject.Data.DatabaseModels;
 
-namespace JPNFinalProject.Data.Migrations
+namespace JPNFinalProject.Migrations
 {
     [DbContext(typeof(JPNFinalProjectContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20161124093436_ProductChanges")]
+    partial class ProductChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
