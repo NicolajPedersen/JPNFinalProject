@@ -31,7 +31,7 @@
                 <div class="panel">
                     <li>
                         <h4>
-                            <a id="@category.Id" data-toggle="collapse" data-parent="#accordion" href="#@category.Name">@category.Name</a>
+                            <a id="@category.Id" data-toggle="collapse" data-parent="#accordion" href="/Product/mainCategory/@category.Name" data-target="#@category.Name">@category.Name</a>
                         </h4>
                     </li>
                     @if (Model.ActiveCategory == category.Name)
