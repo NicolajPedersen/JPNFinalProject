@@ -10,9 +10,10 @@ namespace JPNFinalProject.Controllers
     public class HomeController : Controller
     {
         private JPNFinalProjectContext _dbContext;
-        public HomeController(JPNFinalProjectContext context) {
+        public HomeController(JPNFinalProjectContext context)
+        {
             _dbContext = context;
-            
+
         }
         public IActionResult Index()
         {

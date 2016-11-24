@@ -5,6 +5,12 @@ namespace JPNFinalProject.Data.DatabaseModels
 {
     public partial class Product
     {
+        public Product()
+        {
+            BusinessProduct = new HashSet<BusinessProduct>();
+            OrderProduct = new HashSet<OrderProduct>();
+        }
+
         public int ProductId { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
@@ -15,6 +21,8 @@ namespace JPNFinalProject.Data.DatabaseModels
         public int Business { get; set; }
         public DateTimeOffset DeliveryTime { get; set; }
 
+        public virtual ICollection<BusinessProduct> BusinessProduct { get; set; }
+        public virtual ICollection<OrderProduct> OrderProduct { get; set; }
         public virtual ProductCategory ProductCategory { get; set; }
     }
 }
