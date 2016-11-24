@@ -20,6 +20,7 @@ namespace JPNFinalProject.Data.DatabaseModels
         public int Amount { get; set; }
         public int Business { get; set; }
         public DateTimeOffset DeliveryTime { get; set; }
+        public string ImagePath { get; set; }
 
         public virtual ICollection<BusinessProduct> BusinessProduct { get; set; }
         public virtual ICollection<OrderProduct> OrderProduct { get; set; }
