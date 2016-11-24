@@ -151,5 +151,15 @@ namespace JPNFinalProject.Controllers
 
             return View(model);
         }
+        //[HttpGet]
+        //public IActionResult Payment(int id)
+        //{
+        //    //var x = new PaymentViewModel() { }
+        //    //var order = ´service.getorder(id)
+        //    //get stuff from db
+
+
+        //    return View("Payment", x);
+        //}
     }
 }

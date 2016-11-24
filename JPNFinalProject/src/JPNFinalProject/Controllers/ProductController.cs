@@ -22,19 +22,23 @@ namespace JPNFinalProject.Controllers
             {
                new ProductDTO()
                {
-                   Id = 1, Name = "Remington HC5600 E51 Pro Power Hair Clipper", Price = 300.00, PointGain = 30, Description = "Remington HC5600 E51 Pro Power Hair Clipper", ImageSource = "ProductList_200x150.png", mainCategory = "barbering", subCategory = "haarklippere"
+                   Id = 1, Name = "Remington HC5600 E51 Pro Power Hair Clipper", Price = 300.00, PointGain = 30, Description = "Remington HC5600 E51 Pro Power Hair Clipper", ImageSource = "ProductList_200x150.png", Category = new CategoryDTO() { Id = 2, Name = "haarklippere", ParentCategory = new CategoryDTO() { Id = 0, Name = "barbering" } }
                },
                new ProductDTO()
                {
-                   Id = 2, Name = "Remington Pro Power Hårklipper HC5200", Price = 249.00, PointGain = 25, Amount = 0, Description = "Remington Pro Power Hårklipper HC5200", ImageSource = "ProductList_200x150 (1).png", mainCategory = "barbering", subCategory = "haarklippere"
+                   Id = 2, Name = "Remington Pro Power Hårklipper HC5200", Price = 249.00, PointGain = 25, Amount = 0, Description = "Remington Pro Power Hårklipper HC5200", ImageSource = "ProductList_200x150 (1).png", Category = new CategoryDTO() { Id = 2, Name = "haarklippere", ParentCategory = new CategoryDTO() { Id = 0, Name = "barbering" } }
                },
                new ProductDTO()
                {
-                   Id = 3, Name = "Remington Apprentice Hårklipper", Price = 199.00, PointGain = 20, Description = "Remington Apprentice Hårklipper", ImageSource = "ProductList_200x150 (2).png", mainCategory = "barbering", subCategory = "haarklippere"
+                   Id = 3, Name = "Remington Apprentice Hårklipper", Price = 199.00, PointGain = 20, Description = "Remington Apprentice Hårklipper", ImageSource = "ProductList_200x150 (2).png", Category = new CategoryDTO() { Id = 2, Name = "haarklippere", ParentCategory = new CategoryDTO() { Id = 0, Name = "barbering" } }
                },
                new ProductDTO()
                {
-                   Id = 4, Name = "Remington Apprentice", Price = 149.00, PointGain = 15, Description = "Remington Apprentice", ImageSource = "ProductList_200x150 (2).png", mainCategory = "barbering", subCategory = "skrabere"
+                   Id = 4, Name = "Remington Apprentice", Price = 149.00, PointGain = 15, Description = "Remington Apprentice", ImageSource = "ProductList_200x150 (2).png", Category = new CategoryDTO() { Id = 3, Name = "skrabere", ParentCategory = new CategoryDTO() { Id = 0, Name = "barbering" } }
+               },
+               new ProductDTO()
+               {
+                   Id = 5, Name = "Apprentice", Price = 149.00, PointGain = 15, Description = "Apprentice", ImageSource = "ProductList_200x150 (2).png", Category = new CategoryDTO() { Id = 4, Name = "gaveaesker", ParentCategory = new CategoryDTO() { Id = 1, Name = "dufte"} }
                }
             };
 
@@ -46,41 +50,85 @@ namespace JPNFinalProject.Controllers
         public IActionResult Index()
         {
             var model = new ProductViewModel();
-            //model.ProductList = productList;
+            model.ActiveCategory = "index";
+            foreach (var product in productList)
+            {
+                if(!model.SubCategoryList.Select(x => x.Id).Contains(product.Category.Id) && product.Category.ParentCategory != null)
+                {
+                    if(!model.MainCategoryList.Select(x => x.Id).Contains(product.Category.ParentCategory.Id) && product.Category.ParentCategory.ParentCategory == null)
+                    {
+                        model.MainCategoryList.Add(product.Category.ParentCategory);
+                    }
+                    model.SubCategoryList.Add(product.Category);
+                }
+                if (!model.MainCategoryList.Select(x => x.Id).Contains(product.Category.Id) && product.Category.ParentCategory == null)
+                {
+                    model.MainCategoryList.Add(product.Category);
+                }
+            }
             return View(model);
         }
 
-        public IActionResult barbering(string subCategory, string subsubCategory)
+        public IActionResult MainCategory(string mainCategory, string subCategory, string subsubCategory)
         {
             var model = new ProductViewModel();
-            if(subCategory != null)
+            model.ActiveCategory = mainCategory;
+            foreach (var product in productList)
+            {
+                if (!model.SubCategoryList.Select(x => x.Id).Contains(product.Category.Id) && product.Category.ParentCategory != null)
+                {
+                    if (!model.MainCategoryList.Select(x => x.Id).Contains(product.Category.ParentCategory.Id) && product.Category.ParentCategory.ParentCategory == null)
+                    {
+                        model.MainCategoryList.Add(product.Category.ParentCategory);
+                    }
+                    model.SubCategoryList.Add(product.Category);
+                }
+                if (!model.MainCategoryList.Select(x => x.Id).Contains(product.Category.Id) && product.Category.ParentCategory == null)
+                {
+                    model.MainCategoryList.Add(product.Category);
+                }
+            }
+
+            if (subCategory != null)
             {
                 if(subsubCategory != null)
                 {
                     foreach (var product in productList)
                     {
-                        if (product.subsubCategory == subsubCategory)
+                        if (product.Category.Name == subsubCategory && product.Category.ParentCategory != null && product.Category.ParentCategory.ParentCategory != null)
                         {
                             model.ProductList.Add(product);
                         }
+
                     }
                 }
                 else
                 {
                     foreach (var product in productList)
                     {
-                        if (product.subCategory == subCategory)
+                        if (product.Category.Name == subCategory && product.Category.ParentCategory != null)
                         {
                             model.ProductList.Add(product);
                         }
+
                     }
                 }
 
             }
             else
             {
-                model.ProductList = productList;
+                foreach (var product in productList)
+                {
+                    if (product.Category.ParentCategory != null && product.Category.ParentCategory.Name == mainCategory && !model.ProductList.Select(x => x.Id).Contains(product.Id))
+                    {
+                        model.ProductList.Add(product);
+                    }
+                }
+
             }
+            //Skal fås fra db
+            model.ProductText = "Barberkost og kniv, skraber og gelé – en kær barbering har mange faconer. Uanset om du er til retro-metoden eller mere moderne værktøjer, er det vigtigt, at du bruger de rigtige redskaber. En god barbering er nemlig et must for en hver mand.Et skarpt blad, en fugtet hud og et blødgjort skæg er essentiel for din skægpleje. \nPå matas.dk finder du flere forskellige produkter til skægpleje; fx skægbalsam, skægolie, barberblade, trimmere m.m. En god skægpleje holder dit skæg i god form.Læs også artiklen barberingsguide og få et perfekt skæg.";
+
             return View("index", model);
         }
 
