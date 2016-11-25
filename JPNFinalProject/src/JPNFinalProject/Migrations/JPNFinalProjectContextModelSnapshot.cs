@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using JPNFinalProject.Data.DatabaseModels;
 
-namespace JPNFinalProject.Data.Migrations
+namespace JPNFinalProject.Migrations
 {
     [DbContext(typeof(JPNFinalProjectContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    partial class JPNFinalProjectContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -248,13 +248,15 @@ namespace JPNFinalProject.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.Property<int?>("ParentProductCategoryId");
+                    b.Property<int?>("Parent");
+
+                    b.Property<int?>("ProductCategoryId1");
 
                     b.Property<string>("ProductText");
 
                     b.HasKey("ProductCategoryId");
 
-                    b.HasIndex("ParentProductCategoryId");
+                    b.HasIndex("ProductCategoryId1");
 
                     b.ToTable("ProductCategory");
                 });
@@ -332,9 +334,9 @@ namespace JPNFinalProject.Data.Migrations
 
             modelBuilder.Entity("JPNFinalProject.Data.DatabaseModels.ProductCategory", b =>
                 {
-                    b.HasOne("JPNFinalProject.Data.DatabaseModels.ProductCategory", "Parent")
-                        .WithMany()
-                        .HasForeignKey("ParentProductCategoryId");
+                    b.HasOne("JPNFinalProject.Data.DatabaseModels.ProductCategory")
+                        .WithMany("Category")
+                        .HasForeignKey("ProductCategoryId1");
                 });
         }
     }
