@@ -248,11 +248,13 @@ namespace JPNFinalProject.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.Property<int?>("Parent");
+                    b.Property<int?>("ParentProductCategoryId");
 
                     b.Property<string>("ProductText");
 
                     b.HasKey("ProductCategoryId");
+
+                    b.HasIndex("ParentProductCategoryId");
 
                     b.ToTable("ProductCategory");
                 });
@@ -326,6 +328,13 @@ namespace JPNFinalProject.Data.Migrations
                         .WithMany("Product")
                         .HasForeignKey("ProductCategoryId")
                         .HasConstraintName("FK__Product__Product__3C34F16F");
+                });
+
+            modelBuilder.Entity("JPNFinalProject.Data.DatabaseModels.ProductCategory", b =>
+                {
+                    b.HasOne("JPNFinalProject.Data.DatabaseModels.ProductCategory", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentProductCategoryId");
                 });
         }
     }

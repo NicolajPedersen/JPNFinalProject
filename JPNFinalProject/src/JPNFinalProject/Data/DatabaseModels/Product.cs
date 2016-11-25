@@ -9,6 +9,7 @@ namespace JPNFinalProject.Data.DatabaseModels
         {
             BusinessProduct = new HashSet<BusinessProduct>();
             OrderProduct = new HashSet<OrderProduct>();
+            ProductCategory = new ProductCategory();
         }
 
         public int ProductId { get; set; }
