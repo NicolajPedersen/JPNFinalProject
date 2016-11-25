@@ -10,8 +10,14 @@ namespace JPNFinalProject.Services.DBModelsMappers
     public static class BusinessMapper
     {
         public static BusinessDTO BusinessToBusinessDTO(Business input) {
-            BusinessDTO dto = new BusinessDTO();
-            return dto;
+            return new BusinessDTO() {
+                Id = input.BusinessId,
+                Name = input.Name,
+                Address = AddressMapper.AddressToAddressDTO(input.Address),
+                Phone = input.Phone,
+                Email = input.Email,
+                OperationalHour = input.OperationalHour
+            };
         }
     }
 }

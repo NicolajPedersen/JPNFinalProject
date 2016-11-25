@@ -11,8 +11,8 @@ namespace JPNFinalProject.Services.DatabaseServices
     public class OrderService
     {
         private OrderBroker _broker;
-        public OrderService(OrderBroker broker) {
-            _broker = broker;
+        public OrderService() {
+            _broker = new OrderBroker();
         }
 
         public BusinessDTO GetBusinessById(int id) {
