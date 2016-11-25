@@ -8,6 +8,7 @@ namespace JPNFinalProject.Data.DatabaseModels
         public ProductCategory()
         {
             Product = new HashSet<Product>();
+            Category = new HashSet<ProductCategory>();
         }
 
         public int ProductCategoryId { get; set; }
@@ -16,5 +17,6 @@ namespace JPNFinalProject.Data.DatabaseModels
         public string ProductText { get; set; }
 
         public virtual ICollection<Product> Product { get; set; }
+        public virtual ICollection<ProductCategory> Category { get; set; }
     }
 }

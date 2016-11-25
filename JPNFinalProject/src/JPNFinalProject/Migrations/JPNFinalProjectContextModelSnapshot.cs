@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using JPNFinalProject.Data.DatabaseModels;
 
-namespace JPNFinalProject.Data.Migrations
+namespace JPNFinalProject.Migrations
 {
     [DbContext(typeof(JPNFinalProjectContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    partial class JPNFinalProjectContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -250,9 +250,13 @@ namespace JPNFinalProject.Data.Migrations
 
                     b.Property<int?>("Parent");
 
+                    b.Property<int?>("ProductCategoryId1");
+
                     b.Property<string>("ProductText");
 
                     b.HasKey("ProductCategoryId");
+
+                    b.HasIndex("ProductCategoryId1");
 
                     b.ToTable("ProductCategory");
                 });
@@ -326,6 +330,13 @@ namespace JPNFinalProject.Data.Migrations
                         .WithMany("Product")
                         .HasForeignKey("ProductCategoryId")
                         .HasConstraintName("FK__Product__Product__3C34F16F");
+                });
+
+            modelBuilder.Entity("JPNFinalProject.Data.DatabaseModels.ProductCategory", b =>
+                {
+                    b.HasOne("JPNFinalProject.Data.DatabaseModels.ProductCategory")
+                        .WithMany("Category")
+                        .HasForeignKey("ProductCategoryId1");
                 });
         }
     }
