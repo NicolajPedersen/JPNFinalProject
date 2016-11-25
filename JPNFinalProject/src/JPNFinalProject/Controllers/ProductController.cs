@@ -52,7 +52,8 @@ namespace JPNFinalProject.Controllers
 
         public IActionResult Index()
         {
-            var temp = _productService.GetAllProducts();
+            var tempCategories = _productService.GetAllCategories();
+            //var tempProducts = _productService.GetAllProducts();
             var model = new ProductViewModel();
             model.ActiveCategory = "index";
             foreach (var product in productList)

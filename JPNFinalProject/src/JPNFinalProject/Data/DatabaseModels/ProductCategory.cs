@@ -9,13 +9,12 @@ namespace JPNFinalProject.Data.DatabaseModels
         public ProductCategory()
         {
             Product = new HashSet<Product>();
-
         }
 
         public int ProductCategoryId { get; set; }
         public string Name { get; set; }
         [ForeignKey("ParentProductCategory")]
-        public int? ParentProductCategoryID { get; set; }
+        public int? Parent { get; set; }
         public string ProductText { get; set; }
 
         public virtual ICollection<Product> Product { get; set; }
