@@ -8,8 +8,8 @@ using JPNFinalProject.Data.DatabaseModels;
 namespace JPNFinalProject.Migrations
 {
     [DbContext(typeof(JPNFinalProjectContext))]
-    [Migration("20161125093104_Productcategoryforeign")]
-    partial class Productcategoryforeign
+    [Migration("20161125101230_productcategory7")]
+    partial class productcategory7
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -249,15 +249,13 @@ namespace JPNFinalProject.Migrations
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.Property<int?>("Parent");
-
-                    b.Property<int?>("ProductCategoryId1");
+                    b.Property<int?>("ParentProductCategoryID");
 
                     b.Property<string>("ProductText");
 
                     b.HasKey("ProductCategoryId");
 
-                    b.HasIndex("ProductCategoryId1");
+                    b.HasIndex("ParentProductCategoryID");
 
                     b.ToTable("ProductCategory");
                 });
@@ -335,9 +333,9 @@ namespace JPNFinalProject.Migrations
 
             modelBuilder.Entity("JPNFinalProject.Data.DatabaseModels.ProductCategory", b =>
                 {
-                    b.HasOne("JPNFinalProject.Data.DatabaseModels.ProductCategory")
-                        .WithMany("Category")
-                        .HasForeignKey("ProductCategoryId1");
+                    b.HasOne("JPNFinalProject.Data.DatabaseModels.ProductCategory", "ParentProductCategory")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentProductCategoryID");
                 });
         }
     }

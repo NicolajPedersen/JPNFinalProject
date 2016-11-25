@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JPNFinalProject.Data.DatabaseModels
 {
@@ -8,15 +9,18 @@ namespace JPNFinalProject.Data.DatabaseModels
         public ProductCategory()
         {
             Product = new HashSet<Product>();
-            Category = new HashSet<ProductCategory>();
+
         }
 
         public int ProductCategoryId { get; set; }
         public string Name { get; set; }
-        public int? Parent { get; set; }
+        [ForeignKey("ParentProductCategory")]
+        public int? ParentProductCategoryID { get; set; }
         public string ProductText { get; set; }
 
         public virtual ICollection<Product> Product { get; set; }
-        public virtual ICollection<ProductCategory> Category { get; set; }
+        public virtual ProductCategory ParentProductCategory { get; set; }
+        public virtual ICollection<ProductCategory> Children { get; set; }
+
     }
 }
