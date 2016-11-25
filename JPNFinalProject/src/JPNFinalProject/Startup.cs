@@ -45,7 +45,14 @@ namespace JPNFinalProject
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(@"Server=dev-db02\sql2016;Initial Catalog=JPNFinalProject;User ID=JPNFinalProject;Password=JPNFinalProject2016;"));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(x =>
+            {
+                x.Password.RequiredLength = 4;
+                x.Password.RequireUppercase = false;
+                x.Password.RequireLowercase = false;
+                x.Password.RequireNonAlphanumeric = false;
+                x.Password.RequireDigit = false;
+            })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 

@@ -8,6 +8,7 @@ using JPNFinalProject.Data.DTO;
 using JPNFinalProject.Services;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using JPNFinalProject.Services.DatabaseServices;
 
 namespace JPNFinalProject.Controllers
 {
@@ -15,9 +16,11 @@ namespace JPNFinalProject.Controllers
     {
         //https://docs.microsoft.com/en-us/ef/core/get-started/aspnetcore/existing-db //Sådan benytter du dig af Entity Framework - Existing Database
         private SessionContainer _sessionContainer;
+        private OrderService _orderService;
 
         public OrderController() {
             _sessionContainer = new SessionContainer();
+            _orderService = new OrderService();
         }
 
         public IActionResult Index()
@@ -53,6 +56,8 @@ namespace JPNFinalProject.Controllers
             OverviewViewModel model = new OverviewViewModel();
 
             if (_sessionContainer.BasketCount(HttpContext, "basket") != 0) {
+                var business = 
+
                 model.Order = new OrderDTO() {
                     Id = 1,
                     OrderNumber = 12345,
@@ -73,20 +78,7 @@ namespace JPNFinalProject.Controllers
                             Country = "Test Country"
                         }
                     },
-                    Business = new BusinessDTO() {
-                        Id = 1,
-                        Name = "Matas",
-                        Address = new AddressDTO() {
-                            Id = 2,
-                            Address = "Test 2",
-                            ZipCode = "2222",
-                            City = "Test City",
-                            Country = "Test Country"
-                        },
-                        Phone = "23456789",
-                        Email = "test2@test2.com",
-                        OperationalHour = ""
-                    }
+                    Business = _orderService.GetBusinessById(Convert.ToInt32(delivery.ParcelPickup))
                 };
                 model.Order.Products = _sessionContainer.GetBasket(HttpContext, "basket");
             }
