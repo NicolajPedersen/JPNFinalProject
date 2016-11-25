@@ -53,6 +53,8 @@ namespace JPNFinalProject.Controllers
             OverviewViewModel model = new OverviewViewModel();
 
             if (_sessionContainer.BasketCount(HttpContext, "basket") != 0) {
+                var business = 
+
                 model.Order = new OrderDTO() {
                     Id = 1,
                     OrderNumber = 12345,
