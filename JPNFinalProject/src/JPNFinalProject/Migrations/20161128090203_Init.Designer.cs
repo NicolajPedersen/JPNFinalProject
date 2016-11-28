@@ -8,8 +8,8 @@ using JPNFinalProject.Data.DatabaseModels;
 namespace JPNFinalProject.Migrations
 {
     [DbContext(typeof(JPNFinalProjectContext))]
-    [Migration("20161125101230_productcategory7")]
-    partial class productcategory7
+    [Migration("20161128090203_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -209,8 +209,6 @@ namespace JPNFinalProject.Migrations
 
                     b.Property<int>("Amount");
 
-                    b.Property<int>("Business");
-
                     b.Property<DateTimeOffset>("DeliveryTime");
 
                     b.Property<string>("Description")
@@ -229,12 +227,12 @@ namespace JPNFinalProject.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal");
 
-                    b.Property<int>("ProductCategoryId")
+                    b.Property<int>("ProductCategoryID")
                         .HasColumnName("ProductCategoryID");
 
                     b.HasKey("ProductId");
 
-                    b.HasIndex("ProductCategoryId");
+                    b.HasIndex("ProductCategoryID");
 
                     b.ToTable("Product");
                 });
@@ -249,13 +247,13 @@ namespace JPNFinalProject.Migrations
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.Property<int?>("ParentProductCategoryID");
+                    b.Property<int?>("ParentID");
 
                     b.Property<string>("ProductText");
 
                     b.HasKey("ProductCategoryId");
 
-                    b.HasIndex("ParentProductCategoryID");
+                    b.HasIndex("ParentID");
 
                     b.ToTable("ProductCategory");
                 });
@@ -327,7 +325,7 @@ namespace JPNFinalProject.Migrations
                 {
                     b.HasOne("JPNFinalProject.Data.DatabaseModels.ProductCategory", "ProductCategory")
                         .WithMany("Product")
-                        .HasForeignKey("ProductCategoryId")
+                        .HasForeignKey("ProductCategoryID")
                         .HasConstraintName("FK__Product__Product__3C34F16F");
                 });
 
@@ -335,7 +333,7 @@ namespace JPNFinalProject.Migrations
                 {
                     b.HasOne("JPNFinalProject.Data.DatabaseModels.ProductCategory", "ParentProductCategory")
                         .WithMany("Children")
-                        .HasForeignKey("ParentProductCategoryID");
+                        .HasForeignKey("ParentID");
                 });
         }
     }
