@@ -64,15 +64,8 @@ namespace JPNFinalProject.Services
 
         public int BasketCount(HttpContext context, string key) {
             try {
-                //List<int> ids = new List<int>();
                 var item = context.Session.GetString(key);
                 List<int> productIds = JsonConvert.DeserializeObject<List<int>>(item);
-                //foreach(var i in productIds) {
-                //    if(ids.Contains(i) == false) {
-                //        ids.Add(i);
-                //    }
-                //}
-                //return ids.Count();
 
                 return productIds.Count();
             }
@@ -106,6 +99,37 @@ namespace JPNFinalProject.Services
             }
             catch {
 
+            }
+        }
+
+        public void AddOrderToSession(HttpContext context, string key, OrderDTO value) {
+            try {
+                var item = context.Session.GetString(key);
+                List<OrderDTO> order = JsonConvert.DeserializeObject<List<OrderDTO>>(item);
+                order.Add(value);
+                context.Session.SetString(key, JsonConvert.SerializeObject(order));
+            }
+            catch {
+                List<OrderDTO> order = new List<OrderDTO>();
+                order.Add(value);
+                context.Session.SetString(key, JsonConvert.SerializeObject(order));
+            }
+        }
+
+        public OrderDTO GetOrderFromSessionById(HttpContext context, string key, int value) {
+            try {
+                var item = context.Session.GetString(key);
+                List<OrderDTO> orders = JsonConvert.DeserializeObject<List<OrderDTO>>(item);
+                OrderDTO order = new OrderDTO();
+                foreach (var o in orders) {
+                    if(o.Id == value) {
+                        order = o;
+                    }
+                }
+                return order;
+            }
+            catch {
+                return null;
             }
         }
     }

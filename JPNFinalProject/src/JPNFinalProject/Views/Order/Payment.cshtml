@@ -1,4 +1,4 @@
-﻿@model JPNFinalProject.Models.OrderViewModels.OverviewViewModel
+﻿@model JPNFinalProject.Models.OrderViewModels.PaymentViewModel
 @{
     ViewData["Title"] = "Payment";
 }
@@ -7,19 +7,57 @@
     <link rel="stylesheet" href="~/css/Order/payment.css" />
 }
 
-<div class="col-xs-10">
+<div class="row">
     <div id="index" class="row">
         <ul class="list-inline">
             <li>Indkøbskurv</li>
             <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
             <li>Fakturering og levering</li>
             <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
-            <li><b>Oversigt</b></li>
+            <li>Oversigt</li>
             <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></li>
-            <li>Betaling</li>
+            <li><b>Betaling</b></li>
         </ul>
     </div>
-
 </div>
 
- 
+<div id="subject" class="row">
+    <h3><b>Betaling</b></h3>
+</div>
+
+<hr />
+
+<div id="subject" class="row">
+    <div class="col-xs-6">
+        <p>Ordrenummer:</p>
+    </div>
+    <div class="col-xs-6">
+        <p>@Model.OrderNumber</p>
+    </div>
+    <div class="col-xs-6">
+        <p>Beløb, kr i alt:</p>
+    </div>
+    <div class="col-xs-6">
+        <p>@Model.TotalAmount</p>
+    </div>
+</div>
+
+<hr />
+
+<div id="payment" class="row">
+    <div class="col-xs-2 col-xs-offset-4">
+        <p>Kortnummer</p>
+        <input type="text" class="input-sm form-control" />
+    </div>
+    <div class="col-xs-1">
+        <p>CVC</p>
+        <input type="text" class="input-sm form-control" />
+    </div>
+</div>
+<div id="buttons" class="row">
+    <div class="col-xs-2 col-xs-offset-5">
+        <button type="button" class="btn btn-sm">Afbryd</button>
+        <button type="button" class="btn btn-sm">Betal</button>
+    </div>
+    
+</div>

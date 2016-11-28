@@ -9,6 +9,7 @@ using JPNFinalProject.Services;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using JPNFinalProject.Services.DatabaseServices;
+using JPNFinalProject.Models.ViewModelsMappers;
 
 namespace JPNFinalProject.Controllers
 {
@@ -53,49 +54,41 @@ namespace JPNFinalProject.Controllers
 
         [HttpGet]
         public IActionResult Overview(DeliveryViewModel delivery) {
-            OverviewViewModel model = new OverviewViewModel();
-
             if (_sessionContainer.BasketCount(HttpContext, "basket") != 0) {
-                var business = 
-
-                model.Order = new OrderDTO() {
+                var model = OverviewViewModelMapper.DeliveryViewModelToOverviewViewModel(delivery);
+                //model.Order.Business = _orderService.GetBusinessById(Convert.ToInt32(delivery.ParcelPickup));
+                model.Order.Business = new BusinessDTO() {
                     Id = 1,
-                    OrderNumber = 12345,
-                    CustomerMail = "",
-                    Person = new PersonDTO() {
-                        Id = 1,
-                        FirstName = delivery.Name,
-                        LastName = delivery.Name,
-                        Email = delivery.Email,
-                        Password = "",
-                        Phone = delivery.Phone,
-                        Type = "",
-                        Address = new AddressDTO() {
-                            Id = 1,
-                            Address = delivery.Street,
-                            ZipCode = delivery.Zip,
-                            City = delivery.City,
-                            Country = "Test Country"
-                        }
+                    Name = "Matas",
+                    Address = new AddressDTO() {
+                        Id = 2,
+                        Address = "Test 2",
+                        ZipCode = "2222",
+                        City = "Test City",
+                        Country = "Test Country"
                     },
-                    Business = _orderService.GetBusinessById(Convert.ToInt32(delivery.ParcelPickup))
+                    Phone = "23456789",
+                    Email = "test2@test2.com",
+                    OperationalHour = ""
                 };
                 model.Order.Products = _sessionContainer.GetBasket(HttpContext, "basket");
+
+                model.Subtotal = model.Order.Products.Select(x => x.Price).Sum();
+                model.VATFromPrice = (model.Subtotal / 100) * 25;
+                model.PriceWithVAT = model.Subtotal + model.VATFromPrice;
+
+                _sessionContainer.AddOrderToSession(HttpContext, "order", model.Order);
+                return View(model);
             }
             else {
+                OverviewViewModel model = new OverviewViewModel();
                 model.Order = new OrderDTO() {
                     Person = new PersonDTO() { Address = new AddressDTO() },
                     Business = new BusinessDTO() { Address = new AddressDTO() }
                 };
                 model.Order.Products = new List<ProductDTO>();
+                return View(model);
             }
-
-            model.Subtotal = model.Order.Products.Select(x => x.Price).Sum();
-            model.VATFromPrice = (model.Subtotal / 100) * 25;
-            model.PriceWithVAT = model.Subtotal + model.VATFromPrice;
-            model.Order.Products = new List<ProductDTO>();
-
-            return View(model);
         }
 
         [HttpGet]
@@ -145,15 +138,19 @@ namespace JPNFinalProject.Controllers
 
             return View(model);
         }
-        //[HttpGet]
-        //public IActionResult Payment(int id)
-        //{
-        //    //var x = new PaymentViewModel() { }
-        //    //var order = ´service.getorder(id)
-        //    //get stuff from db
 
+        [HttpGet]
+        public IActionResult Payment(int id) {
+            PaymentViewModel model = new PaymentViewModel();
+            //var order = _sessionContainer.GetOrderFromSessionById(HttpContext, "order", id);
+            //var Subtotal = order.Products.Select(x => x.Price).Sum();
+            //var VATFromPrice = (Subtotal / 100) * 25;
+            //var PriceWithVAT = Subtotal + VATFromPrice;
 
-        //    return View("Payment", x);
-        //}
+            //model.OrderNumber = order.OrderNumber.ToString();
+            //model.TotalAmount = PriceWithVAT;
+
+            return View(model);
+        }
     }
 }
