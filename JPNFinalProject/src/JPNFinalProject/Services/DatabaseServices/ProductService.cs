@@ -33,7 +33,12 @@ namespace JPNFinalProject.Services.DatabaseServices
         {
             var tempList = broker.GetAllCategories();
 
+            List<CategoryDTO> list = new List<CategoryDTO>();
 
+            foreach (var category in tempList)
+            {
+                list.Add(CategoryMapper.DBCategoryToCategoryDTO(category));
+            }
 
             return null;
         }
