@@ -8,6 +8,6 @@ namespace JPNFinalProject.Models.OrderViewModels
     public class PaymentViewModel
     {
         public string OrderNumber { get; set; }
-        public decimal TotalAmount { get; set; }
+        public double TotalAmount { get; set; }
     }
 }

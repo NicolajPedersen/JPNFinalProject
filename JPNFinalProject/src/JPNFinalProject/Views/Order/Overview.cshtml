@@ -115,7 +115,8 @@
                 <input id="conditions" type="checkbox" style="display: inline-block" asp-for="IAcceptTheConditions" /> <p style="display: inline-block;">Jeg accepterer handelsbetingelserne</p>
             </div>
             <div class="col-xs-12" style="text-align: center; padding-left: 30px; padding-right: 30px;">
-                <button class="btn btn-success form-control">Godkend og betal</button>
+                @*<button class="btn btn-success form-control">Godkend og betal</button>*@
+                @Html.ActionLink("Godkend og betal", "Payment", "Order", Model.Order.Id, new { @class = "btn btn-success form-control" })
             </div>
         </div>
     </div>
@@ -135,7 +136,8 @@
             <input id="conditions" type="checkbox" style="float: left" asp-for="IAcceptTheConditions" /> <p style="float: left; margin-left: 2px;">Jeg accepterer handelsbetingelserne</p>
         </div>
         <div class="col-xs-12" style="text-align: center;">
-            <button class="btn btn-success">Godkend og betal</button>
+            @*<button class="btn btn-success">Godkend og betal</button>*@
+            @Html.ActionLink("Godkend og betal", "Payment", "Order", Model.Order.Id, new { @class = "btn btn-success" })
         </div>
     </div>
 </div>
