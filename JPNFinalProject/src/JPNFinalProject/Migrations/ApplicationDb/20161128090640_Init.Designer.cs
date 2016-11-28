@@ -8,7 +8,7 @@ using JPNFinalProject.Data;
 namespace JPNFinalProject.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161128090258_Init")]
+    [Migration("20161128090640_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

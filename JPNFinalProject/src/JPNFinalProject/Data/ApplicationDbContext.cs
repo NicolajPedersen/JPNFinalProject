@@ -25,7 +25,7 @@ namespace JPNFinalProject.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-            optionsBuilder.UseSqlServer(@"Data Source = (localdb)\MSSQLLocalDB;Initial Catalog = aspnet - JPNFinalProject - e00bb731 - 75df-4bc5-8cf4-d66ed7be1f5c;Integrated Security = True");
+            optionsBuilder.UseSqlServer(@"Data Source = (localdb)\MSSQLLocalDB;Initial Catalog = aspnet - JPNFinalProject - local;Integrated Security = True");
         }
     }
 }
