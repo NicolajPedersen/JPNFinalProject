@@ -11,5 +11,7 @@ namespace JPNFinalProject.Data.DTO
         public string Name { get; set; }
         public CategoryDTO ParentCategory { get; set; }
         public string ProductText { get; internal set; }
+
+        public List<ProductDTO> Products { get; set; }
     }
 }

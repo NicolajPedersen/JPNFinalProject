@@ -52,7 +52,7 @@ namespace JPNFinalProject.Controllers
 
         public IActionResult Index()
         {
-            var tempCategories = _productService.GetAllCategories();
+            //var tempCategories = _productService.GetAllCategories();
             //var tempProducts = _productService.GetAllProducts();
             var model = new ProductViewModel();
             model.ActiveCategory = "index";
