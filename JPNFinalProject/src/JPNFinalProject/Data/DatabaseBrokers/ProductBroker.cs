@@ -36,5 +36,23 @@ namespace JPNFinalProject.Data.DatabaseBrokers
             }
 
         }
+
+        public virtual void AddProduct(Product input)
+        {
+            using (var context = new JPNFinalProjectContext())
+            {
+                context.Product.Add(input);
+                context.SaveChanges();
+            }
+        }
+
+        public virtual void AddCategory(ProductCategory category)
+        {
+            using (var context = new JPNFinalProjectContext())
+            {
+                context.Add(category);
+                context.SaveChanges();
+            }
+        }
     }
 }
