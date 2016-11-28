@@ -19,14 +19,19 @@ namespace JPNFinalProject.Services.DatabaseServices
         }
         public List<ProductDTO> GetAllProducts()
         {
-            var tempList = broker.GetAllProducts();
+            //var tempList = broker.GetAllProducts();
             List<ProductDTO> productList = new List<ProductDTO>();
 
-            foreach (var product in tempList)
+            var catList = broker.GetAllCategoriesWithProducts();
+
+            foreach (var category in catList)
             {
-                var category = broker.GetCategoryById(product.ProductCategoryID);
-                productList.Add(DBProductMapper.DBProductToProductDTO(product, category));
+                foreach (var product in category.Product)
+                {
+                    productList.Add(DBProductMapper.DBProductToProductDTO(product, category));
+                }
             }
+
             return productList;
         }
 

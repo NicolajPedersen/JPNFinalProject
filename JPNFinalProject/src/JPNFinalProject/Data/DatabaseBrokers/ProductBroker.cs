@@ -25,6 +25,19 @@ namespace JPNFinalProject.Data.DatabaseBrokers
             }
 
         }
+
+        public virtual List<ProductCategory> GetAllCategoriesWithProducts()
+        {
+            using (var context = new JPNFinalProjectContext())
+            {
+                return context.ProductCategory
+                    .Include(x => x.Product)
+                    .Include(x => x.ParentProductCategory)
+                    .Where(x => x.Product.Count != 0)
+                    .ToList();
+            }
+        }
+
         public virtual List<ProductCategory> GetAllCategories()
         {
             using (var context = new JPNFinalProjectContext())

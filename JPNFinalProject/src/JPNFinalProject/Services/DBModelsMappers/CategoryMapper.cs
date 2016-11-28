@@ -16,7 +16,10 @@ namespace JPNFinalProject.Services.DBModelsMappers
             dto.Id = input.ProductCategoryId;
             dto.Name = input.Name;
             dto.ProductText = input.ProductText;
-            //dto.ParentCategory = input.Parent;
+            if(input.ParentProductCategory != null)
+            {
+                dto.ParentCategory = DBCategoryToCategoryDTO(input.ParentProductCategory);
+            }
 
             return dto;
         }

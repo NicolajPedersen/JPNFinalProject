@@ -53,10 +53,10 @@ namespace JPNFinalProject.Controllers
         public IActionResult Index()
         {
             //var tempCategories = _productService.GetAllCategories();
-            //var tempProducts = _productService.GetAllProducts();
+            var tempProducts = _productService.GetAllProducts();
             var model = new ProductViewModel();
             model.ActiveCategory = "index";
-            foreach (var product in productList)
+            foreach (var product in tempProducts)
             {
                 if(!model.SubCategoryList.Select(x => x.Id).Contains(product.Category.Id) && product.Category.ParentCategory != null)
                 {
@@ -76,9 +76,10 @@ namespace JPNFinalProject.Controllers
 
         public IActionResult MainCategory(string mainCategory, string subCategory, string subsubCategory)
         {
+            var tempProducts = _productService.GetAllProducts();
             var model = new ProductViewModel();
             model.ActiveCategory = mainCategory;
-            foreach (var product in productList)
+            foreach (var product in tempProducts)
             {
                 if (!model.SubCategoryList.Select(x => x.Id).Contains(product.Category.Id) && product.Category.ParentCategory != null)
                 {
@@ -99,7 +100,7 @@ namespace JPNFinalProject.Controllers
             {
                 if(subsubCategory != null)
                 {
-                    foreach (var product in productList)
+                    foreach (var product in tempProducts)
                     {
                         if (product.Category.Name == subsubCategory && product.Category.ParentCategory != null && product.Category.ParentCategory.ParentCategory != null)
                         {
@@ -110,7 +111,7 @@ namespace JPNFinalProject.Controllers
                 }
                 else
                 {
-                    foreach (var product in productList)
+                    foreach (var product in tempProducts)
                     {
                         if (product.Category.Name == subCategory && product.Category.ParentCategory != null)
                         {
@@ -123,9 +124,9 @@ namespace JPNFinalProject.Controllers
             }
             else
             {
-                foreach (var product in productList)
+                foreach (var product in tempProducts)
                 {
-                    if (product.Category.ParentCategory != null && product.Category.ParentCategory.Name == mainCategory && !model.ProductList.Select(x => x.Id).Contains(product.Id))
+                    if ((product.Category.ParentCategory != null && product.Category.ParentCategory.Name == mainCategory) || product.Category.Name == mainCategory && !model.ProductList.Select(x => x.Id).Contains(product.Id))
                     {
                         model.ProductList.Add(product);
                     }

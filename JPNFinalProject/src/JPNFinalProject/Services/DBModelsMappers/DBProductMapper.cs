@@ -14,13 +14,14 @@ namespace JPNFinalProject.Services.DBModelsMappers
             ProductDTO dto = new ProductDTO();
             dto.Id = input.ProductId;
             dto.Name = input.Name;
+            dto.Amount = input.Amount;
             dto.Price = Convert.ToDouble(input.Price);
-            dto.PointGain = 25; //Dette skal udregnes fra pris. 1 point pr 10 kr.
             dto.Description = input.Description;
             dto.ImageSource = input.ImagePath;
-            //dto.Category = input.ProductCategory;
-
             dto.Category = CategoryMapper.DBCategoryToCategoryDTO(category);
+
+            dto.PointGain = Convert.ToInt32(dto.Price/10); //Dette skal udregnes fra pris. 1 point pr 10 kr.
+            
 
             return dto;
         }
