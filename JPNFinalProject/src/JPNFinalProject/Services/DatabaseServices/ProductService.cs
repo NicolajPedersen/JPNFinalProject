@@ -23,7 +23,7 @@ namespace JPNFinalProject.Services.DatabaseServices
 
             foreach (var product in tempList)
             {
-                var category = broker.GetCategoryById(product.ProductCategoryId);
+                var category = broker.GetCategoryById(product.ProductCategoryID);
                 productList.Add(DBProductMapper.DBProductToProductDTO(product, category));
             }
             return productList;

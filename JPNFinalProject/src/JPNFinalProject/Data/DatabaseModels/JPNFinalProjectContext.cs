@@ -207,11 +207,11 @@ namespace JPNFinalProject.Data.DatabaseModels
 
                 entity.Property(e => e.Price).HasColumnType("decimal");
 
-                entity.Property(e => e.ProductCategoryId).HasColumnName("ProductCategoryID");
+                entity.Property(e => e.ProductCategoryID).HasColumnName("ProductCategoryID");
 
                 entity.HasOne(d => d.ProductCategory)
                     .WithMany(p => p.Product)
-                    .HasForeignKey(d => d.ProductCategoryId)
+                    .HasForeignKey(d => d.ProductCategoryID)
                     .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("FK__Product__Product__3C34F16F");
             });
