@@ -20,7 +20,7 @@
     $("#addRandomCategory").click(function () {
         $.ajax({
             type: "POST",
-            url: '/Home/AddFourRandomCategories',
+            url: '/Home/AddRandomCategory',
             dataType: "json",
             contentType: "application/json; charset=utf-8",
         });

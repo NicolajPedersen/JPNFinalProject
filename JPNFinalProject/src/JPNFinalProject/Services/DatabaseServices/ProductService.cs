@@ -62,23 +62,21 @@ namespace JPNFinalProject.Services.DatabaseServices
 
             var categories = broker.GetAllCategories();
 
-            var randIndex = ran.Next(4);
+            var catId = categories[ran.Next(categories.Count)].ProductCategoryId;
 
-            product.Name = "asadasdasdasdasd";
+            product.Name = res.ToString();
             product.Amount = ran.Next(5, 200);
-            product.Description = "asadasdasdasdasd";
+            product.Description = res.ToString();
             product.ImagePath = "ProductList_200x150.png";
             product.ItemNumber = "23347733";
             product.Price = ran.Next(100, 400);
-            //product.ProductCategoryID = categories[randIndex].ProductCategoryId ;
-            product.ProductCategory = categories[randIndex];
             product.DeliveryTime = DateTimeOffset.Now;
 
-            broker.AddProduct(product);
+            broker.AddRandomProduct(product, catId);
 
         }
 
-        public void AddFourRandomCategories()
+        public void AddRandomCategory()
         {
             var category = new ProductCategory();
 
@@ -92,13 +90,10 @@ namespace JPNFinalProject.Services.DatabaseServices
                 res.Append(valid[rnd.Next(valid.Length)]);
             }
 
-            for (int i = 0; i < 3; i++)
-            {
-                category.Name = res.ToString();
-                category.ProductText = res.ToString() + res.ToString() + res.ToString();
+            category.Name = res.ToString();
+            category.ProductText = res.ToString() + res.ToString() + res.ToString();
 
-                broker.AddCategory(category);
-            }
+            broker.AddCategory(category);
 
         }
     }

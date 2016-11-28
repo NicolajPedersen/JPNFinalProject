@@ -37,10 +37,12 @@ namespace JPNFinalProject.Data.DatabaseBrokers
 
         }
 
-        public virtual void AddProduct(Product input)
+        public virtual void AddRandomProduct(Product input, int CategoryID)
         {
             using (var context = new JPNFinalProjectContext())
             {
+                var cat = context.ProductCategory.FirstOrDefault(x => x.ProductCategoryId == CategoryID);
+                input.ProductCategory = cat;
                 context.Product.Add(input);
                 context.SaveChanges();
             }
@@ -49,7 +51,7 @@ namespace JPNFinalProject.Data.DatabaseBrokers
         public virtual void AddCategory(ProductCategory category)
         {
             using (var context = new JPNFinalProjectContext())
-            {
+            {              
                 context.Add(category);
                 context.SaveChanges();
             }

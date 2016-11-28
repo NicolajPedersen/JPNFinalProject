@@ -46,9 +46,9 @@ namespace JPNFinalProject.Controllers
             _productService.AddRandomProduct();
         }
         [HttpPost]
-        public void AddFourRandomCategories()
+        public void AddRandomCategory()
         {
-            _productService.AddFourRandomCategories();
+            _productService.AddRandomCategory();
         }
     }
 }
