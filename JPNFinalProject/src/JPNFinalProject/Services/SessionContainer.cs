@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using JPNFinalProject.Controllers;
 using JPNFinalProject.Data.DTO;
+using JPNFinalProject.Services.DatabaseServices;
 
 namespace JPNFinalProject.Services
 {
@@ -17,7 +18,10 @@ namespace JPNFinalProject.Services
          * Open up startup.cs and add the AddSession() and AddDistributedMemoryCache() lines to the ConfigureServices(IServiceCollection services)
          * Add the UseSession() call below to the Configure(IApplicationBulider app, ...) // IMPORTANT: This session call MUST go before UseMvc()
         */
-
+        private ProductService _productService;
+        public SessionContainer() {
+            _productService = new ProductService();
+        }
         public void AddToSession(HttpContext context, string key, int value) {
             try {
                 var item = context.Session.GetString(key);
@@ -42,7 +46,7 @@ namespace JPNFinalProject.Services
                 List<int> productIds = JsonConvert.DeserializeObject<List<int>>(item);
                 List<ProductDTO> products = new List<ProductDTO>();
 
-                foreach (var p in ProductController.productList) {
+                foreach (var p in _productService.GetAllProducts()) {
                     foreach (var id in productIds) {
                         if (p.Id == id && products.Select(x => x.Id).Contains(p.Id) == false) {
                             p.Amount = 1;
@@ -105,27 +109,30 @@ namespace JPNFinalProject.Services
         public void AddOrderToSession(HttpContext context, string key, OrderDTO value) {
             try {
                 var item = context.Session.GetString(key);
-                List<OrderDTO> order = JsonConvert.DeserializeObject<List<OrderDTO>>(item);
-                order.Add(value);
+                OrderDTO order = JsonConvert.DeserializeObject<OrderDTO>(item);
+                order = value;
                 context.Session.SetString(key, JsonConvert.SerializeObject(order));
             }
             catch {
-                List<OrderDTO> order = new List<OrderDTO>();
-                order.Add(value);
-                context.Session.SetString(key, JsonConvert.SerializeObject(order));
+                context.Session.SetString(key, JsonConvert.SerializeObject(value));
             }
         }
 
-        public OrderDTO GetOrderFromSessionById(HttpContext context, string key, int value) {
+        public OrderDTO GetOrderFromSession(HttpContext context, string key) {
             try {
+                //var item = context.Session.GetString(key);
+                //List<OrderDTO> orders = JsonConvert.DeserializeObject<List<OrderDTO>>(item);
+                //OrderDTO order = new OrderDTO();
+                //foreach (var o in orders) {
+                //    if(o.Id == value) {
+                //        order = o;
+                //    }
+                //}
+                //return order;
+
                 var item = context.Session.GetString(key);
-                List<OrderDTO> orders = JsonConvert.DeserializeObject<List<OrderDTO>>(item);
-                OrderDTO order = new OrderDTO();
-                foreach (var o in orders) {
-                    if(o.Id == value) {
-                        order = o;
-                    }
-                }
+                OrderDTO order = JsonConvert.DeserializeObject<OrderDTO>(item);
+
                 return order;
             }
             catch {

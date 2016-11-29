@@ -13,5 +13,6 @@ namespace JPNFinalProject.Data.DTO
         public string CustomerMail { get; set; }
         public BusinessDTO Business { get; set; }
         public List<ProductDTO> Products { get; set; }
+        public double TotalPrice { get; set; }
     }
 }

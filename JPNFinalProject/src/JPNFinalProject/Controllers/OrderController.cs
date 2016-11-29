@@ -49,7 +49,7 @@ namespace JPNFinalProject.Controllers
         public IActionResult Delivery(DeliveryViewModel dModel)
         {
             var delivery = dModel;
-            return RedirectToAction("Overview", delivery);
+            return RedirectToAction("Overview", delivery); //Skal det ikke bare ligges til session, sådan at det ikke skal sendes som parameter, eventuelt order.
         }
 
         [HttpGet]
@@ -58,7 +58,6 @@ namespace JPNFinalProject.Controllers
                 var model = OverviewViewModelMapper.DeliveryViewModelToOverviewViewModel(delivery);
                 //model.Order.Business = _orderService.GetBusinessById(Convert.ToInt32(delivery.ParcelPickup));
                 model.Order.Business = new BusinessDTO() {
-                    Id = 1,
                     Name = "Matas",
                     Address = new AddressDTO() {
                         Id = 2,
@@ -75,9 +74,10 @@ namespace JPNFinalProject.Controllers
 
                 model.Subtotal = model.Order.Products.Select(x => x.Price).Sum();
                 model.VATFromPrice = (model.Subtotal / 100) * 25;
-                model.PriceWithVAT = model.Subtotal + model.VATFromPrice;
+                model.Order.TotalPrice = model.Subtotal + model.VATFromPrice;
 
                 _sessionContainer.AddOrderToSession(HttpContext, "order", model.Order);
+
                 return View(model);
             }
             else {
@@ -92,63 +92,70 @@ namespace JPNFinalProject.Controllers
         }
 
         [HttpGet]
-        public IActionResult PaymentDone() {
-            PaymentDoneViewModel model = new PaymentDoneViewModel();
-            model.Order = new OrderDTO() {
-                Id = 1,
-                OrderNumber = 12345,
-                Person = new PersonDTO() {
-                    Id = 1,
-                    FirstName = "Test",
-                    LastName = "Test",
-                    Email = "test1@test1.com",
-                    Password = "",
-                    Phone = "21345678",
-                    Type = "",
-                    Address = new AddressDTO() {
-                        Id = 1,
-                        Address = "Test 1",
-                        ZipCode = "1111",
-                        City = "Test City",
-                        Country = "Test Country"
-                    }
-                },
-                Business = new BusinessDTO() {
-                    Id = 1,
-                    Name = "Matas",
-                    Address = new AddressDTO() {
-                        Id = 2,
-                        Address = "Test 2",
-                        ZipCode = "2222",
-                        City = "Test City",
-                        Country = "Test Country"
-                    },
-                    Phone = "23456789",
-                    Email = "test2@test2.com",
-                    OperationalHour = ""
-                }
-            };
+        public IActionResult Payment(int id) {
+            PaymentViewModel model = new PaymentViewModel();
+            var order = _sessionContainer.GetOrderFromSession(HttpContext, "order");
+            var Subtotal = order.Products.Select(x => x.Price).Sum();
+            var VATFromPrice = (Subtotal / 100) * 25;
+            var PriceWithVAT = Subtotal + VATFromPrice;
 
-            model.Order.Products = ProductController.productList.Take(2).ToList();
-            model.Order.Products.ForEach(x => x.Amount = 1);
-
-            model.Subtotal = model.Order.Products.Select(x => x.Price).Sum();
-            model.VATFromPrice = (model.Subtotal / 100) * 25;
-            model.PriceWithVAT = model.Subtotal + model.VATFromPrice;
+            model.OrderNumber = order.OrderNumber.ToString();
+            model.TotalAmount = PriceWithVAT;
 
             return View(model);
         }
 
         [HttpGet]
-        public IActionResult Payment(int id) {
-            PaymentViewModel model = new PaymentViewModel();
-            //var order = _sessionContainer.GetOrderFromSessionById(HttpContext, "order", id);
-            //var Subtotal = order.Products.Select(x => x.Price).Sum();
-            //var VATFromPrice = (Subtotal / 100) * 25;
-            //var PriceWithVAT = Subtotal + VATFromPrice;
+        public IActionResult PaymentDone() {
+            var orderId = _orderService.SaveOrder(HttpContext);
+            PaymentDoneViewModel model = new PaymentDoneViewModel();
+            model.Order = _orderService.GetOrderByOrderNumber(orderId); //Skal der ikke være orderNumber databasen
 
-            //model.OrderNumber = order.OrderNumber.ToString();
-            //model.TotalAmount = PriceWithVAT;
+            model.Subtotal = model.Order.Products.Select(x => x.Price).Sum();
+            model.VATFromPrice = (model.Subtotal / 100) * 25;
+            model.PriceWithVAT = model.Subtotal + model.VATFromPrice;
+
+            //model.Order = new OrderDTO() {
+            //    Id = 1,
+            //    OrderNumber = 12345,
+            //    Person = new PersonDTO() {
+            //        Id = 1,
+            //        FirstName = "Test",
+            //        LastName = "Test",
+            //        Email = "test1@test1.com",
+            //        Password = "",
+            //        Phone = "21345678",
+            //        Type = "",
+            //        Address = new AddressDTO() {
+            //            Id = 1,
+            //            Address = "Test 1",
+            //            ZipCode = "1111",
+            //            City = "Test City",
+            //            Country = "Test Country"
+            //        }
+            //    },
+            //    Business = new BusinessDTO() {
+            //        Id = 1,
+            //        Name = "Matas",
+            //        Address = new AddressDTO() {
+            //            Id = 2,
+            //            Address = "Test 2",
+            //            ZipCode = "2222",
+            //            City = "Test City",
+            //            Country = "Test Country"
+            //        },
+            //        Phone = "23456789",
+            //        Email = "test2@test2.com",
+            //        OperationalHour = ""
+            //    }
+            //};
+
+            //model.Order.Products = ProductController.productList.Take(2).ToList();
+            //model.Order.Products.ForEach(x => x.Amount = 1);
+
+            //model.Subtotal = model.Order.Products.Select(x => x.Price).Sum();
+            //model.VATFromPrice = (model.Subtotal / 100) * 25;
+            //model.PriceWithVAT = model.Subtotal + model.VATFromPrice;
 
             return View(model);
         }

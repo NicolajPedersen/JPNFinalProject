@@ -56,8 +56,8 @@
 </div>
 <div id="buttons" class="row">
     <div class="col-xs-2 col-xs-offset-5">
-        <button type="button" class="btn btn-sm">Afbryd</button>
-        <button type="button" class="btn btn-sm">Betal</button>
+        @Html.ActionLink("Afbryd", "Index", "Product", new  { }, new { @class = "btn btn-success btn-sm" })
+        @Html.ActionLink("Betal", "PaymentDone", "Order", new { }, new { @class = "btn btn-success btn-sm" })
     </div>
     
 </div>

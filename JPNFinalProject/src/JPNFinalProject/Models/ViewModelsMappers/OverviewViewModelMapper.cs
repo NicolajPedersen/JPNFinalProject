@@ -12,8 +12,8 @@ namespace JPNFinalProject.Models.ViewModelsMappers
         public static OverviewViewModel DeliveryViewModelToOverviewViewModel(DeliveryViewModel delivery) {
             OverviewViewModel model = new OverviewViewModel();
             model.Order = new OrderDTO() {
-                Id = 1,
-                OrderNumber = 12345,
+                //OrderNumber = Convert.ToInt32(Guid.NewGuid().ToString()),
+                OrderNumber = 11111,
                 CustomerMail = "",
                 Person = new PersonDTO() {
                     Id = 1,

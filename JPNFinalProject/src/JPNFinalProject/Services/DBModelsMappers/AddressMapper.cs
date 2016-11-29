@@ -18,5 +18,14 @@ namespace JPNFinalProject.Services.DBModelsMappers
                 Country = input.Country
             };
         }
+
+        public static Address AddressDTOToAddress(AddressDTO dto) {
+            return new Address() {
+                Street = dto.Address,
+                PostalCode = dto.ZipCode,
+                City = dto.City,
+                Country = dto.Country
+            };
+        }
     }
 }

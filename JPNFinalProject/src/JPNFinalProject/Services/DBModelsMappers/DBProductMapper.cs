@@ -25,5 +25,24 @@ namespace JPNFinalProject.Services.DBModelsMappers
 
             return dto;
         }
+
+        public static List<ProductDTO> ProductsToListOfProductDTOs(List<Product> input) {
+            List<ProductDTO> products = new List<ProductDTO>();
+
+            foreach (var product in input) {
+                ProductDTO dto = new ProductDTO();
+                dto.Id = product.ProductId;
+                dto.Name = product.Name;
+                dto.Amount = product.Amount;
+                dto.Price = Convert.ToDouble(product.Price);
+                dto.Description = product.Description;
+                dto.ImageSource = product.ImagePath;
+                dto.PointGain = Convert.ToInt32(dto.Price / 10);
+
+                products.Add(dto);
+            }
+
+            return products;
+        }
     }
 }
