@@ -94,8 +94,12 @@ namespace JPNFinalProject.Controllers
                 {
                     model.MainCategoryList.Add(product.Category);
                 }
-            }
+                if (model.ProductText != "" && product.Category.Name == model.ActiveCategory)
+                {
+                    model.ProductText = product.Category.ProductText;
+                }
 
+            }
             if (subCategory != null)
             {
                 if(subsubCategory != null)
