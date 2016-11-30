@@ -6,15 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 using JPNFinalProject.Models.ProductViewModels;
 using JPNFinalProject.Models.EmployeeViewModels;
 using JPNFinalProject.Data.DTO;
+using JPNFinalProject.Services.DatabaseServices;
 
 namespace JPNFinalProject.Controllers
 {
     public class EmployeeController : Controller
     {
-        List<OrderDTO> productList;
+        private OrderService _orderService;
+        List<OrderDTO> orderList;
         public EmployeeController()
         {
-            productList = new List<OrderDTO>()
+            _orderService = new OrderService();
+            orderList = new List<OrderDTO>()
             {
                new OrderDTO()
                {
@@ -64,8 +67,9 @@ namespace JPNFinalProject.Controllers
 
         public IActionResult Index()
         {
+            var tempList = _orderService.GetOrders();
             var model = new EmployeeViewModel();
-            model.OrderList = productList;
+            model.OrderList = tempList;
             return View(model);
         }
 

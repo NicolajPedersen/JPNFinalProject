@@ -32,5 +32,21 @@ namespace JPNFinalProject.Services.DatabaseServices
         public OrderDTO GetOrderByOrderNumber(int orderId) {
             return OrderMapper.OrderToOrderDTO(_broker.GetOrderByOrderNumber(orderId));
         }
+
+        public List<OrderDTO> GetOrders()
+        {
+            var dbOrders = _broker.GetOrders();
+
+            List<OrderDTO> orderList = new List<OrderDTO>();
+
+            foreach (var order in dbOrders)
+            {
+                var orderProducts = _broker.GetOrderProducts(order.OrderId);
+                orderList.Add(OrderMapper.OrderToOrderDTOV2(order, orderProducts));
+            }
+
+            return orderList;
+
+        }
     }
 }

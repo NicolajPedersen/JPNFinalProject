@@ -33,7 +33,7 @@ namespace JPNFinalProject.Services.DBModelsMappers
                 ProductDTO dto = new ProductDTO();
                 dto.Id = product.ProductId;
                 dto.Name = product.Name;
-                dto.Amount = product.Amount;
+                dto.StockAmount = product.Amount;
                 dto.Price = Convert.ToDouble(product.Price);
                 dto.Description = product.Description;
                 dto.ImageSource = product.ImagePath;

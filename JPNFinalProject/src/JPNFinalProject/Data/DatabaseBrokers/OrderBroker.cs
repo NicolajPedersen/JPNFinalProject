@@ -37,5 +37,28 @@ namespace JPNFinalProject.Data.DatabaseBrokers
                 return context.Order.Include(x => x.Person).Include(x => x.BusinessOrder).Include(x => x.OrderProduct).Where(x => x.OrderId == orderId).Select(x => x).Single();
             }
         }
+
+        public virtual List<Order> GetOrders()
+        {
+            using (var context = new JPNFinalProjectContext())
+            {
+                return context.Order
+                    .Include(x => x.Person)
+                    .Include(x => x.Person.Address)
+                    .Include(x => x.BusinessOrder)
+                    .Include(x => x.OrderProduct)
+                    .ToList();
+            }
+        }
+
+        public virtual List<OrderProduct> GetOrderProducts(int orderId)
+        {
+            using (var context = new JPNFinalProjectContext())
+            {
+                return context.OrderProduct
+                    .Include(x => x.Product)
+                    .ToList();
+            }
+        }
     }
 }
