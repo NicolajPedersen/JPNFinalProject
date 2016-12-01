@@ -56,20 +56,7 @@ namespace JPNFinalProject.Controllers
         public IActionResult Overview(DeliveryViewModel delivery) {
             if (_sessionContainer.BasketCount(HttpContext, "basket") != 0) {
                 var model = OverviewViewModelMapper.DeliveryViewModelToOverviewViewModel(delivery);
-                //model.Order.Business = _orderService.GetBusinessById(Convert.ToInt32(delivery.ParcelPickup));
-                model.Order.Business = new BusinessDTO() {
-                    Name = "Matas",
-                    Address = new AddressDTO() {
-                        Id = 2,
-                        Address = "Test 2",
-                        ZipCode = "2222",
-                        City = "Test City",
-                        Country = "Test Country"
-                    },
-                    Phone = "23456789",
-                    Email = "test2@test2.com",
-                    OperationalHour = ""
-                };
+                model.Order.Business = _orderService.GetBusinessById(Convert.ToInt32(delivery.ParcelPickup));
                 model.Order.Products = _sessionContainer.GetBasket(HttpContext, "basket");
 
                 model.Subtotal = model.Order.Products.Select(x => x.Price).Sum();

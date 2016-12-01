@@ -30,8 +30,13 @@ namespace JPNFinalProject.Models.ViewModelsMappers
                         City = delivery.City,
                         Country = "Test Country"
                     }
+                },
+                Business = new BusinessDTO() {
+                    Id = Convert.ToInt32(delivery.ParcelPickup)
                 }
+
             };
+
 
             return model;
         }

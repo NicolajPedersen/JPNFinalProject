@@ -22,7 +22,6 @@ namespace JPNFinalProject.Services.DBModelsMappers
             return new OrderDTO() {
                 Person = PersonMapper.PersonToPersonDTO(input.Person),
                 CustomerMail = input.Person.Email,
-                Business = BusinessMapper.BusinessToBusinessDTO(input.BusinessOrder.Where(x => x.OrderId == input.OrderId).Select(x => x.Business).Single()),
                 Products = DBProductMapper.ProductsToListOfProductDTOs(input.OrderProduct.Where(x => x.OrderId == input.OrderId).Select(x => x.Product).ToList()),
                 TotalPrice = Convert.ToInt32(input.TotalPrice)
             };

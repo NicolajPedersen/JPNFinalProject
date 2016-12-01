@@ -11,7 +11,7 @@ namespace JPNFinalProject.Data.DatabaseBrokers
     {
         public virtual Business GetBusinessById(int id) {
             using (var context = new JPNFinalProjectContext()) {
-                return context.Business.Where(x => x.BusinessId == id).Select(x => x).First();
+                return context.Business.Where(x => x.BusinessId == id).Select(x => x).Include(x => x.Address).First();
             }
         }
 
