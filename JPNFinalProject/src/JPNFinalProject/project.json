@@ -34,9 +34,11 @@
       "type": "build"
     },
     "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": {
-        "version": "1.0.0-preview2-final",
-        "type": "build"
+      "version": "1.0.0-preview2-final",
+      "type": "build"
     },
+    "Microsoft.AspNetCore.SignalR.Server": "0.2.0-*",
+    "Microsoft.AspNetCore.WebSockets": "0.2.0-*",
     "jQuery": "3.1.1",
     "Microsoft.AspNetCore.Session": "1.1.0",
     "Microsoft.EntityFrameworkCore.Design": "1.1.0",
