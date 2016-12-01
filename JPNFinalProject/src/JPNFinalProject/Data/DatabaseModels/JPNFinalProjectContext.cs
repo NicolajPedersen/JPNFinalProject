@@ -62,7 +62,7 @@ namespace JPNFinalProject.Data.DatabaseModels
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasMaxLength(1);
+                    .HasMaxLength(255);
 
                 entity.Property(e => e.OperationalHour)
                     .IsRequired()

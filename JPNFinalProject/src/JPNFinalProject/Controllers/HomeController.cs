@@ -14,6 +14,7 @@ namespace JPNFinalProject.Controllers
         public HomeController()
         {
             _productService = new ProductService();
+            Data.SeedData.Seed();
         }
 
         public IActionResult Index()

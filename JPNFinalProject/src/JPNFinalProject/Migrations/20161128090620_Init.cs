@@ -54,7 +54,7 @@ namespace JPNFinalProject.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AddressID = table.Column<int>(nullable: false),
                     Email = table.Column<string>(maxLength: 255, nullable: false),
-                    Name = table.Column<string>(maxLength: 1, nullable: false),
+                    Name = table.Column<string>(maxLength: 255, nullable: false),
                     OperationalHour = table.Column<string>(maxLength: 255, nullable: false),
                     Phone = table.Column<string>(maxLength: 20, nullable: false)
                 },
