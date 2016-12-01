@@ -20,6 +20,22 @@ namespace JPNFinalProject.Services.DBModelsMappers
             };
         }
 
+        public static BusinessDTO BusinessToBusinessDTOV2(Business input)
+        {
+            BusinessDTO dto = new BusinessDTO();
+            dto.Id = input.BusinessId;
+            dto.Name = input.Name;
+            if(input.Address != null)
+            {
+                dto.Address = AddressMapper.AddressToAddressDTO(input.Address);
+            }
+            dto.Phone = input.Phone;
+            dto.Email = input.Email;
+            dto.OperationalHour = input.OperationalHour;
+
+            return dto;
+        }
+
         public static Business BusinessDTOToBusiness(BusinessDTO dto) {
             return new Business() {
                 Name = dto.Name,
