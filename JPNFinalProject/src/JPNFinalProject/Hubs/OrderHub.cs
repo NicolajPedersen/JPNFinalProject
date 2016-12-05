@@ -12,7 +12,8 @@ namespace JPNFinalProject.Hubs
     {
         public void Hello()
         {
-            Clients.All.sayHello($"Hello {Context.ConnectionId}");
+            this.Clients.All.sayHello($"Hello {Context.ConnectionId}");
+            
         }
     }
 }
