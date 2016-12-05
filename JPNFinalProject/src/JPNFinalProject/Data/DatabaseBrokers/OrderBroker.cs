@@ -49,6 +49,15 @@ namespace JPNFinalProject.Data.DatabaseBrokers
             }
         }
 
+        public virtual void SaveOrderProduct(List<OrderProduct> orderProducts) {
+            using (var context = new JPNFinalProjectContext()) {
+                foreach (var op in orderProducts) {
+                    context.OrderProduct.Add(op);
+                }
+                context.SaveChanges();
+            }
+        }
+
         public virtual Order GetOrderByOrderNumber(int orderId) {
             using (var context = new JPNFinalProjectContext()) {
                 return context.Order.Include(x => x.Person).Include(x => x.Person.Address).Include(x => x.BusinessOrder).Include(x => x.OrderProduct).Where(x => x.OrderId == orderId).Select(x => x).Single();

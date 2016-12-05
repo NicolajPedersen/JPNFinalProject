@@ -116,7 +116,6 @@
             </div>
             <div class="col-xs-12" style="text-align: center; padding-left: 30px; padding-right: 30px;">
                 @*<button class="btn btn-success form-control">Godkend og betal</button>*@
-                <p>@Model.Order.Id</p>
                 @Html.ActionLink("Godkend og betal", "Payment", "Order", new { id = Model.Order.Id }, new { @class = "btn btn-success form-control" })
             </div>
         </div>

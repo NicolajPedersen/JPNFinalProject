@@ -11,45 +11,50 @@ namespace JPNFinalProject.Services.DatabaseServices
 {
     public class OrderService
     {
-        private OrderBroker _broker;
+        private OrderBroker _orderBroker;
+        private ProductBroker _productBroker;
         private SessionContainer _sessionContainer;
         public OrderService() {
-            _broker = new OrderBroker();
+            _orderBroker = new OrderBroker();
+            _productBroker = new ProductBroker();
             _sessionContainer = new SessionContainer();
         }
 
         public BusinessDTO GetBusinessById(int id) {
-            return BusinessMapper.BusinessToBusinessDTO(_broker.GetBusinessById(id));
+            return BusinessMapper.BusinessToBusinessDTO(_orderBroker.GetBusinessById(id));
         }
 
         public int SaveOrder(HttpContext context) {
             var order = _sessionContainer.GetOrderFromSession(context, "order");
-            var personId = _broker.SavePerson(PersonMapper.PersonDTOToPerson(order.Person));
+            var personId = _orderBroker.SavePerson(PersonMapper.PersonDTOToPerson(order.Person));
             //var businessId = _broker.SaveBusiness(BusinessMapper.BusinessDTOToBusiness(order.Business));
 
-            var orderId = _broker.SaveOrder(OrderMapper.OrderDTOToOrder(order, personId));
+            var orderId = _orderBroker.SaveOrder(OrderMapper.OrderDTOToOrder(order, personId));
 
-            _broker.SaveBusinessOrder(order.Business.Id, orderId);
+            _orderBroker.SaveBusinessOrder(order.Business.Id, orderId);
+            _orderBroker.SaveOrderProduct(OrderMapper.OrderDTOToOrderProduct(orderId, order.Products));
 
             return orderId;
         }
 
         public OrderDTO GetOrderByOrderNumber(int orderId) {
-            var o = _broker.GetOrderByOrderNumber(orderId);
-            var order = OrderMapper.OrderToOrderDTO(o);
-            order.Business = BusinessMapper.BusinessToBusinessDTO(_broker.GetBusinessById(o.BusinessOrder.Where(x => x.OrderId == o.OrderId).Select(x => x.BusinessId).Single()));
+            var o = _orderBroker.GetOrderByOrderNumber(orderId);
+            var ops = o.OrderProduct.Where(x => x.OrderId == orderId).Select(x => x).ToList();
+            var products = _productBroker.GetProductsById(ops);
+            var order = OrderMapper.OrderToOrderDTO(o, products);
+            order.Business = BusinessMapper.BusinessToBusinessDTO(_orderBroker.GetBusinessById(o.BusinessOrder.Where(x => x.OrderId == o.OrderId).Select(x => x.BusinessId).Single()));
             return order;
         }
 
         public List<OrderDTO> GetOrders()
         {
-            var dbOrders = _broker.GetOrders();
+            var dbOrders = _orderBroker.GetOrders();
 
             List<OrderDTO> orderList = new List<OrderDTO>();
 
             foreach (var order in dbOrders)
             {
-                var orderProducts = _broker.GetOrderProducts(order.OrderId);
+                var orderProducts = _orderBroker.GetOrderProducts(order.OrderId);
                 orderList.Add(OrderMapper.OrderToOrderDTOV2(order, orderProducts));
             }
 
