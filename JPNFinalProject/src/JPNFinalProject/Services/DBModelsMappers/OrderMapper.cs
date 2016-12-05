@@ -34,7 +34,7 @@ namespace JPNFinalProject.Services.DBModelsMappers
             dto.Person = PersonMapper.PersonToPersonDTO(input.Person);
             dto.CustomerMail = dto.Person.Email;
             dto.TotalPrice = Convert.ToInt32(input.TotalPrice);
-            dto.OrderNumber = 22222;
+            dto.OrderNumber = input.OrderId;
             //dto.Business = BusinessMapper.BusinessToBusinessDTOV2(input.BusinessOrder.Where(x => x.OrderId == input.OrderId).Select(x => x.Business).FirstOrDefault());
             dto.Products = DBProductMapper.ProductsToListOfProductDTOs(orderProducts.Where(x => x.OrderId == input.OrderId).Select(x => x.Product).ToList());
             foreach (var product in dto.Products)
