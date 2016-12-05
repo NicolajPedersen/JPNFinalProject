@@ -67,6 +67,8 @@ namespace JPNFinalProject
             services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
             services.AddSession();
 
+            services.AddSignalR();
+
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
@@ -91,6 +93,8 @@ namespace JPNFinalProject
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseSignalR();
 
             app.UseStaticFiles();
 

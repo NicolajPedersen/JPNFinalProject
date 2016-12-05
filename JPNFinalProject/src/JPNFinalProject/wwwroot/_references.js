@@ -6,6 +6,7 @@
 /// <reference path="js/order/payment.js" />
 /// <reference path="js/order/paymentdone.js" />
 /// <reference path="js/product/product.js" />
+/// <reference path="js/signalr/jquery.signalr-2.2.0.js" />
 /// <reference path="js/site.js" />
 /// <reference path="lib/bootstrap/dist/js/bootstrap.js" />
 /// <reference path="lib/jquery/dist/jquery.js" />

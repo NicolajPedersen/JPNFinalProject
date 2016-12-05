@@ -76,7 +76,13 @@ namespace JPNFinalProject.Controllers
         [HttpPost]
         public void NotInStock([FromBody] List<int> product)
         {
-            //Her kalder vi metoden der går ud i DB og opdater ordre. Og metoden som kontakter kunden med info.
+            //Her kalder vi metoden der går ud i DB og opdater ordre hvis den ikke er på lager. Og metoden som kontakter kunden med info.
+        }
+
+        [HttpPost]
+        public void PutAside([FromBody] List<int> product)
+        {
+            //Her kalder vi metoden som går ud og sætter produktet som sat tilside og fortæller kunden
         }
     }
 }
