@@ -1,0 +1,23 @@
+﻿@using JPNFinalProject.Models.OrderViewModels
+@model BusinessViewModel
+@{
+    Layout = null;
+}
+@foreach (var business in Model.Businesses)
+{
+    <div class="search-result">
+        <div class="row">
+            <div class="col-sm-3">@business.Name</div>
+            <div class="col-sm-3">Hverdage</div>
+        </div>
+        <div class="row">
+            <input class="pull-left" type="radio" name="parcel-pickup" value="@business.Id" style="margin-left:-15px" />
+            <div class="col-sm-3">@business.Address.Address</div>
+            <div class="col-sm-3">Søndage hellige</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">@business.Address.ZipCode @business.Address.City</div>
+            <div class="col-sm-3">status</div>
+        </div>
+    </div>
+}

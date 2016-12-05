@@ -86,5 +86,22 @@ namespace JPNFinalProject.Data.DatabaseBrokers
                     .ToList();
             }
         }
+        public virtual List<Business> GetBusinesses()
+        {
+            using (var context = new JPNFinalProjectContext())
+            {
+                return context.Business.ToList();
+            }
+        }
+        public virtual List<Business> GetBusinessesByPostal(string postalCode)
+        {
+            using (var context = new JPNFinalProjectContext())
+            {
+                return context.Business
+                    .Where(x => x.Address.PostalCode == postalCode)
+                    .Include(x => x.Address)
+                    .ToList();
+            }
+        }
     }
 }

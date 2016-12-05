@@ -61,5 +61,28 @@ namespace JPNFinalProject.Services.DatabaseServices
             return orderList;
 
         }
+
+        public List<BusinessDTO> GetBusinesses()
+        {
+            var b = _orderBroker.GetBusinesses();
+
+            List<BusinessDTO> businesses = new List<BusinessDTO>();
+            foreach (var business in b)
+            {
+                businesses.Add(BusinessMapper.BusinessToBusinessDTO(business));
+            }
+            return businesses;
+        }
+        public List<BusinessDTO> GetBusinesses(string postalCode)
+        {
+            var b = _orderBroker.GetBusinessesByPostal(postalCode);
+
+            List<BusinessDTO> businesses = new List<BusinessDTO>();
+            foreach (var business in b)
+            {
+                businesses.Add(BusinessMapper.BusinessToBusinessDTO(business));
+            }
+            return businesses;
+        }
     }
 }
