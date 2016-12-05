@@ -70,11 +70,13 @@ namespace JPNFinalProject.Data.DatabaseBrokers
             }
         }
 
-        public virtual List<Product> GetProductsById(List<OrderProduct> productIds) {
+        public virtual List<Product> GetProductsById(List<OrderProduct> orderProducts) {
             using (var context = new JPNFinalProjectContext()) {
                 List<Product> products = new List<Product>();
-                foreach (var id in productIds) {
-                    products.Add(context.Product.Where(x => x.ProductId == id).Select(x => x).Single());
+                foreach (var op in orderProducts) {
+                    var p = context.Product.Where(x => x.ProductId == op.ProductId).Select(x => x).Single();
+                    p.Amount = op.Amount;
+                    products.Add(p);
                 }
                 return products;
             }
