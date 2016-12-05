@@ -13,16 +13,16 @@ namespace JPNFinalProject.Services.DBModelsMappers
         public static Order OrderDTOToOrder(OrderDTO dto, int personId) {
             return new Order() {
                 PersonId = personId,
-                TotalPrice = Convert.ToDecimal(dto.TotalPrice),
+                TotalPrice = Convert.ToDecimal(dto.TotalPrice), //Da decimal i databasen kun tillader hele tal, så kan man ikke få kommatal med og dermed er prisen ikke korrekt
                 DeliveryTime = new DateTimeOffset()
             };
         }
 
-        public static OrderDTO OrderToOrderDTO(Order input) {
+        public static OrderDTO OrderToOrderDTO(Order input, List<Product> products) {
             return new OrderDTO() {
                 Person = PersonMapper.PersonToPersonDTO(input.Person),
                 CustomerMail = input.Person.Email,
-                Products = DBProductMapper.ProductsToListOfProductDTOs(input.OrderProduct.Where(x => x.OrderId == input.OrderId).Select(x => x.Product).ToList()),
+                Products = DBProductMapper.ProductsToListOfProductDTOs(products),
                 TotalPrice = Convert.ToInt32(input.TotalPrice)
             };
         }
@@ -42,6 +42,20 @@ namespace JPNFinalProject.Services.DBModelsMappers
                 product.Amount = orderProducts.Where(x => x.ProductId == product.Id).Select(x => x.Amount).Single();
             }
             return dto;
+        }
+
+        public static List<OrderProduct> OrderDTOToOrderProduct(int orderId, List<ProductDTO> products) {
+            List<OrderProduct> orderProducts = new List<OrderProduct>();
+            foreach (var product in products) {
+                OrderProduct orderProduct = new OrderProduct();
+                orderProduct.Amount = product.Amount;
+                orderProduct.OrderId = orderId;
+                orderProduct.Price = Convert.ToDecimal(product.Amount * product.Price);
+                orderProduct.ProductId = product.Id;
+                orderProducts.Add(orderProduct);
+            }
+
+            return orderProducts;
         }
     }
 }

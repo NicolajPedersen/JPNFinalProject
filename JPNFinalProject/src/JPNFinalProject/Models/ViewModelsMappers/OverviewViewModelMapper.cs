@@ -28,7 +28,7 @@ namespace JPNFinalProject.Models.ViewModelsMappers
                         Address = delivery.Street,
                         ZipCode = delivery.Zip,
                         City = delivery.City,
-                        Country = "Test Country"
+                        Country = "Denmark"
                     }
                 },
                 Business = new BusinessDTO() {
