@@ -10,9 +10,10 @@ namespace JPNFinalProject.Hubs
     [HubName("order")]
     public class OrderHub : Hub
     {
-        public void Hello()
+        public void Hello(string hhh)
         {
-            Clients.All.sayHello($"Hello {Context.ConnectionId}");
+            Clients.All.sayHello($"Hello {hhh}");
+            
         }
     }
 }

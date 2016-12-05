@@ -7,6 +7,8 @@
 
 <link rel="stylesheet" href="~/css/Product/product.css" asp-append-version="true" />
 
+<button id="h" type="button" class="btn btn-sm btn-default">Push Data</button>
+
 <div id="leveringinfo" class="col-lg-12 row">
     <ul>
         <li>Fragt fra 10 kr</li>
@@ -195,4 +197,21 @@
 
 @section scripts {
     <script src="~/js/Product/product.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/SignalR/jquery.signalR-2.2.0.js"></script>
+    <script src="/signalr/hubs"></script>
+
+    <script>
+        $("#h").click(function () {
+
+            let order = $.connection.order;
+            let hub = $.connection.hub;
+            console.log(order);
+            console.log(hub);
+
+            hub.start().done(function () {
+                order.server.hello("hej")
+            });
+        });
+    </script>
 }
