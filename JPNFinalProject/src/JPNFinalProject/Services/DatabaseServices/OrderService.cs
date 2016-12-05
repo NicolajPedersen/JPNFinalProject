@@ -25,12 +25,20 @@ namespace JPNFinalProject.Services.DatabaseServices
         public int SaveOrder(HttpContext context) {
             var order = _sessionContainer.GetOrderFromSession(context, "order");
             var personId = _broker.SavePerson(PersonMapper.PersonDTOToPerson(order.Person));
+            //var businessId = _broker.SaveBusiness(BusinessMapper.BusinessDTOToBusiness(order.Business));
 
-            return _broker.SaveOrder(OrderMapper.OrderDTOToOrder(order, personId));
+            var orderId = _broker.SaveOrder(OrderMapper.OrderDTOToOrder(order, personId));
+
+            _broker.SaveBusinessOrder(order.Business.Id, orderId);
+
+            return orderId;
         }
 
         public OrderDTO GetOrderByOrderNumber(int orderId) {
-            return OrderMapper.OrderToOrderDTO(_broker.GetOrderByOrderNumber(orderId));
+            var o = _broker.GetOrderByOrderNumber(orderId);
+            var order = OrderMapper.OrderToOrderDTO(o);
+            order.Business = BusinessMapper.BusinessToBusinessDTO(_broker.GetBusinessById(o.BusinessOrder.Where(x => x.OrderId == o.OrderId).Select(x => x.BusinessId).Single()));
+            return order;
         }
 
         public List<OrderDTO> GetOrders()

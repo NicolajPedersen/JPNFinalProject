@@ -35,5 +35,15 @@ namespace JPNFinalProject.Services.DBModelsMappers
 
             return dto;
         }
+
+        public static Business BusinessDTOToBusiness(BusinessDTO dto) {
+            return new Business() {
+                Name = dto.Name,
+                Address = AddressMapper.AddressDTOToAddress(dto.Address),
+                Phone = dto.Phone,
+                Email = dto.Email,
+                OperationalHour = dto.OperationalHour
+            };
+        }
     }
 }

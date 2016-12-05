@@ -16,7 +16,7 @@ namespace JPNFinalProject.Services.DBModelsMappers
                 Password = dto.Password,
                 Phone = dto.Phone,
                 Type = dto.Type,
-                //Address = AddressMapper.AddressDTOToAddress(dto.Address)
+                Address = AddressMapper.AddressDTOToAddress(dto.Address)
             };
         }
 
