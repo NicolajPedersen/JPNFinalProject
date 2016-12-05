@@ -17,6 +17,24 @@
             $(this).closest("tr").find("#outOfStock").attr("disabled", "disabled");
         }
 
+        var product = new Array();
+
+        product.push($(".container").find("tbody").children().eq(indexInTable).find("#productId").html());
+        product.push($(".container").find("tbody").children().eq(indexInTable).find("#ordreNumber").html());
+
+        //console.log("ProductID = " + product.ProductId);
+
+        //console.log("OrderID = " + product.OrderId);
+
+        $.ajax({
+            type: "POST",
+            url: '/Employee/PutAside',
+            data: JSON.stringify(product),
+            dataType: "json",
+            traditional: true,
+            contentType: "application/json; charset=utf-8",
+        });
+
     });
 
     $(document).on("click", "#outOfStock", function () {
