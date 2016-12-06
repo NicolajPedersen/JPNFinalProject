@@ -21,18 +21,18 @@
         console.log(order);
         console.log(hub);
 
-        $('#employ').click(function () {
-            hub.start().done(function () {
-                order.server.hello()
-            });
-        });
+        //$('#employ').click(function () {
+        //    hub.start().done(function () {
+        //        order.server.hello()
+        //    });
+        //});
         
-        order.client.sayHello = function (msg) {
-            let p = $("<p/>").text(msg);
-            $('.demo').append(p);
-        };
+        //order.client.sayHello = function (msg) {
+        //    let p = $("<p/>").text(msg);
+        //    $('.demo').append(p);
+        //};
 
-        hub.start();
+        //hub.start();
         
     </script>
 }

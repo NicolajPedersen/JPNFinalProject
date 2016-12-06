@@ -128,28 +128,25 @@
         let hub = $.connection.hub;
         //console.log(order);
         //console.log(hub);
-        var t;
 
         order.client.sayId = function (msg) {
             let p = msg;
-            t = p;
-            console.log(msg);
             $('.demo').append(p);
         };
 
-        order.client.updateList = function (msg) {
+        hub.start().done(function () {
+            order.server.getConnectionId(@Model.BusinessId);
+        });
+
+        order.client.updateOrders = function (msg) {
             let p = $("<p/>").text(msg);
             $('.test').append(p);
+            console.log(msg);
         };
 
-        var id = $('.demo').text();
+        hub.start();
 
 
-
-        hub.start().done(function () {
-            order.server.getConnectionId();
-            order.server.getOrder(id);
-        });
 
 
 

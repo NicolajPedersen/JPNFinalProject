@@ -69,6 +69,7 @@ namespace JPNFinalProject.Controllers
         {
             var tempList = _orderService.GetOrders();
             var model = new EmployeeViewModel();
+            model.BusinessId = tempList[0].Business.Id;
             model.OrderList = tempList;
             return View(model);
         }

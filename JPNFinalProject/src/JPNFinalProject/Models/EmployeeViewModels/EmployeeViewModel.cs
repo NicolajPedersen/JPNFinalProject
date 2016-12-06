@@ -9,6 +9,7 @@ namespace JPNFinalProject.Models.EmployeeViewModels
 {
     public class EmployeeViewModel
     {
+        public int BusinessId { get; set; }
         public List<OrderDTO> OrderList { get; set; }
     }
 }

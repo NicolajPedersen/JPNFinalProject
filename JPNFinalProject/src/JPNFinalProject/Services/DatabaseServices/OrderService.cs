@@ -55,7 +55,8 @@ namespace JPNFinalProject.Services.DatabaseServices
             foreach (var order in dbOrders)
             {
                 var orderProducts = _orderBroker.GetOrderProducts(order.OrderId);
-                orderList.Add(OrderMapper.OrderToOrderDTOV2(order, orderProducts));
+                var business = _orderBroker.GetBusinessOrder(order.OrderId);
+                orderList.Add(OrderMapper.OrderToOrderDTOV2(order, orderProducts, business));
             }
 
             return orderList;
