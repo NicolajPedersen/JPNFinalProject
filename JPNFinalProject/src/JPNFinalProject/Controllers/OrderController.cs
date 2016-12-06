@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using JPNFinalProject.Services.DatabaseServices;
 using JPNFinalProject.Models.ViewModelsMappers;
 using JPNFinalProject.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace JPNFinalProject.Controllers
 {
@@ -111,11 +112,12 @@ namespace JPNFinalProject.Controllers
 
             OrderHub hub = new OrderHub();
 
+
             var order = _sessionContainer.GetOrderFromSession(HttpContext, "order");
 
             var business = OrderHub.employee[order.Business.Id];
 
-            hub.Clients.All.updateOrders(order);
+            
 
 
             model.Subtotal = model.Order.Products.Select(x => x.Price * x.StockAmount).Sum();
