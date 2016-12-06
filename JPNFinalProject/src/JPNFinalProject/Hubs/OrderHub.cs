@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using JPNFinalProject.Models.EmployeeViewModels;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.SignalR.Hubs;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,16 @@ namespace JPNFinalProject.Hubs
         {
             this.Clients.All.sayHello($"Hello {Context.ConnectionId}");
             
+        }
+
+        public void GetConnectionId()
+        {
+            this.Clients.All.sayId($"{Context.ConnectionId}");
+        }
+
+        public void GetOrder(string id)
+        {
+            this.Clients.User(id).updateList($"Test");
         }
     }
 }

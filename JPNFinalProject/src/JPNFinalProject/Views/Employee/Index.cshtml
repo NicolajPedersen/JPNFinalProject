@@ -5,6 +5,10 @@
     ViewData["Title"] = "Bestilte produkter";
 }
 
+<p class="demo"></p>
+
+<div class="test"></div>
+
 <div class="container">
     <h2>Bestilte produkter</h2>
     <table class="table table-striped">
@@ -112,6 +116,42 @@
     </div>
 </div>
 
-@section scripts {
+@section scripts{
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/SignalR/jquery.signalR-2.2.0.js"></script>
+    <script src="/signalr/hubs"></script>
     <script src="~/js/Employee/index.js"></script>
+
+    <script>
+        let order = $.connection.order;
+        let hub = $.connection.hub;
+        //console.log(order);
+        //console.log(hub);
+        var t;
+
+        order.client.sayId = function (msg) {
+            let p = msg;
+            t = p;
+            console.log(msg);
+            $('.demo').append(p);
+        };
+
+        order.client.updateList = function (msg) {
+            let p = $("<p/>").text(msg);
+            $('.test').append(p);
+        };
+
+        var id = $('.demo').text();
+
+
+
+        hub.start().done(function () {
+            order.server.getConnectionId();
+            order.server.getOrder(id);
+        });
+
+
+
+    </script>
 }
