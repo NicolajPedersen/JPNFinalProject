@@ -1,15 +1,18 @@
 ﻿$("#search-parcel").click(function () {
     var term = $("#search-zip-input").val();
-
     $.ajax({
-        type: "POST",
-        url: "/Order/SearchParcelPickups",
+        type: "Post",
+        url: "/Order/BusinessByPostalcode",
+        dataType: 'html',
+        contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(term),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
         success: function (data) {
-
+            console.log('Success!', data);
+            $('#container-sresults').html(data);
         },
+        error: function (e) {
+            console.log('Error!', e);
+        }
     })
 })
 $("input[type=radio][name=parcel-pickup]").change(function () {
@@ -22,4 +25,4 @@ $("input[type=radio][name=parcel-pickup]").change(function () {
             return parcelPickups[i].value;
         }
   }
-};
+  };

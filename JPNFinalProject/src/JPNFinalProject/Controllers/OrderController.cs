@@ -49,6 +49,7 @@ namespace JPNFinalProject.Controllers
         public IActionResult Delivery(DeliveryViewModel dModel)
         {
             var delivery = dModel;
+            delivery.Businesses = _orderService.GetBusinesses();
             return RedirectToAction("Overview", delivery); //Skal det ikke bare ligges til session, sådan at det ikke skal sendes som parameter, eventuelt order.
         }
 
@@ -105,6 +106,13 @@ namespace JPNFinalProject.Controllers
             model.PriceWithVAT = model.Subtotal + model.VATFromPrice;
 
             return View(model);
+        }
+        [HttpPost]
+        public ActionResult BusinessByPostalcode([FromBody] string postalcode)
+        {
+            var model = new BusinessViewModel();
+            model.Businesses = _orderService.GetBusinesses(postalcode);
+            return PartialView(model);
         }
     }
 }
