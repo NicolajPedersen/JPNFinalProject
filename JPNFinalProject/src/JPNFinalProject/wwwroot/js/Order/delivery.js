@@ -19,8 +19,13 @@ $(':radio[name=parcel-pickup]').change(function () {
     console.log($(this).filter(':checked').val());
 });
 
+document.getElementById("delivery-submit").addEventListener("click", function () {
+    document.getElementById("delivery-form").submit();
+});
+
 $(function () {
     $('body').on('change', ':radio[name=parcel-pickup]', function () {
+        
         document.getElementById('parcel-pickup').value = $(this).filter(':checked').val();
     });
 });
