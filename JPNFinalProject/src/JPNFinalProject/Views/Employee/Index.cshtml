@@ -14,110 +14,32 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Produkt navn</th>
-                <th>Pris</th>
-                <th>Antal</th>
-                <th>Lager antal</th>
+                <th>Kunde Navn</th>
                 <th>Kundemail</th>
                 <th>Ordrenummer</th>
-                <th>Tilsidesat</th>
                 <th>Handling</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var order in Model.OrderList)
             {
-                @foreach (var product in order.Products)
-                {
-                    <tr>
-                        <td id="item">@product.Name</td>
-                        <td id="price">@product.Price</td>
-                        <td id="amount">@product.Amount</td>
-                        <td id="stockAmount">@product.StockAmount</td>
-                        <td id="customerMail">@order.CustomerMail</td>
-                        <td id="ordreNumber">@order.OrderNumber</td>
-                        @if (!product.PutAside)
-                        {
-                            <td><input id="doneOrNot" type="checkbox" disabled="disabled" /></td>
-                        }
-                        else
-                        {
-                            <td><input id="doneOrNot" type="checkbox" checked="checked" disabled="disabled" /></td>
-                        }
-
-                        <td>
-                            @if (product.StockAmount == 0 || product.PutAside)
-                            {
-                                <button id="putAside" type="button" class="btn btn-sm" disabled="disabled">Tilsidesæt</button>
-                            }
-                            else
-                            {
-                                <button id="putAside" type="button" class="btn btn-sm">Tilsidesæt</button>
-                            }
-
-                            @if (product.PutAside || product.StockAmount > 10)
-                            {
-                                <button id="outOfStock" type="button" class="btn btn-sm" data-toggle="modal" data-target="#SendMail" disabled="disabled">Ikke på lager</button>
-                            }
-                            else
-                            {
-                                <button id="outOfStock" type="button" class="btn btn-sm" data-toggle="modal" data-target="#SendMail">Ikke på lager</button>
-                            }
-                            <label id="productId" hidden="hidden">@product.Id</label>
-                        </td>
-                    </tr>
-                }
+                <tr>
+                    <td id="customerName">@order.Person.FirstName</td>
+                    <td id="customerMail">@order.CustomerMail</td>
+                    <td id="ordreNumber">@order.OrderNumber</td>
+                    <td><button id="viewProducts" type="button" class="btn btn-sm">Vis Produkter</button></td>
+                </tr>
             }
         </tbody>
     </table>
 </div>
 
-<!-- Modal -->
-<div id="SendMail" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+<div id="productContainer">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Send mail</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-xs-4">
-                        <label>Vare:</label>
-                    </div>
-                    <div class="col-xs-8">
-                        <p id="item"></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-4">
-                        <label>Ordrenummer:</label>
-                    </div>
-                    <div class="col-xs-8">
-                        <p id="ordreNumber"></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-4">
-                        <label>På lager igen den:</label>
-                    </div>
-                    <div class="col-xs-8">
-                        <input id="stockDate" type="date" class="form-control" />
-                    </div>
-                </div>                
-            </div>
-            <div class="modal-footer">
-                <button id="send" type="button" class="btn btn-default" data-dismiss="modal">Send mail</button>
-            </div>
-        </div>
-
-    </div>
 </div>
 
-@section scripts{
 
+@section scripts{
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/js/SignalR/jquery.signalR-2.2.0.js"></script>
     <script src="/signalr/hubs"></script>

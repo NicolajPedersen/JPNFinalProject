@@ -11,5 +11,7 @@ namespace JPNFinalProject.Models.EmployeeViewModels
     {
         public int BusinessId { get; set; }
         public List<OrderDTO> OrderList { get; set; }
+        public OrderDTO Order { get; set; }
+
     }
 }

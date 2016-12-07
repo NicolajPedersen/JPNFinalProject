@@ -78,6 +78,18 @@ namespace JPNFinalProject.Controllers
         }
 
         [HttpPost]
+        public ActionResult ProductPartial([FromBody] int orderId)
+        {
+            var model = new EmployeeViewModel();
+
+            model.Order = _orderService.GetOrderByOrderNumber(orderId);
+
+            model.Order.Id = orderId;
+
+            return PartialView(model);
+        }
+
+        [HttpPost]
         public void NotInStock([FromBody] List<int> product)
         {
             //Her kalder vi metoden der går ud i DB og opdater ordre hvis den ikke er på lager. Og metoden som kontakter kunden med info.
