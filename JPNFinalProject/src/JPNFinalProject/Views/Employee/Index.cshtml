@@ -121,9 +121,8 @@
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/js/SignalR/jquery.signalR-2.2.0.js"></script>
     <script src="/signalr/hubs"></script>
-    <script src="~/js/Employee/index.js"></script>
 
-    <script>
+    @*<script>
         let order = $.connection.order;
         let hub = $.connection.hub;
         //console.log(order);
@@ -138,11 +137,11 @@
             order.server.getConnectionId(@Model.BusinessId);
         });
 
-        order.client.updateOrders = function (msg) {
-            let p = $("<p/>").text(msg);
-            $('.test').append(p);
-            console.log(msg);
-        };
+        //order.client.updateOrders = function (msg) {
+        //    let p = $("<p/>").text(msg);
+        //    $('.test').append(p);
+        //    console.log(msg);
+        //};
 
         hub.start();
 
@@ -150,5 +149,7 @@
 
 
 
-    </script>
+    </script>*@
+
+    <script src="~/js/Employee/index.js"></script>
 }

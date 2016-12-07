@@ -7,11 +7,14 @@ using JPNFinalProject.Models.ProductViewModels;
 using JPNFinalProject.Models.EmployeeViewModels;
 using JPNFinalProject.Data.DTO;
 using JPNFinalProject.Services.DatabaseServices;
+using MimeKit;
+using MailKit.Net.Smtp;
 
 namespace JPNFinalProject.Controllers
 {
     public class EmployeeController : Controller
     {
+        private string pass = "EAL2016JPN";
         private OrderService _orderService;
         List<OrderDTO> orderList;
         public EmployeeController()
@@ -84,6 +87,37 @@ namespace JPNFinalProject.Controllers
         public void PutAside([FromBody] List<int> product)
         {
             //Her kalder vi metoden som går ud og sætter produktet som sat tilside og fortæller kunden
+
+            var orderdto = _orderService.GetOrderByOrderNumber(product[1]);
+
+            var email = orderdto.CustomerMail;  
+
+            SendMail(email, orderdto);
+        }
+
+        private void SendMail(string email, OrderDTO order)
+        {
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("JPN", "JPNFinalProject@gmail.com"));
+            message.To.Add(new MailboxAddress(order.Person.FirstName, email));
+
+            message.Subject = "Hello " + order.Person.FirstName;
+
+            message.Body = new TextPart("plain")
+            {
+                Text = "Hi " + order.Person.FirstName + "\n\nDu har købt: " + order.Products[0].Name 
+            };
+
+            using(var client = new SmtpClient())
+            {
+                var uri = new Uri("smtps://smtp.gmail.com:465");
+
+                client.Connect(uri);
+                client.Authenticate("JPNFinalProject@gmail.com", pass);
+                client.Send(message);
+                client.Disconnect(true);
+            }
+
         }
     }
 }

@@ -105,20 +105,6 @@ namespace JPNFinalProject.Controllers
 
             //Når tingene bliver hentet ud fra databasen, så bliver det ikke lige regnet rigtigt ud. Plus alt sådan noget som amount osv fra OrderProduct bliver ikke hentet med ud.
 
-            //OrderHub hub = new OrderHub();
-
-            //hub.GetNewOrder(_sessionContainer.GetOrderFromSession(HttpContext, "order"));
-
-
-            OrderHub hub = new OrderHub();
-
-
-            var order = _sessionContainer.GetOrderFromSession(HttpContext, "order");
-
-            var business = OrderHub.employee[order.Business.Id];
-
-            
-
 
             model.Subtotal = model.Order.Products.Select(x => x.Price * x.StockAmount).Sum();
             model.VATFromPrice = (model.Subtotal / 100) * 25;

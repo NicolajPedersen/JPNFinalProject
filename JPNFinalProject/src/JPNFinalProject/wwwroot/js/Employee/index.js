@@ -17,14 +17,19 @@
             $(this).closest("tr").find("#outOfStock").attr("disabled", "disabled");
         }
 
+        indexInTable = $(this).parent().parent().index();
+
         var product = new Array();
+
+        console.log("Pro = " + $(".container").find("tbody").children().eq(indexInTable).find("#productId").html());
+        console.log("Orde = " + $(".container").find("tbody").children().eq(indexInTable).find("#ordreNumber").html());
 
         product.push($(".container").find("tbody").children().eq(indexInTable).find("#productId").html());
         product.push($(".container").find("tbody").children().eq(indexInTable).find("#ordreNumber").html());
 
-        //console.log("ProductID = " + product.ProductId);
+        console.log("ProductID = " + product[0]);
 
-        //console.log("OrderID = " + product.OrderId);
+        console.log("OrderID = " + product[1]);
 
         $.ajax({
             type: "POST",
