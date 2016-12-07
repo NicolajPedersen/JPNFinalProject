@@ -55,11 +55,35 @@ namespace JPNFinalProject.Services.DatabaseServices
             foreach (var order in dbOrders)
             {
                 var orderProducts = _orderBroker.GetOrderProducts(order.OrderId);
-                orderList.Add(OrderMapper.OrderToOrderDTOV2(order, orderProducts));
+                var business = _orderBroker.GetBusinessOrder(order.OrderId);
+                orderList.Add(OrderMapper.OrderToOrderDTOV2(order, orderProducts, business));
             }
 
             return orderList;
 
+        }
+
+        public List<BusinessDTO> GetBusinesses()
+        {
+            var b = _orderBroker.GetBusinesses();
+
+            List<BusinessDTO> businesses = new List<BusinessDTO>();
+            foreach (var business in b)
+            {
+                businesses.Add(BusinessMapper.BusinessToBusinessDTO(business));
+            }
+            return businesses;
+        }
+        public List<BusinessDTO> GetBusinesses(string postalCode)
+        {
+            var b = _orderBroker.GetBusinessesByPostal(postalCode);
+
+            List<BusinessDTO> businesses = new List<BusinessDTO>();
+            foreach (var business in b)
+            {
+                businesses.Add(BusinessMapper.BusinessToBusinessDTO(business));
+            }
+            return businesses;
         }
     }
 }

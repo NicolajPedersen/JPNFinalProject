@@ -17,14 +17,19 @@
             $(this).closest("tr").find("#outOfStock").attr("disabled", "disabled");
         }
 
+        indexInTable = $(this).parent().parent().index();
+
         var product = new Array();
+
+        console.log("Pro = " + $(".container").find("tbody").children().eq(indexInTable).find("#productId").html());
+        console.log("Orde = " + $(".container").find("tbody").children().eq(indexInTable).find("#ordreNumber").html());
 
         product.push($(".container").find("tbody").children().eq(indexInTable).find("#productId").html());
         product.push($(".container").find("tbody").children().eq(indexInTable).find("#ordreNumber").html());
 
-        //console.log("ProductID = " + product.ProductId);
+        console.log("ProductID = " + product[0]);
 
-        //console.log("OrderID = " + product.OrderId);
+        console.log("OrderID = " + product[1]);
 
         $.ajax({
             type: "POST",
@@ -34,6 +39,36 @@
             traditional: true,
             contentType: "application/json; charset=utf-8",
         });
+
+    });
+
+    $(document).on("click", "#viewProducts", function () {
+        console.log("test");
+        var indexInTable = $(this).parent().parent().index();
+
+        var orderId = $(".container").find("tbody").children().eq(indexInTable).find("#ordreNumber").html();
+        console.log(orderId);
+        $.ajax({
+            type: "POST",
+            url: '/Employee/ProductPartial',
+            data: JSON.stringify(orderId),
+            dataType: "html",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                console.log('Success!', data);
+                $('#productContainer').html(data);
+                $("#productModal").show();
+            },
+            error: function (e) {
+                console.log('Error!', e);
+            }
+        });
+
+
+    })
+
+    $(document).on("click", "#modalClose", function () {
+        $("#productModal").hide();
 
     });
 

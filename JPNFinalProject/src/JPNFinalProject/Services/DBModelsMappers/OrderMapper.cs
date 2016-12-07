@@ -12,6 +12,7 @@ namespace JPNFinalProject.Services.DBModelsMappers
     {
         public static Order OrderDTOToOrder(OrderDTO dto, int personId) {
             return new Order() {
+                OrderId = dto.Id,
                 PersonId = personId,
                 TotalPrice = Convert.ToDecimal(dto.TotalPrice), //Da decimal i databasen kun tillader hele tal, så kan man ikke få kommatal med og dermed er prisen ikke korrekt
                 DeliveryTime = new DateTimeOffset()
@@ -28,7 +29,7 @@ namespace JPNFinalProject.Services.DBModelsMappers
             };
         }
 
-        public static OrderDTO OrderToOrderDTOV2(Order input, List<OrderProduct> orderProducts)
+        public static OrderDTO OrderToOrderDTOV2(Order input, List<OrderProduct> orderProducts, Business business)
         {
             OrderDTO dto = new OrderDTO();
             dto.Id = input.OrderId;
@@ -36,11 +37,11 @@ namespace JPNFinalProject.Services.DBModelsMappers
             dto.CustomerMail = dto.Person.Email;
             dto.TotalPrice = Convert.ToInt32(input.TotalPrice);
             dto.OrderNumber = input.OrderId;
-            //dto.Business = BusinessMapper.BusinessToBusinessDTOV2(input.BusinessOrder.Where(x => x.OrderId == input.OrderId).Select(x => x.Business).FirstOrDefault());
+            dto.Business = BusinessMapper.BusinessToBusinessDTOV2(business);
             dto.Products = DBProductMapper.ProductsToListOfProductDTOs(orderProducts.Where(x => x.OrderId == input.OrderId).Select(x => x.Product).ToList());
             foreach (var product in dto.Products)
             {
-                product.Amount = orderProducts.Where(x => x.ProductId == product.Id).Select(x => x.Amount).Single();
+                product.Amount = orderProducts.Where(x => x.ProductId == product.Id && x.OrderId == input.OrderId).Select(x => x.Amount).Single();
             }
             return dto;
         }

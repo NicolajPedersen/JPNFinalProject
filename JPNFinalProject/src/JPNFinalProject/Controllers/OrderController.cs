@@ -43,12 +43,14 @@ namespace JPNFinalProject.Controllers
 
         [HttpGet]
         public IActionResult Delivery() {
+            
             return View();
         }
         [HttpPost]
         public IActionResult Delivery(DeliveryViewModel dModel)
         {
             var delivery = dModel;
+            delivery.Businesses = _orderService.GetBusinesses();
             return RedirectToAction("Overview", delivery); //Skal det ikke bare ligges til session, sådan at det ikke skal sendes som parameter, eventuelt order.
         }
 
@@ -64,6 +66,7 @@ namespace JPNFinalProject.Controllers
                 model.Order.TotalPrice = model.Subtotal + model.VATFromPrice;
 
                 _sessionContainer.AddOrderToSession(HttpContext, "order", model.Order);
+
 
                 return View(model);
             }
@@ -96,13 +99,23 @@ namespace JPNFinalProject.Controllers
         public IActionResult PaymentDone() {
             //var orderId = _orderService.SaveOrder(HttpContext);
             PaymentDoneViewModel model = new PaymentDoneViewModel();
-            //model.Order = _orderService.GetOrderByOrderNumber(orderId); //Skal der ikke være orderNumber databasen
-            model.Order = _orderService.GetOrderByOrderNumber(1024);
+            model.Order = _orderService.GetOrderByOrderNumber(orderId); //Skal der ikke være orderNumber databasen
+
+            //Når tingene bliver hentet ud fra databasen, så bliver det ikke lige regnet rigtigt ud. Plus alt sådan noget som amount osv fra OrderProduct bliver ikke hentet med ud.
+
+
             model.Subtotal = model.Order.Products.Select(x => x.Price * x.StockAmount).Sum();
             model.VATFromPrice = (model.Subtotal / 100) * 25;
             model.PriceWithVAT = model.Subtotal + model.VATFromPrice;
 
             return View(model);
+        }
+        [HttpPost]
+        public ActionResult BusinessByPostalcode([FromBody] string postalcode)
+        {
+            var model = new BusinessViewModel();
+            model.Businesses = _orderService.GetBusinesses(postalcode);
+            return PartialView(model);
         }
     }
 }

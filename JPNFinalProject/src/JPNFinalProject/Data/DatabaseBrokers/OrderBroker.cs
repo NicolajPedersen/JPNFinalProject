@@ -64,6 +64,16 @@ namespace JPNFinalProject.Data.DatabaseBrokers
             }
         }
 
+        public virtual Business GetBusinessOrder(int orderId)
+        {
+            using (var context = new JPNFinalProjectContext())
+            {
+                return context.BusinessOrder.Where(x => x.OrderId == orderId)
+                    .Select(x => x.Business)
+                    .Single();
+            }
+        }
+
         public virtual List<Order> GetOrders()
         {
             using (var context = new JPNFinalProjectContext())
@@ -83,6 +93,23 @@ namespace JPNFinalProject.Data.DatabaseBrokers
             {
                 return context.OrderProduct
                     .Include(x => x.Product)
+                    .ToList();
+            }
+        }
+        public virtual List<Business> GetBusinesses()
+        {
+            using (var context = new JPNFinalProjectContext())
+            {
+                return context.Business.Include(x => x.Address).ToList();
+            }
+        }
+        public virtual List<Business> GetBusinessesByPostal(string postalCode)
+        {
+            using (var context = new JPNFinalProjectContext())
+            {
+                return context.Business
+                    .Where(x => x.Address.PostalCode == postalCode)
+                    .Include(x => x.Address)
                     .ToList();
             }
         }
