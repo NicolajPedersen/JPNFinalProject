@@ -43,7 +43,6 @@ namespace JPNFinalProject.Controllers
 
         [HttpGet]
         public IActionResult Delivery() {
-            
             return View();
         }
         [HttpPost]
@@ -66,7 +65,6 @@ namespace JPNFinalProject.Controllers
                 model.Order.TotalPrice = model.Subtotal + model.VATFromPrice;
 
                 _sessionContainer.AddOrderToSession(HttpContext, "order", model.Order);
-
 
                 return View(model);
             }
@@ -97,12 +95,9 @@ namespace JPNFinalProject.Controllers
 
         [HttpGet]
         public IActionResult PaymentDone() {
-            //var orderId = _orderService.SaveOrder(HttpContext);
+            var orderId = _orderService.SaveOrder(HttpContext);
             PaymentDoneViewModel model = new PaymentDoneViewModel();
             model.Order = _orderService.GetOrderByOrderNumber(orderId); //Skal der ikke være orderNumber databasen
-
-            //Når tingene bliver hentet ud fra databasen, så bliver det ikke lige regnet rigtigt ud. Plus alt sådan noget som amount osv fra OrderProduct bliver ikke hentet med ud.
-
 
             model.Subtotal = model.Order.Products.Select(x => x.Price * x.StockAmount).Sum();
             model.VATFromPrice = (model.Subtotal / 100) * 25;
