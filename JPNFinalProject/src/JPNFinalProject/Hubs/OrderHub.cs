@@ -10,10 +10,17 @@ namespace JPNFinalProject.Hubs
     [HubName("order")]
     public class OrderHub : Hub
     {
-        public void Hello(string hhh)
-        {
-            Clients.All.sayHello($"Hello {hhh}");
-            
+        public void SignalRConnectionId(string signalRConnectionId) {
+            Clients.Client(signalRConnectionId).getConnectionId($"{Context.ConnectionId}");
         }
+
+        public override Task OnConnected() {
+            SignalRConnectionId(this.Context.ConnectionId);
+            return base.OnConnected();
+        }
+
+        //public void Getlist(string id) {
+        //    Clients.Client(id).getAll(TestHub.userL);
+        //}
     }
 }

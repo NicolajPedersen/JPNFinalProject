@@ -11,7 +11,7 @@ namespace JPNFinalProject.Services.DBModelsMappers
     {
         public static Person PersonDTOToPerson(PersonDTO dto) {
             return new Person() {
-                Name = dto.FirstName + " " + dto.LastName,
+                Name = dto.Name,
                 Email = dto.Email,
                 Password = dto.Password,
                 Phone = dto.Phone,
@@ -22,8 +22,7 @@ namespace JPNFinalProject.Services.DBModelsMappers
 
         public static PersonDTO PersonToPersonDTO(Person input) {
             return new PersonDTO() {
-                FirstName = input.Name,
-                LastName = input.Name,
+                Name = input.Name,
                 Email = input.Email,
                 Password = input.Password,
                 Phone = input.Phone,

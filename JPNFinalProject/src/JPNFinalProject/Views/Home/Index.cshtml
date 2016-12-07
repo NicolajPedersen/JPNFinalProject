@@ -8,7 +8,9 @@
 
 <a id="addRandomCategory" class="btn btn-danger">Add Random Category</a>
 
-<div class="demo"></div>
+<button id="h" type="button" class="btn btn-sm btn-default">Push Data</button>
+
+<p id="msg"></p>
 
 @section scripts{
     <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -16,15 +18,31 @@
     <script src="/signalr/hubs"></script>
 
     <script>
-        let order = $.connection.order;
+        let test = $.connection.test;
         let hub = $.connection.hub;
-        console.log(order);
-        console.log(hub);
 
-        order.client.sayHello = function (msg) {
-            let p = $("<p/>").text(msg);
-            $('.demo').append(p);
+        hub.start().done(function () {
+            test.server.signalRConnectionId("User", 0)
+        });
+
+        var id;
+
+        test.client.getConnectionId = function (msg) {
+            id = msg;
+            console.log(id);
         };
+
+        $("#h").click(function () {
+            hub.start().done(function () {
+                test.server.addObject(id, { User: "User", BusinessId: 1, OrderId: 1 });
+            });
+        });
+
+        test.client.getMessage = function (msg) {
+            var message = msg;
+            console.log("Message: " + message);
+            $("#msg").text(message);
+        }
 
         hub.start();
     </script>

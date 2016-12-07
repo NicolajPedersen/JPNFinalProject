@@ -40,7 +40,7 @@
     <div id="delivery-and-invoice-info" class="row">
         <div id="invoice" class="col-xs-6">
             <h3 style="text-align: center; background-color: #f3f5f6;">FAKTURERES TIL</h3>
-            <p id="name">@Model.Order.Person.FirstName @Model.Order.Person.LastName</p>
+            <p id="name">@Model.Order.Person.Name</p>
             <p id="address">@Model.Order.Person.Address.Address</p>
             <p id="zipCode">@Model.Order.Person.Address.ZipCode</p>
         </div>
@@ -146,9 +146,25 @@
 </div>
 
 @section scripts {
-    @*<script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/js/SignalR/jquery.signalR-2.2.0.js"></script>
-    <script src="/signalr/hubs"></script>*@
-
     <script src="~/js/Order/paymentDone.js"></script>
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/SignalR/jquery.signalR-2.2.0.js"></script>
+    <script src="/signalr/hubs"></script>
+
+    <script>
+        var orderId = @Model.Order.Id;
+        var businessId = @Model.Order.Business.Id;
+
+        $(function () {
+            var hubStart = null;
+
+            window.startHub = function () {
+                if (hubStart === null) {
+                    hubStart = $.connection.hub.start();
+                }
+                return hubStart;
+            };
+        });
+    </script>
 }

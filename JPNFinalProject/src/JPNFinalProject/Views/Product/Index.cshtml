@@ -7,8 +7,6 @@
 
 <link rel="stylesheet" href="~/css/Product/product.css" asp-append-version="true" />
 
-<button id="h" type="button" class="btn btn-sm btn-default">Push Data</button>
-
 <div id="leveringinfo" class="col-lg-12 row">
     <ul>
         <li>Fragt fra 10 kr</li>
@@ -195,6 +193,12 @@
     </div> 
 </div>
 
+<input id="message" type="text" value="" />
+
+<select id="dropdown"></select>
+
+<button id="h" type="button" class="btn btn-sm btn-default">Send Message</button>
+
 @section scripts {
     <script src="~/js/Product/product.js"></script>
     <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -202,16 +206,47 @@
     <script src="/signalr/hubs"></script>
 
     <script>
-        $("#h").click(function () {
+        let test = $.connection.test;
+        let hub = $.connection.hub;
 
-            let order = $.connection.order;
-            let hub = $.connection.hub;
-            console.log(order);
-            console.log(hub);
-
-            hub.start().done(function () {
-                order.server.hello("hej")
-            });
+        hub.start().done(function () {
+            test.server.signalRConnectionId("Admin", 1);
         });
+
+        test.client.getConnectionId = function (msg) {
+            id = msg;
+            console.log("My id: " + id);
+        };
+
+        hub.start();
+
+        test.client.getAll = function (msg) {
+            $("#dropdown").find("option").remove();
+            $("#dropdown").append("<option>Select something</option>");
+            let p = msg;
+            console.log(p);
+            $.each(p, function () {
+                console.log("Client id: " + this.Key);
+                $("#dropdown").append('<option value=' + this.Key + '>' + this.Key + '</option>');
+            });
+        };
+
+        hub.start();
+
+        var clientId;
+
+        var message;
+
+        $("#dropdown").change(function () {
+            clientId = $("#dropdown option:selected").html();
+            console.log(clientId);
+            message = $("#message").val();
+            console.log(message);
+        });
+
+        $("#h").click(function () {
+            test.server.sendMessage(clientId, message);
+        });
+
     </script>
 }
