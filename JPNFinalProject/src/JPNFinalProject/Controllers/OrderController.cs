@@ -105,6 +105,7 @@ namespace JPNFinalProject.Controllers
 
             return View(model);
         }
+
         [HttpPost]
         public ActionResult BusinessByPostalcode([FromBody] string postalcode)
         {
