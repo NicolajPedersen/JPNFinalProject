@@ -81,11 +81,7 @@ namespace JPNFinalProject.Controllers
         public ActionResult ProductPartial([FromBody] int orderId)
         {
             var model = new EmployeeViewModel();
-
             model.Order = _orderService.GetOrderByOrderNumber(orderId);
-
-            model.Order.Id = orderId;
-
             return PartialView(model);
         }
 

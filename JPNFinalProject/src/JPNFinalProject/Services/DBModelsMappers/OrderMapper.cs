@@ -21,6 +21,7 @@ namespace JPNFinalProject.Services.DBModelsMappers
 
         public static OrderDTO OrderToOrderDTO(Order input, List<Product> products) {
             return new OrderDTO() {
+                Id = input.OrderId,
                 Person = PersonMapper.PersonToPersonDTO(input.Person),
                 CustomerMail = input.Person.Email,
                 Products = DBProductMapper.ProductsToListOfProductDTOs(products),
