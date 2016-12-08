@@ -17,8 +17,7 @@ namespace JPNFinalProject.Models.ViewModelsMappers
                 CustomerMail = "",
                 Person = new PersonDTO() {
                     Id = 1,
-                    FirstName = delivery.Name,
-                    LastName = delivery.Name,
+                    Name = delivery.Name,
                     Email = delivery.Email,
                     Password = "",
                     Phone = delivery.Phone,

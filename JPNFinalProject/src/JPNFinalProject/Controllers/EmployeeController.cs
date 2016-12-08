@@ -81,11 +81,7 @@ namespace JPNFinalProject.Controllers
         public ActionResult ProductPartial([FromBody] int orderId)
         {
             var model = new EmployeeViewModel();
-
             model.Order = _orderService.GetOrderByOrderNumber(orderId);
-
-            model.Order.Id = orderId;
-
             return PartialView(model);
         }
 
@@ -111,13 +107,13 @@ namespace JPNFinalProject.Controllers
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("JPN", "JPNFinalProject@gmail.com"));
-            message.To.Add(new MailboxAddress(order.Person.FirstName, email));
+            message.To.Add(new MailboxAddress(order.Person.Name, email));
 
-            message.Subject = "Hello " + order.Person.FirstName;
+            message.Subject = "Hello " + order.Person.Name;
 
             message.Body = new TextPart("plain")
             {
-                Text = "Hi " + order.Person.FirstName + "\n\nDu har købt: " + order.Products[0].Name 
+                Text = "Hi " + order.Person.Name + "\n\nDu har købt: " + order.Products[0].Name 
             };
 
             using(var client = new SmtpClient())

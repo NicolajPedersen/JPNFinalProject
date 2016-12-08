@@ -10,8 +10,6 @@ using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using JPNFinalProject.Services.DatabaseServices;
 using JPNFinalProject.Models.ViewModelsMappers;
-using JPNFinalProject.Hubs;
-using Microsoft.AspNetCore.SignalR;
 
 namespace JPNFinalProject.Controllers
 {
@@ -45,7 +43,6 @@ namespace JPNFinalProject.Controllers
 
         [HttpGet]
         public IActionResult Delivery() {
-            
             return View();
         }
         [HttpPost]
@@ -68,7 +65,6 @@ namespace JPNFinalProject.Controllers
                 model.Order.TotalPrice = model.Subtotal + model.VATFromPrice;
 
                 _sessionContainer.AddOrderToSession(HttpContext, "order", model.Order);
-
 
                 return View(model);
             }
@@ -103,15 +99,13 @@ namespace JPNFinalProject.Controllers
             PaymentDoneViewModel model = new PaymentDoneViewModel();
             model.Order = _orderService.GetOrderByOrderNumber(orderId); //Skal der ikke være orderNumber databasen
 
-            //Når tingene bliver hentet ud fra databasen, så bliver det ikke lige regnet rigtigt ud. Plus alt sådan noget som amount osv fra OrderProduct bliver ikke hentet med ud.
-
-
             model.Subtotal = model.Order.Products.Select(x => x.Price * x.StockAmount).Sum();
             model.VATFromPrice = (model.Subtotal / 100) * 25;
             model.PriceWithVAT = model.Subtotal + model.VATFromPrice;
 
             return View(model);
         }
+
         [HttpPost]
         public ActionResult BusinessByPostalcode([FromBody] string postalcode)
         {
