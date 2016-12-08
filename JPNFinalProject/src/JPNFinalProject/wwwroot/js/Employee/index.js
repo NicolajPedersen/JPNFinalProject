@@ -13,29 +13,48 @@
     };
 
     //hub.start();
+
     var orderIds = new Array();
     test.client.getAll = function (msg) {
         let p = msg;
         console.log(p);
         $.each(p, function () {
             console.log("Client id: " + this.Key);
-
-            //Skal tage alle order id ud fra p og lave en liste af dem og sende med ajax kald;
+            console.log("OrderId: " + this.Value.OrderId);
+            orderIds.push(this.Value.OrderId);
         });
+
+        getProducts();
     };
 
-    $(function () {
+    //var orderIds = [1023, 1024];
+
+    //console.log(orderIds);
+
+    function getProducts () {
         $.ajax({
             type: "POST",
-            url: '/Order/GetPersonByOrderId',
+            url: "/Order/GetPersonByOrderId",
             data: JSON.stringify(orderIds),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
+                $.each(data, function () {
+                    $(".container tbody").append(
+                    "<tr>" + 
+                        "<td id='customerName'>" + this.person.name + "</td>" +
+                        "<td id='customerMail'>" + this.person.email + "</td>" +
+                        "<td id='ordreNumber'>" + this.id + "</td>" +
+                        "<td> <button id='viewProducts' type='button' class='btn btn-sm'>Vis Produkter</button> </td>" +
+                    "</tr>"
+                    );
+                });
 
+                //console.log($(".container tbody").find("tr"));
+                //console.log(data);
             }
         });
-    })();
+    };
 
 
     var indexInTable;

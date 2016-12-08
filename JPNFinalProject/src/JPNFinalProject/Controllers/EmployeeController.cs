@@ -23,10 +23,10 @@ namespace JPNFinalProject.Controllers
 
         public IActionResult Index()
         {
-            var tempList = _orderService.GetOrders();
+            //var tempList = _orderService.GetOrders();
             var model = new EmployeeViewModel();
-            model.BusinessId = tempList[0].Business.Id;
-            model.OrderList = tempList;
+            //model.BusinessId = tempList[0].Business.Id;
+            //model.OrderList = tempList;
             return View(model);
         }
 

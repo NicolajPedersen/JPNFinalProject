@@ -118,7 +118,7 @@ namespace JPNFinalProject.Data.DatabaseBrokers
             using (var context = new JPNFinalProjectContext()) {
                 var personId = context.Order.Where(x => x.OrderId == orderId).Select(x => x.PersonId).Single();
 
-                return context.Person.Where(x => x.PersonId == personId).Select(x => x).Single();
+                return context.Person.Where(x => x.PersonId == personId).Include(x => x.Address).Select(x => x).Single();
             }
         }
     }

@@ -116,8 +116,8 @@ namespace JPNFinalProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult GetPersonByOrderId([FromBody] List<int> orderIds) {
-            return Json(_orderService.GetPersonsByOrderIds(orderIds));
+        public IActionResult GetPersonByOrderId([FromBody] int[] orderIds) {
+            return Json(_orderService.GetPersonsByOrderIds(orderIds.ToList()));
         }
     }
 }
