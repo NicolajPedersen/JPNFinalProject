@@ -85,14 +85,14 @@
 
     $(document).on("click", "#SendMail #send", function () {
         //console.log($(".container").find("tbody").children());
-        $(".container").find("tbody").children().eq(indexInTable).find("#putAside").attr("disabled", "disabled");
-        $(".container").find("tbody").children().eq(indexInTable).find("#outOfStock").attr("disabled", "disabled");
+        $("#productContainer").find("tbody").children().eq(indexInTable).find("#putAside").attr("disabled", "disabled");
+        $("#productContainer").find("tbody").children().eq(indexInTable).find("#outOfStock").attr("disabled", "disabled");
 
         var product = new Array();
         //var product = { Id: $(".container").find("tbody").children().eq(indexInTable).find("#productId").html(), OrderId: $(".container").find("tbody").children().eq(indexInTable).find("#ordreNumber").html()};
 
-        product.push($(".container").find("tbody").children().eq(indexInTable).find("#productId").html());
-        product.push($(".container").find("tbody").children().eq(indexInTable).find("#ordreNumber").html());
+        product.push($("#productContainer").find("tbody").children().eq(indexInTable).find("#productId").html());
+        product.push($("#productContainer").find("tbody").children().eq(indexInTable).find("#ordreNumber").html());
 
         //console.log("ProductID = " + product.ProductId);
 
