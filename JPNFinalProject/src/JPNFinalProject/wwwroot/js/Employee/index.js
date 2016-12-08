@@ -21,11 +21,12 @@
 
         var product = new Array();
 
-        console.log("Pro = " + $(".container").find("tbody").children().eq(indexInTable).find("#productId").html());
-        console.log("Orde = " + $(".container").find("tbody").children().eq(indexInTable).find("#ordreNumber").html());
 
-        product.push($(".container").find("tbody").children().eq(indexInTable).find("#productId").html());
-        product.push($(".container").find("tbody").children().eq(indexInTable).find("#ordreNumber").html());
+        console.log($("#productContainer").find("tbody").children().eq(indexInTable).find("#productId").html());
+        console.log($("#productContainer").find("tbody").children().eq(indexInTable).find("#ordreNumber").html());
+
+        product.push($("#productContainer").find("tbody").children().eq(indexInTable).find("#productId").html());
+        product.push($("#productContainer").find("tbody").children().eq(indexInTable).find("#ordreNumber").html());
 
         console.log("ProductID = " + product[0]);
 
@@ -43,11 +44,10 @@
     });
 
     $(document).on("click", "#viewProducts", function () {
-        console.log("test");
         var indexInTable = $(this).parent().parent().index();
 
         var orderId = $(".container").find("tbody").children().eq(indexInTable).find("#ordreNumber").html();
-        console.log(orderId);
+        //console.log(orderId);
         $.ajax({
             type: "POST",
             url: '/Employee/ProductPartial',
@@ -55,7 +55,7 @@
             dataType: "html",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-                console.log('Success!', data);
+                //console.log('Success!', data);
                 $('#productContainer').html(data);
 
                 $("#productModal").modal('show');
