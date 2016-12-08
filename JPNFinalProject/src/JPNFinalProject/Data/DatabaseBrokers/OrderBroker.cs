@@ -113,5 +113,13 @@ namespace JPNFinalProject.Data.DatabaseBrokers
                     .ToList();
             }
         }
+
+        public virtual Person GetPersonByOrderId(int orderId) {
+            using (var context = new JPNFinalProjectContext()) {
+                var personId = context.Order.Where(x => x.OrderId == orderId).Select(x => x.PersonId).Single();
+
+                return context.Person.Where(x => x.PersonId == personId).Select(x => x).Single();
+            }
+        }
     }
 }

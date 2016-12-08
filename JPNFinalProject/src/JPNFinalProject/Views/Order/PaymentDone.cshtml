@@ -146,25 +146,12 @@
 </div>
 
 @section scripts {
-    <script src="~/js/Order/paymentDone.js"></script>
-
-    <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/js/SignalR/jquery.signalR-2.2.0.js"></script>
     <script src="/signalr/hubs"></script>
+    <script src="~/js/Order/paymentDone.js"></script>
 
     <script>
         var orderId = @Model.Order.Id;
         var businessId = @Model.Order.Business.Id;
-
-        $(function () {
-            var hubStart = null;
-
-            window.startHub = function () {
-                if (hubStart === null) {
-                    hubStart = $.connection.hub.start();
-                }
-                return hubStart;
-            };
-        });
     </script>
 }

@@ -1,4 +1,43 @@
 ﻿$(document).ready(function () {
+
+    let test = $.connection.test;
+    let hub = $.connection.hub;
+
+    hub.start().done(function () {
+        test.server.signalRConnectionId("Admin", 1);
+    });
+
+    test.client.getConnectionId = function (msg) {
+        id = msg;
+        console.log("My id: " + id);
+    };
+
+    //hub.start();
+    var orderIds = new Array();
+    test.client.getAll = function (msg) {
+        let p = msg;
+        console.log(p);
+        $.each(p, function () {
+            console.log("Client id: " + this.Key);
+
+            //Skal tage alle order id ud fra p og lave en liste af dem og sende med ajax kald;
+        });
+    };
+
+    $(function () {
+        $.ajax({
+            type: "POST",
+            url: '/Order/GetPersonByOrderId',
+            data: JSON.stringify(orderIds),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+
+            }
+        });
+    })();
+
+
     var indexInTable;
     var isChecked = false;
     $(document).on("click", "#putAside", function () {
@@ -107,6 +146,4 @@
         });
 
     });
-
-
 });

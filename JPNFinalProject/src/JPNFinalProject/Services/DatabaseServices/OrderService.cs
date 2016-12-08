@@ -85,5 +85,14 @@ namespace JPNFinalProject.Services.DatabaseServices
             }
             return businesses;
         }
+
+        public List<PersonDTO> GetPersonsByOrderIds(List<int> orderIds) {
+            List<PersonDTO> persons = new List<PersonDTO>();
+            foreach (var orderId in orderIds) {
+                persons.Add(PersonMapper.PersonToPersonDTO(_orderBroker.GetPersonByOrderId(orderId)));
+            }
+
+            return persons;
+        }
     }
 }

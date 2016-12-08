@@ -43,7 +43,7 @@ namespace JPNFinalProject.Hubs
             Clients.Client(id).getMessage(message);
         }
 
-
+        //Skal lige huske at have lavet sådan at når man disconnecter så bliver man fjernet fra listen.
 
         //public override Task OnConnected() {
         //    SignalRConnectionId(this.Context.ConnectionId);
