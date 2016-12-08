@@ -57,7 +57,8 @@
             success: function (data) {
                 console.log('Success!', data);
                 $('#productContainer').html(data);
-                $("#productModal").show();
+
+                $("#productModal").modal('show');
             },
             error: function (e) {
                 console.log('Error!', e);
