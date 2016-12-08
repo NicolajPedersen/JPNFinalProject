@@ -81,5 +81,19 @@ namespace JPNFinalProject.Data.DatabaseBrokers
                 return products;
             }
         }
+
+        public virtual List<Product> GetProductsByIdV2(List<OrderProduct> orderProducts)
+        {
+            using (var context = new JPNFinalProjectContext())
+            {
+                List<Product> products = new List<Product>();
+                foreach (var op in orderProducts)
+                {
+                    var p = context.Product.Where(x => x.ProductId == op.ProductId).Select(x => x).Single();
+                    products.Add(p);
+                }
+                return products;
+            }
+        }
     }
 }

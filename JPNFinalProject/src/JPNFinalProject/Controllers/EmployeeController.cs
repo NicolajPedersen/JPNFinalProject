@@ -16,56 +16,9 @@ namespace JPNFinalProject.Controllers
     {
         private string pass = "EAL2016JPN";
         private OrderService _orderService;
-        List<OrderDTO> orderList;
         public EmployeeController()
         {
-            _orderService = new OrderService();
-            orderList = new List<OrderDTO>()
-            {
-               new OrderDTO()
-               {
-                   OrderNumber = 24553892, CustomerMail = "phvorret@gmail.com" , Products = new List<ProductDTO>()
-                                                                                {
-                                                                                    new ProductDTO()
-                                                                                    {
-                                                                                        Id = 1,
-                                                                                        Name = "Remington HC5600 E51 Pro Power Hair Clipper",
-                                                                                        Price = 300,
-                                                                                        Amount = 1,
-                                                                                        StockAmount = 50,
-                                                                                        PutAside = true,
-                                                                                        Description = "Remington HC5600 E51 Pro Power Hair Clipper"
-                                                                                    },
-                                                                                    new ProductDTO()
-                                                                                    {
-                                                                                        Id = 2,
-                                                                                        Name = "Remington Pro Power Hårklipper HC5200",
-                                                                                        Price = 249,
-                                                                                        Amount = 1,
-                                                                                        StockAmount = 0,
-                                                                                        PutAside = false,
-                                                                                        Description = "Remington Pro Power Hårklipper HC5200"
-                                                                                    }
-                                                                                }
-
-               },
-               new OrderDTO()
-               {
-                   OrderNumber = 26836478, CustomerMail = "ngp@gmail.com" , Products = new List<ProductDTO>()
-                                                                            {
-                                                                                new ProductDTO()
-                                                                                {
-                                                                                    Id = 3,
-                                                                                    Name = "Remington Apprentice Hårklipper",
-                                                                                    Price = 199,
-                                                                                    Amount = 1,
-                                                                                    StockAmount = 10,
-                                                                                    PutAside = false,
-                                                                                    Description = "Remington Apprentice Hårklipper"
-                                                                                }
-                                                                            }
-               }
-            };
+            _orderService = new OrderService();           
         }
 
         public IActionResult Index()
@@ -81,7 +34,7 @@ namespace JPNFinalProject.Controllers
         public ActionResult ProductPartial([FromBody] int orderId)
         {
             var model = new EmployeeViewModel();
-            model.Order = _orderService.GetOrderByOrderNumber(orderId);
+            model.Order = _orderService.GetOrderByOrderNumberV2(orderId);
             return PartialView(model);
         }
 

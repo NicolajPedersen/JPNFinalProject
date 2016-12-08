@@ -46,6 +46,16 @@ namespace JPNFinalProject.Services.DatabaseServices
             return order;
         }
 
+        public OrderDTO GetOrderByOrderNumberV2(int orderId)
+        {
+            var o = _orderBroker.GetOrderByOrderNumber(orderId);
+            var ops = o.OrderProduct.Where(x => x.OrderId == orderId).Select(x => x).ToList();
+            var products = _productBroker.GetProductsByIdV2(ops);
+            var order = OrderMapper.OrderToOrderDTOV2(o, ops, products);
+            order.Business = BusinessMapper.BusinessToBusinessDTO(_orderBroker.GetBusinessById(o.BusinessOrder.Where(x => x.OrderId == o.OrderId).Select(x => x.BusinessId).Single()));
+            return order;
+        }
+
         public List<OrderDTO> GetOrders()
         {
             var dbOrders = _orderBroker.GetOrders();

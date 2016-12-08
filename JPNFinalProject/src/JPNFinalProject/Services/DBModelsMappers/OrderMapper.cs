@@ -45,6 +45,21 @@ namespace JPNFinalProject.Services.DBModelsMappers
             }
             return dto;
         }
+        public static OrderDTO OrderToOrderDTOV2(Order input, List<OrderProduct> orderProducts, List<Product> products)
+        {
+            OrderDTO dto = new OrderDTO();
+            dto.Id = input.OrderId;
+            dto.Person = PersonMapper.PersonToPersonDTO(input.Person);
+            dto.CustomerMail = dto.Person.Email;
+            dto.TotalPrice = Convert.ToInt32(input.TotalPrice);
+            dto.OrderNumber = input.OrderId;
+            dto.Products = DBProductMapper.ProductsToListOfProductDTOs(products);
+            foreach (var product in dto.Products)
+            {
+                product.Amount = orderProducts.Where(x => x.ProductId == product.Id && x.OrderId == input.OrderId).Select(x => x.Amount).Single();
+            }
+            return dto;
+        }
 
         public static List<OrderProduct> OrderDTOToOrderProduct(int orderId, List<ProductDTO> products) {
             List<OrderProduct> orderProducts = new List<OrderProduct>();
