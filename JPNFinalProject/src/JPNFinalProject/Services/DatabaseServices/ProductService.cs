@@ -17,6 +17,17 @@ namespace JPNFinalProject.Services.DatabaseServices
         {
             broker = new ProductBroker();
         }
+
+        public ProductDTO GetProductById(int productId)
+        {
+            var dbProduct = broker.GetProductById(productId);
+
+            var dto = DBProductMapper.DBProductToProductDTO(dbProduct, dbProduct.ProductCategory);
+
+            return dto;
+            
+        }
+
         public List<ProductDTO> GetAllProducts()
         {
             //var tempList = broker.GetAllProducts();
@@ -33,6 +44,23 @@ namespace JPNFinalProject.Services.DatabaseServices
             }
 
             return productList;
+        }
+
+        public ProductDTO GetRandomProduct()
+        {
+            var dbProducts = broker.GetAllProducts();
+
+            var dto = new ProductDTO();
+
+            Random ran = new Random();
+
+            var ranNum = ran.Next(dbProducts.Count - 1);
+
+            dto = DBProductMapper.DBProductToProductDTO(dbProducts[ranNum], dbProducts[ranNum].ProductCategory);
+
+            return dto;
+
+
         }
 
         public List<CategoryDTO> GetAllCategories()

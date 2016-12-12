@@ -1,0 +1,45 @@
+﻿@using JPNFinalProject.Models.AuctionViewModels
+@model AuctionViewModel
+
+@{
+    ViewData["Title"] = "Auction";
+}
+
+<link rel="stylesheet" href="~/css/Auction/site.css" asp-append-version="true" />
+
+<div>
+
+    <div style="padding-top: 8%">
+        <textarea readonly="readonly" style="resize:none" id="clientbox"></textarea>
+        <form name="message" action="">
+            <input name="userBid" type="text" id="userBid" size="71" />
+            <input name="bidButton" type="submit" id="bidButton" value="Byd" />
+        </form>
+    </div>
+
+</div>
+
+@section scripts {
+    <script src="~/js/SignalR/jquery.signalR-2.2.0.js"></script>
+    <script src="/signalr/hubs"></script>
+
+    <script>
+        var auction = $.connection.auction;
+        var hub = $.connection.hub;
+
+        auction.client.auctionStarted = function (msg) {
+            if (!$("#clientbox").val())
+            {
+                $("#clientbox").append(msg);
+            }
+            else
+            {
+                $("#clientbox").append("\n" + msg);
+            }
+        };
+
+        hub.start();
+
+    </script>
+
+}

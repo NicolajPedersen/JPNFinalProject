@@ -1,0 +1,49 @@
+﻿@using JPNFinalProject.Models.AuctionViewModels
+@model AuctionViewModel
+
+@{
+    ViewData["Title"] = "Auction";
+}
+
+<link rel="stylesheet" href="~/css/Auction/site.css" asp-append-version="true" />
+
+<div id="wrapper">
+    <div id="productInfo" style="padding-top: 8%" class="form-horizontal col-md-6 row">
+        <div><label class="labelInfo">Produkt navn:</label><label class="labelData">@Model.Product.Name</label></div>
+        <div><label class="labelInfo">Product id:</label><label id="productId" class="labelData">@Model.Product.Id</label></div>
+        <div><label class="labelInfo">Product pris:</label><label class="labelData">@Model.Product.Price</label></div>
+        <div><label class="labelInfo">Product Kategori:</label><label class="labelData">@Model.Product.Category.Name</label></div>
+        <div><input name="startAuction" type="submit" id="startAuction" value="Start auktion" /></div>    
+    </div>
+    <div style="padding-top: 8%" class="col-md-6">
+        <div id="chatbox"></div>
+    </div>
+
+
+    @*<form name="message" action="">
+        <input name="usermsg" type="text" id="usermsg" size="63" />
+        <input name="submitmsg" type="submit" id="submitmsg" value="Send" />
+    </form>*@
+</div>
+
+@section scripts {
+    <script src="~/js/SignalR/jquery.signalR-2.2.0.js"></script>
+    <script src="/signalr/hubs"></script>
+
+    <script>
+        var auction = $.connection.auction;
+        var hub = $.connection.hub;
+
+
+        $("#startAuction").click(function () {
+            hub.start().done(function () {
+                console.log($("#productId").html())
+                auction.server.startAuction($("#productId").html());
+
+            });
+            $(this).prop("disabled", true);
+        });
+
+    </script>
+
+}

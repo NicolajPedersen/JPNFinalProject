@@ -13,7 +13,7 @@ namespace JPNFinalProject.Data.DatabaseBrokers
         {
             using (var context = new JPNFinalProjectContext())
             {
-                return context.Product.ToList();
+                return context.Product.Include(x => x.ProductCategory).ToList();
             }
 
         }
@@ -24,6 +24,14 @@ namespace JPNFinalProject.Data.DatabaseBrokers
                 return context.ProductCategory.Where(x => x.ProductCategoryId == id).Include(x => x.ParentProductCategory).Single();
             }
 
+        }
+
+        public virtual Product GetProductById(int productId)
+        {
+            using (var context = new JPNFinalProjectContext())
+            {
+                return context.Product.Include(x => x.ProductCategory).Where(x => x.ProductId == productId).Single();
+            }
         }
 
         public virtual List<ProductCategory> GetAllCategoriesWithProducts()
@@ -70,7 +78,7 @@ namespace JPNFinalProject.Data.DatabaseBrokers
             }
         }
 
-        public virtual List<Product> GetProductsById(List<OrderProduct> orderProducts) {
+        public virtual List<Product> GetAllProductsById(List<OrderProduct> orderProducts) {
             using (var context = new JPNFinalProjectContext()) {
                 List<Product> products = new List<Product>();
                 foreach (var op in orderProducts) {
@@ -82,7 +90,7 @@ namespace JPNFinalProject.Data.DatabaseBrokers
             }
         }
 
-        public virtual List<Product> GetProductsByIdV2(List<OrderProduct> orderProducts)
+        public virtual List<Product> GetAllProductsByIdV2(List<OrderProduct> orderProducts)
         {
             using (var context = new JPNFinalProjectContext())
             {
