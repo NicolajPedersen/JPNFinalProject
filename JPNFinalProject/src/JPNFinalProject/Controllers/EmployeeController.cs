@@ -23,6 +23,10 @@ namespace JPNFinalProject.Controllers
 
         public IActionResult Index()
         {
+
+            //Når man åbner employee siden op skal connnectionId gemmes i den der speciele dictionary. 
+            //Når en klient går ind på deres side skal de hente employee siden's connectionId ud så de ved hvem de skal sende til.
+
             var tempList = _orderService.GetOrders();
             var model = new EmployeeViewModel();
             model.BusinessId = tempList[0].Business.Id;
