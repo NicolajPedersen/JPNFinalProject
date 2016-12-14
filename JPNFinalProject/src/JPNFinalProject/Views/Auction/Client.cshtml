@@ -8,13 +8,17 @@
 <link rel="stylesheet" href="~/css/Auction/site.css" asp-append-version="true" />
 
 <div>
-
     <div style="padding-top: 8%">
+        <div><label class="labelInfo">Signal Id:</label><label id="signalId" class="labelData"></label></div>    
+      
+        <input name="userName" type="text" id="userName" size="71" />
+        <input name="nameButton" type="submit" id="nameButton" value="send" />
+    </div>
+    <div style="padding-top: 2%">
         <textarea readonly="readonly" style="resize:none" id="clientbox"></textarea>
-        <form name="message" action="">
-            <input name="userBid" type="text" id="userBid" size="71" />
-            <input name="bidButton" type="submit" id="bidButton" value="Byd" />
-        </form>
+        <input name="userBid" type="text" id="userBid" size="71" />
+        <input name="bidButton" type="submit" id="bidButton" value="Byd" />
+
     </div>
 
 </div>
@@ -27,7 +31,11 @@
         var auction = $.connection.auction;
         var hub = $.connection.hub;
 
-        auction.client.auctionStarted = function (msg) {
+        var id;
+        var name;
+
+        auction.client.auctionStarted = function (msg, pId) {
+            id = pId;
             if (!$("#clientbox").val())
             {
                 $("#clientbox").append(msg);
@@ -37,7 +45,39 @@
                 $("#clientbox").append("\n" + msg);
             }
         };
+        hub.start();
 
+        $("#nameButton").click(function () {
+
+            hub.start().done(function () {
+                name = $("#userName").val();
+                console.log(name);
+                auction.server.userConnectionId($("#userName").val());
+            })
+        });
+
+        auction.client.getUserConnectionId = function (msg) {
+            console.log(msg)
+            $("#signalId").html(msg);
+        };
+
+        $("#bidButton").click(function () {
+            hub.start().done(function () {
+                console.log(name + "  " + id + "  " + $("#userBid").val())
+                auction.server.makeBid(name, id, $("#userBid").val());
+            });
+        });
+
+
+
+        auction.client.newAcceptBid = function (msg) {
+            $("#clientbox").append("\n" + msg);
+        };
+        hub.start();
+
+        auction.client.notAcceptedBid = function (msg) {
+            $("#clientbox").append("\n" + msg);
+        };
         hub.start();
 
     </script>

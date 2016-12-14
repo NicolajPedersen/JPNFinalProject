@@ -13,7 +13,8 @@
         <div><label class="labelInfo">Product id:</label><label id="productId" class="labelData">@Model.Product.Id</label></div>
         <div><label class="labelInfo">Product pris:</label><label class="labelData">@Model.Product.Price</label></div>
         <div><label class="labelInfo">Product Kategori:</label><label class="labelData">@Model.Product.Category.Name</label></div>
-        <div><input name="startAuction" type="submit" id="startAuction" value="Start auktion" /></div>    
+        <div><input name="startAuction" type="submit" id="startAuction" value="Start auktion" /></div>
+        <div><label class="labelInfo">Signal Id:</label><label id="signalId" class="labelData"></label></div>    
     </div>
     <div style="padding-top: 8%" class="col-md-6">
         <div id="chatbox"></div>
@@ -33,7 +34,26 @@
     <script>
         var auction = $.connection.auction;
         var hub = $.connection.hub;
+        
+        auction.client.auctionStarted = function (msg, pId) {
+            if (!$("#chatbox").val())
+            {
+                $("#chatbox").append(msg);
+            }
+            else
+            {
+                $("#chatbox").append("\n" + msg);
+            }
+        };
+        hub.start();
 
+        hub.start().done(function () {
+            auction.server.signalRConnectionId("employee");
+        })
+
+        auction.client.getConnectionId = function (msg) {
+            $("#signalId").html(msg);
+        };
 
         $("#startAuction").click(function () {
             hub.start().done(function () {
@@ -43,6 +63,35 @@
             });
             $(this).prop("disabled", true);
         });
+
+        auction.client.newBid = function (msg, bid, isAccepted, user) {
+            console.log(msg);
+            if (!$("#chatbox").val())
+            {
+                $("#chatbox").append(msg);
+            }
+            else
+            {
+                $("#chatbox").append("\n" + msg);
+            }
+            if (isAccepted)
+            {
+                hub.start().done(function () {
+                    auction.server.newAcceptedBid(bid);
+
+                });
+            }
+            else
+            {
+                hub.start().done(function () {
+                    auction.server.notAccepted(user);
+
+                });
+                
+            }
+
+        };
+        hub.start();
 
     </script>
 
