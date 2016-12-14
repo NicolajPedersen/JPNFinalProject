@@ -75,8 +75,6 @@ namespace JPNFinalProject.Hubs
 
             var adminId = userL.Where(x => x.Value.User == "Admin").Select(x => x.Key).Single();
             var l = userL.Where(x => x.Value.User == "User");
-            //Clients.Client(adminId).getAll(l);
-
             return base.OnDisconnected(stopCalled);
         }
 
