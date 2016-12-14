@@ -40,7 +40,7 @@ namespace JPNFinalProject.Services.DatabaseServices
         public OrderDTO GetOrderByOrderNumber(int orderId) {
             var o = _orderBroker.GetOrderByOrderNumber(orderId);
             var ops = o.OrderProduct.Where(x => x.OrderId == orderId).Select(x => x).ToList();
-            var products = _productBroker.GetProductsById(ops);
+            var products = _productBroker.GetAllProductsById(ops);
             var order = OrderMapper.OrderToOrderDTO(o, products);
             order.Business = BusinessMapper.BusinessToBusinessDTO(_orderBroker.GetBusinessById(o.BusinessOrder.Where(x => x.OrderId == o.OrderId).Select(x => x.BusinessId).Single()));
             return order;
@@ -50,7 +50,7 @@ namespace JPNFinalProject.Services.DatabaseServices
         {
             var o = _orderBroker.GetOrderByOrderNumber(orderId);
             var ops = o.OrderProduct.Where(x => x.OrderId == orderId).Select(x => x).ToList();
-            var products = _productBroker.GetProductsByIdV2(ops);
+            var products = _productBroker.GetAllProductsByIdV2(ops);
             var order = OrderMapper.OrderToOrderDTOV2(o, ops, products);
             order.Business = BusinessMapper.BusinessToBusinessDTO(_orderBroker.GetBusinessById(o.BusinessOrder.Where(x => x.OrderId == o.OrderId).Select(x => x.BusinessId).Single()));
             return order;
