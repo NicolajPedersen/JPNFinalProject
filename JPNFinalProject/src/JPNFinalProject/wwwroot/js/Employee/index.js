@@ -1,24 +1,34 @@
 ﻿$(document).ready(function () {
 
-    let test = $.connection.test;
-    let hub = $.connection.hub;
+    var test = $.connection.test;
+    var hub = $.connection.hub;
 
-    hub.start().done(function () {
-        test.server.signalRConnectionId("Admin", 1);
-    });
+    //hub.start().done(function () {
+    //    test.server.signalRConnectionId("Admin", 1);
+    //});
+
+    hub.start();
+
+    var id;
 
     test.client.getConnectionId = function (msg) {
         id = msg;
         console.log("My id: " + id);
+        test.server.addAdmin(id, "Admin", 1);
     };
 
-    //hub.start();
+    //hub.start().done(function () {
+    //    test.server.addAdmin(id, "Admin", 1);
+    //});
+
+    
 
     var orderIds = new Array();
+    var orders = new Array();
     test.client.getAll = function (msg) {
-        let p = msg;
-        console.log(p);
-        $.each(p, function () {
+        orders = msg;
+        console.log(orders);
+        $.each(orders, function () {
             console.log("Client id: " + this.Key);
             console.log("OrderId: " + this.Value.OrderId);
             orderIds.push(this.Value.OrderId);
@@ -32,6 +42,8 @@
     //console.log(orderIds);
 
     function getProducts () {
+        $(".container tbody:first").empty();
+
         $.ajax({
             type: "POST",
             url: "/Order/GetPersonByOrderId",
@@ -39,23 +51,26 @@
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-                $.each(data, function () {
-                    $(".container tbody").append(
+                $.each(data, function (i) {
+                    $(".container tbody:first").append(
                     "<tr>" + 
                         "<td id='customerName'>" + this.person.name + "</td>" +
                         "<td id='customerMail'>" + this.person.email + "</td>" +
                         "<td id='ordreNumber'>" + this.id + "</td>" +
-                        "<td> <button id='viewProducts' type='button' class='btn btn-sm'>Vis Produkter</button> </td>" +
+                        "<td><button id='viewProducts' data-connectionId=" + orders[i].Key + " type='button' class='btn btn-sm'>Vis Produkter</button><div id='indicator'></div></td>" +
                     "</tr>"
-                    );
-                });
 
-                //console.log($(".container tbody").find("tr"));
-                //console.log(data);
+                    );
+                    if (orders[i].Value.IsConnected == true) {
+                        $(".container tbody:first").find('tr:eq(' + i + ')').find("#indicator").css("background", "green");
+                    }
+                    else {
+                        $(".container tbody:first").find('tr:eq(' + i + ')').find("#indicator").css("background", "red");
+                    }
+                });
             }
         });
     };
-
 
     var indexInTable;
     var isChecked = false;
@@ -99,6 +114,23 @@
             contentType: "application/json; charset=utf-8",
         });
 
+        var connectionId;
+
+        var rows = $(".container tbody:first").find("#ordreNumber");
+        $.each(rows, function () {
+            if ($(this).html() == product[1]) {
+                connectionId = $(this).parent().find("#viewProducts").attr("data-connectionId");
+            }
+        });
+
+        //console.log(rows);
+
+        console.log(connectionId);
+
+        var msg = "Produkt: " + product[0] + " i Order: " + product[1] + " er tilsidesat."
+
+        test.server.sendMessage(connectionId, msg);
+
     });
 
     $(document).on("click", "#viewProducts", function () {
@@ -122,8 +154,6 @@
                 console.log('Error!', e);
             }
         });
-
-
     })
 
     $(document).on("click", "#modalClose", function () {
