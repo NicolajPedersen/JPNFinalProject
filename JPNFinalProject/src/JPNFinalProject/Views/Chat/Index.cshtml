@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Chat";
+}
+
+<h1>Chat</h1>
+
+<div class="ui form">
+    <label>Write a message</label>
+    <textarea id="messageText"></textarea>
+    <button id="sendButton" class="ui button">Send</button>
+    <table id="table" class="ui table">
+        <tbody></tbody>
+    </table>
+
+</div>
+
+@section scripts{
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/SignalR/jquery.signalR-2.2.0.js"></script>
+    <script src="/signalr/hubs"></script>
+
+   <script>
+        $(function () {
+            var chat = $.connection.chat;
+
+            $("#sendButton").click(function() {
+                var text = $("#messageText").val();
+                chat.server.sendMessage(text).done(function (value) {
+                    console.log("Message sent.");
+                });
+            });
+
+            chat.client.onMessageReceived = function (date, user, message) {
+            	$("#table tbody").append("<tr><td>" + date + "</td><td>" + user + "</td><td>" + message + "</td></tr>");
+            };
+
+            $.connection.hub.start(function () {
+                console.info("Connected.");
+            });
+
+            $.connection.hub.disconnected(function() {
+                setTimeout(function() {
+                    console.info("Reconnecting...");
+                    $.connection.hub.start(function() {
+                        console.info("Connected.");
+                    });
+                }, 5000); // Restart connection after 5 seconds.
+
+                console.info("Reconnecting in 5 sec...");
+            });
+        });
+</script> 
+}
+
