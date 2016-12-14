@@ -22,9 +22,9 @@ $(document).ready(function () {
 
     $.connection.hub.start();
 
-    $.connection.hub.start().done(function () {
-        test.server.signalRConnectionId("User", 0);
-    });
+    //$.connection.hub.start().done(function () {
+    //    test.server.signalRConnectionId("User", 0);
+    //});
 
     var id;
 
@@ -35,13 +35,23 @@ $(document).ready(function () {
         $.connection.hub.start().done(function () {
             test.server.addObject(id, { User: "User", BusinessId: window.businessId, OrderId: window.orderId });
         });
-    };    
+
+        $("#message").html("Venter på respons fra butik!");
+        $("#status2").append("<div id='loader'></div>");
+    };
+
+    $.connection.hub.start();
 
     test.client.getMessage = function (msg) {
         var message = msg;
         console.log("Message: " + message);
-        $("#msg").text(message);
-    }
+        $("#myDiv").append('<p>' + message + '</p>');
+        $("#myDiv").css("display", "block");
+        $("#status2").css("display", "none");
+
+    };
+
+    $.connection.hub.start();
 });
 
 //<input id="message" type="text" value="" />

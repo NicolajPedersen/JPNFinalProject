@@ -135,14 +135,14 @@
         let test = $.connection.test;
         let hub = $.connection.hub;
 
-        hub.start().done(function () {
-            test.server.signalRConnectionId("Admin", 1);
-        });
+        //hub.start().done(function () {
+        //    test.server.signalRConnectionId("Admin", 1);
+        //});
 
-        test.client.getConnectionId = function (msg) {
-            id = msg;
-            console.log("My id: " + id);
-        };
+        //test.client.getConnectionId = function (msg) {
+        //    id = msg;
+        //    console.log("My id: " + id);
+        //};
 
         hub.start();
 

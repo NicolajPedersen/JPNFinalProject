@@ -5,6 +5,20 @@
     ViewData["Title"] = "Bestilte produkter";
 }
 
+<style>
+    #indicator {
+        margin-top: 15px;
+        margin-left: 10px;
+	    width: 10px;
+	    height: 10px;
+	    /*background: green;*/
+	    -moz-border-radius: 50px;
+	    -webkit-border-radius: 50px;
+	    border-radius: 50px;
+        display: inline-block;
+    }
+</style>
+
 <p class="demo"></p>
 
 <div class="test"></div>
@@ -21,7 +35,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var order in Model.OrderList)
+            @*@foreach (var order in Model.OrderList)
             {
                 <tr>
                     <td id="customerName">@order.Person.Name</td>
@@ -29,7 +43,7 @@
                     <td id="ordreNumber">@order.OrderNumber</td>
                     <td><button id="viewProducts" type="button" class="btn btn-sm">Vis Produkter</button></td>
                 </tr>
-            }
+            }*@
         </tbody>
     </table>
 </div>

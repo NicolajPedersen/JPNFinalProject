@@ -95,9 +95,10 @@ namespace JPNFinalProject.Controllers
 
         [HttpGet]
         public IActionResult PaymentDone() {
-            var orderId = _orderService.SaveOrder(HttpContext);
+            //var orderId = _orderService.SaveOrder(HttpContext);
             PaymentDoneViewModel model = new PaymentDoneViewModel();
-            model.Order = _orderService.GetOrderByOrderNumber(orderId); //Skal der ikke være orderNumber databasen
+            /*model.Order = _orderService.GetOrderByOrderNumber(orderId);*/ //Skal der ikke være orderNumber databasen
+            model.Order = _orderService.GetOrderByOrderNumber(1024);
 
             model.Subtotal = model.Order.Products.Select(x => x.Price * x.StockAmount).Sum();
             model.VATFromPrice = (model.Subtotal / 100) * 25;
@@ -107,11 +108,16 @@ namespace JPNFinalProject.Controllers
         }
 
         [HttpPost]
-        public ActionResult BusinessByPostalcode([FromBody] string postalcode)
+        public IActionResult BusinessByPostalcode([FromBody] string postalcode)
         {
             var model = new BusinessViewModel();
             model.Businesses = _orderService.GetBusinesses(postalcode);
             return PartialView(model);
+        }
+
+        [HttpPost]
+        public IActionResult GetPersonByOrderId([FromBody] int[] orderIds) {
+            return Json(_orderService.GetPersonsByOrderIds(orderIds.ToList()));
         }
     }
 }
