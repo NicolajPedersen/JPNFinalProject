@@ -1,4 +1,5 @@
-﻿using JPNFinalProject.Services.DatabaseServices;
+﻿using JPNFinalProject.Data.DTO;
+using JPNFinalProject.Services.DatabaseServices;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.SignalR.Hubs;
 using System;
@@ -14,15 +15,18 @@ namespace JPNFinalProject.Hubs
     {
         public static ConcurrentDictionary<string, string> employees = new ConcurrentDictionary<string, string>();
         public static ConcurrentDictionary<string, string> users = new ConcurrentDictionary<string, string>();
-        public static ConcurrentDictionary<int, double> productPrice = new ConcurrentDictionary<int, double>();
+        public static ConcurrentDictionary<int, ProductDTO> products = new ConcurrentDictionary<int, ProductDTO>();
+        public static ProductDTO Currentproduct = new ProductDTO();
 
         public void StartAuction(string productId)
         {
             ProductService _productService = new ProductService();
-
+            
             var product = _productService.GetProductById(Convert.ToInt32(productId));
 
-            productPrice.TryAdd(product.Id, product.Price);
+            Currentproduct = product;
+
+            products.TryAdd(product.Id, product);
 
             Clients.All.auctionStarted("Auktionen på produktet: " + product.Name + " er startet. Start bud: " + product.Price, product.Id);
         }
@@ -65,7 +69,7 @@ namespace JPNFinalProject.Hubs
 
             var proId = Convert.ToInt32(productId);
 
-            var currentBid = productPrice[proId];
+            var currentBid = products[proId].Price;
 
             bool isAccepted = false;
 
@@ -73,7 +77,7 @@ namespace JPNFinalProject.Hubs
 
             if(clientBid > currentBid)
             {
-                productPrice[proId] = clientBid;
+                products[proId].Price = clientBid;
                 msg = "user: " + name + " Bid: " + clientBid + " is accepted";
                 isAccepted = true;
             }
@@ -84,6 +88,17 @@ namespace JPNFinalProject.Hubs
             }
 
             Clients.Client(employees["employee"]).newBid(msg, clientBid, isAccepted, name);
+
+        }
+
+        public void ConnectedUserAfterStart()
+        {
+            var clientId = this.Context.ConnectionId;
+
+            if (!products.IsEmpty)
+            {
+                Clients.Client(clientId).getStartedAuction("Auktionen på produktet: " + Currentproduct.Name + " er startet.Start bud: " + Currentproduct.Price, Currentproduct.Id);
+            }
 
         }
 
