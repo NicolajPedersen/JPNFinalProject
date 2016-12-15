@@ -16,7 +16,7 @@
     </div>
     <div style="padding-top: 2%">
         <textarea readonly="readonly" style="resize:none" id="clientbox"></textarea>
-        <input name="userBid" type="text" id="userBid" size="71" />
+        <input name="userBid" type="number" id="userBid" size="71" />
         <input name="bidButton" type="submit" id="bidButton" value="Byd" />
 
     </div>
@@ -33,6 +33,24 @@
 
         var id;
         var name;
+
+        hub.start().done(function () {
+            console.log(name);
+            auction.server.connectedUserAfterStart();
+        })
+        auction.client.getStartedAuction = function (msg, pId) {
+            console.log(msg)
+            id = pId;
+            if (!$("#clientbox").val())
+            {
+                $("#clientbox").append(msg);
+            }
+            else
+            {
+                $("#clientbox").append("\n" + msg);
+            }
+        };
+
 
         auction.client.auctionStarted = function (msg, pId) {
             id = pId;
