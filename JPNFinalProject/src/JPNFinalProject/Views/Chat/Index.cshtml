@@ -40,13 +40,11 @@
 
             $.connection.hub.disconnected(function() {
                 setTimeout(function() {
-                    console.info("Reconnecting...");
+                    console.info("Reconnecting…");
                     $.connection.hub.start(function() {
                         console.info("Connected.");
                     });
-                }, 5000); // Restart connection after 5 seconds.
-
-                console.info("Reconnecting in 5 sec...");
+                }, 5000);
             });
         });
 </script> 
