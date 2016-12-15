@@ -95,10 +95,10 @@ namespace JPNFinalProject.Controllers
 
         [HttpGet]
         public IActionResult PaymentDone() {
-            //var orderId = _orderService.SaveOrder(HttpContext);
+            var orderId = _orderService.SaveOrder(HttpContext);
             PaymentDoneViewModel model = new PaymentDoneViewModel();
-            /*model.Order = _orderService.GetOrderByOrderNumber(orderId);*/ //Skal der ikke være orderNumber databasen
-            model.Order = _orderService.GetOrderByOrderNumber(1024);
+            model.Order = _orderService.GetOrderByOrderNumber(orderId); //Skal der ikke være orderNumber databasen
+            //model.Order = _orderService.GetOrderByOrderNumber(1024);
 
             model.Subtotal = model.Order.Products.Select(x => x.Price * x.StockAmount).Sum();
             model.VATFromPrice = (model.Subtotal / 100) * 25;

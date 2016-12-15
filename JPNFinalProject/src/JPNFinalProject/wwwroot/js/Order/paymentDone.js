@@ -48,7 +48,6 @@ $(document).ready(function () {
         $("#myDiv").append('<p>' + message + '</p>');
         $("#myDiv").css("display", "block");
         $("#status2").css("display", "none");
-
     };
 
     $.connection.hub.start();

@@ -51,12 +51,14 @@ namespace JPNFinalProject.Controllers
 
             var orderdto = _orderService.GetOrderByOrderNumber(product[1]);
 
-            var email = orderdto.CustomerMail;  
+            var email = orderdto.CustomerMail;
 
-            SendMail(email, orderdto);
+            var msg = "Hi " + orderdto.Person.Name + "\n\nDu har købt: " + orderdto.Products[0].Name;
+
+            SendMail(email, orderdto, msg);
         }
 
-        private void SendMail(string email, OrderDTO order)
+        private void SendMail(string email, OrderDTO order, string msg)
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("JPN", "JPNFinalProject@gmail.com"));
@@ -65,9 +67,7 @@ namespace JPNFinalProject.Controllers
             message.Subject = "Hello " + order.Person.Name;
 
             message.Body = new TextPart("plain")
-            {
-                Text = "Hi " + order.Person.Name + "\n\nDu har købt: " + order.Products[0].Name 
-            };
+            {Text = msg};
 
             using(var client = new SmtpClient())
             {

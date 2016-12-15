@@ -3,10 +3,6 @@
     var test = $.connection.test;
     var hub = $.connection.hub;
 
-    //hub.start().done(function () {
-    //    test.server.signalRConnectionId("Admin", 1);
-    //});
-
     hub.start();
 
     var id;
@@ -17,15 +13,10 @@
         test.server.addAdmin(id, "Admin", 1);
     };
 
-    //hub.start().done(function () {
-    //    test.server.addAdmin(id, "Admin", 1);
-    //});
-
-    
-
-    var orderIds = new Array();
+    var orderIds;
     var orders = new Array();
     test.client.getAll = function (msg) {
+        orderIds = new Array();
         orders = msg;
         console.log(orders);
         $.each(orders, function () {
@@ -37,13 +28,10 @@
         getProducts();
     };
 
-    //var orderIds = [1023, 1024];
-
-    //console.log(orderIds);
-
     function getProducts () {
         $(".container tbody:first").empty();
-
+        console.log(orders);
+        console.log(orderIds);
         $.ajax({
             type: "POST",
             url: "/Order/GetPersonByOrderId",
@@ -51,22 +39,31 @@
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
+                console.log(data);
                 $.each(data, function (i) {
-                    $(".container tbody:first").append(
-                    "<tr>" + 
-                        "<td id='customerName'>" + this.person.name + "</td>" +
-                        "<td id='customerMail'>" + this.person.email + "</td>" +
-                        "<td id='ordreNumber'>" + this.id + "</td>" +
-                        "<td><button id='viewProducts' data-connectionId=" + orders[i].Key + " type='button' class='btn btn-sm'>Vis Produkter</button><div id='indicator'></div></td>" +
-                    "</tr>"
+                    $.each(orders, function (j) {
+                        if (orders[j].Value.OrderId == data[i].id) {
+                            $(".container tbody:first").append(
+                                "<tr>" +
+                                    "<td id='customerName'>" + data[i].person.name + "</td>" +
+                                    "<td id='customerMail'>" + data[i].person.email + "</td>" +
+                                    "<td id='ordreNumber'>" + data[i].id + "</td>" +
+                                    "<td><button id='viewProducts' data-connectionId=" + orders[j].Key + " type='button' class='btn btn-sm'>Vis Produkter</button><div id='indicator'></div></td>" +
+                                "</tr>"
+                            );
 
-                    );
-                    if (orders[i].Value.IsConnected == true) {
-                        $(".container tbody:first").find('tr:eq(' + i + ')').find("#indicator").css("background", "green");
-                    }
-                    else {
-                        $(".container tbody:first").find('tr:eq(' + i + ')').find("#indicator").css("background", "red");
-                    }
+                            if (orders[j].Value.IsConnected == true) {
+                                //$(".container tbody:first").find('tr:eq(' + i + ')').find("#indicator").css("background", "green");
+                                $(".container tbody:first").find('[data-connectionId=' + orders[j].Key + ']').parent().find("#indicator").css("background", "green");
+                            }
+                            else {
+                                //$(".container tbody:first").find('tr:eq(' + i + ')').find("#indicator").css("background", "red");
+                                $(".container tbody:first").find('[data-connectionId=' + orders[j].Key + ']').parent().find("#indicator").css("background", "red");
+                            }
+                        };
+                    });
+
+                    
                 });
             }
         });
@@ -116,14 +113,12 @@
 
         var connectionId;
 
-        var rows = $(".container tbody:first").find("#ordreNumber");
+        var rows = $(".container tbody:first").find("tr").find("#ordreNumber");
         $.each(rows, function () {
-            if ($(this).html() == product[1]) {
+            if ($(this).html() === product[1]) {
                 connectionId = $(this).parent().find("#viewProducts").attr("data-connectionId");
-            }
+            };
         });
-
-        //console.log(rows);
 
         console.log(connectionId);
 

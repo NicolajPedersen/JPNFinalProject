@@ -24,20 +24,15 @@ namespace JPNFinalProject.Hubs
     {
         public static ConcurrentDictionary<string, Storage> userL = new ConcurrentDictionary<string, Storage>();
 
-        //public void SignalRConnectionId(string user, int businessId) {
-        //    var signalRConnectionId = this.Context.ConnectionId;
-        //    if (user == "Admin") {
-        //        userL.TryAdd(signalRConnectionId, new Storage() { User = user, BusinessId = businessId });
-        //    }
-        //    Clients.Client(signalRConnectionId).getConnectionId($"{signalRConnectionId}");
-        //}
-
         public void SignalRConnectionIdV2(string connectionId) {
             Clients.Client(connectionId).getConnectionId($"{connectionId}");
         }
 
         public void AddAdmin(string connectionId, string user, int businessId) {
             userL[connectionId] = new Storage() { User = user, BusinessId = businessId };
+
+            var l = userL.Where(x => x.Value.User == "User");
+            Clients.Client(connectionId).getAll(l);
         }
 
         public void AddObject(string connectionId, Storage input) {
@@ -75,6 +70,8 @@ namespace JPNFinalProject.Hubs
 
             var adminId = userL.Where(x => x.Value.User == "Admin").Select(x => x.Key).Single();
             var l = userL.Where(x => x.Value.User == "User");
+            Clients.Client(adminId).getAll(l);
+
             return base.OnDisconnected(stopCalled);
         }
 
