@@ -12,8 +12,9 @@ namespace JPNFinalProject.Hubs
     {
         public void SendMessage(string message)
         {
+            string querytype = Context.QueryString["transport"];
             string name = Context.ConnectionId;
-            Clients.All.onMessageReceived(DateTime.Now.ToString(), name, message);
+            Clients.All.onMessageReceived(DateTime.Now.ToString(), name, message + querytype);
         }
 
         public override Task OnConnected()

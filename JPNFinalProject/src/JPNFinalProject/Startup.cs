@@ -93,7 +93,7 @@ namespace JPNFinalProject
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            app.UseWebSockets();
             app.UseSignalR();
 
             app.UseStaticFiles();
