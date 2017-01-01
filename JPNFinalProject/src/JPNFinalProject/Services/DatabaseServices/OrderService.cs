@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using JPNFinalProject.Data.DatabaseBrokers;
 using JPNFinalProject.Services.DBModelsMappers;
 using Microsoft.AspNetCore.Http;
+using JPNFinalProject.Data.DatabaseModels;
 
 namespace JPNFinalProject.Services.DatabaseServices
 {
@@ -84,6 +85,7 @@ namespace JPNFinalProject.Services.DatabaseServices
             }
             return businesses;
         }
+
         public List<BusinessDTO> GetBusinesses(string postalCode)
         {
             var b = _orderBroker.GetBusinessesByPostal(postalCode);
@@ -106,6 +108,30 @@ namespace JPNFinalProject.Services.DatabaseServices
             }
 
             return orders;
+        }
+
+        public virtual void DeleteProductsFromOrder(int orderId, List<int> productIds) {            
+            using (var context = new JPNFinalProjectContext()) {
+                foreach (var pId in productIds) {
+                    foreach (var op in context.OrderProduct.Where(x => x.OrderId == orderId).Select(x => x).ToList()) {
+                        if(op.ProductId == pId) {
+                            context.OrderProduct.Remove(op);
+                            context.SaveChanges();
+                        }
+                    }
+                }
+
+                var priceSum = context.OrderProduct.Where(x => x.OrderId == orderId).Select(x => x.Price).ToList().Sum();
+                var VATFromPrice = (priceSum / 100) * 25;
+                var priceWithVAT = priceSum + VATFromPrice;
+                context.Order.Where(x => x.OrderId == orderId).Select(x => x).Single().TotalPrice = priceWithVAT;
+
+                context.SaveChanges();
+            }
+        }
+
+        public void DeleteOrder(int orderId) {
+            _orderBroker.DeleteOrder(orderId);
         }
     }
 }

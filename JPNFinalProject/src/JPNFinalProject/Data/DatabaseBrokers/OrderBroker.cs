@@ -91,7 +91,7 @@ namespace JPNFinalProject.Data.DatabaseBrokers
         {
             using (var context = new JPNFinalProjectContext())
             {
-                return context.OrderProduct
+                return context.OrderProduct.Where(x => x.OrderId == orderId).Select(x => x)
                     .Include(x => x.Product)
                     .ToList();
             }
@@ -119,6 +119,25 @@ namespace JPNFinalProject.Data.DatabaseBrokers
                 var personId = context.Order.Where(x => x.OrderId == orderId).Select(x => x.PersonId).Single();
 
                 return context.Person.Where(x => x.PersonId == personId).Include(x => x.Address).Select(x => x).Single();
+            }
+        }
+
+        public virtual void DeleteOrder(int orderId) {
+            using (var context = new JPNFinalProjectContext()) {
+                var businessOrder = context.BusinessOrder.Where(x => x.OrderId == orderId).Select(x => x).Single();
+                context.BusinessOrder.Remove(businessOrder);
+
+                var orderProducts = context.OrderProduct.Where(x => x.OrderId == orderId).Select(x => x).ToList();
+                orderProducts.ForEach(x => context.OrderProduct.Remove(x));
+
+                var order = context.Order.Where(x => x.OrderId == orderId).Select(x => x).Single();
+
+                var person = context.Person.Where(x => x.PersonId == order.PersonId).Select(x => x).Single();
+                context.Person.Remove(person);
+
+                context.Order.Remove(order);
+
+                context.SaveChanges();
             }
         }
     }

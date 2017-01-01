@@ -25,7 +25,7 @@ namespace JPNFinalProject.Services.DBModelsMappers
                 Person = PersonMapper.PersonToPersonDTO(input.Person),
                 CustomerMail = input.Person.Email,
                 Products = DBProductMapper.ProductsToListOfProductDTOs(products),
-                TotalPrice = Convert.ToInt32(input.TotalPrice)
+                TotalPrice = Convert.ToDouble(input.TotalPrice)
             };
         }
 

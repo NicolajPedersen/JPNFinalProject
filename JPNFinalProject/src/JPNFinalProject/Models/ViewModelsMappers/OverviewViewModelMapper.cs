@@ -16,7 +16,6 @@ namespace JPNFinalProject.Models.ViewModelsMappers
                 OrderNumber = 11111,
                 CustomerMail = "",
                 Person = new PersonDTO() {
-                    Id = 1,
                     Name = delivery.Name,
                     Email = delivery.Email,
                     Password = "",
@@ -33,9 +32,7 @@ namespace JPNFinalProject.Models.ViewModelsMappers
                 Business = new BusinessDTO() {
                     Id = Convert.ToInt32(delivery.ParcelPickup)
                 }
-
             };
-
 
             return model;
         }

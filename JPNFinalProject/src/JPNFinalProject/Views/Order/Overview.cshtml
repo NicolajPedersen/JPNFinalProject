@@ -71,13 +71,13 @@
                     </div>
                 </div>
                 <div class="col-xs-2">
-                    <h4 style="line-height: 70px; display: inline-block; margin-left: 12px;">@product.Price</h4><h4 style="display: inline-block; margin-left: 5px;">kr</h4>
+                    <h4 id="productPrice" style="line-height: 70px; display: inline-block; margin-left: 12px;">@product.Price</h4><h4 style="display: inline-block; margin-left: 5px;">kr</h4>
                 </div>
                 <div id="quantity" class="col-xs-2">
-                    <h4 style="line-height: 70px; display: inline-block;">@product.Amount</h4><h4 style="display: inline-block; margin-left: 5px;">stk.</h4>
+                    <h4 id="amount" style="line-height: 70px; display: inline-block;">@product.Amount</h4><h4 style="display: inline-block; margin-left: 5px;">stk.</h4>
                 </div>
                 <div class="col-xs-2">
-                    <h4 style="line-height: 70px; display: inline-block; margin-left: 20px;">@product.Price</h4><h4 style="display: inline-block; margin-left: 5px;">kr</h4>
+                    <h4 id="totalPrice" style="line-height: 70px; display: inline-block; margin-left: 20px;"></h4><h4 style="display: inline-block; margin-left: 5px;">kr</h4>
                 </div>
             </div>
 
@@ -111,12 +111,12 @@
             <div id="price" class="col-xs-4">
                 <p>@Model.Order.TotalPrice kr</p>
             </div>
-            <div class="col-xs-12" style="text-align: center;">
+            @*<div class="col-xs-12" style="text-align: center;">
                 <input id="conditions" type="checkbox" style="display: inline-block" asp-for="IAcceptTheConditions" /> <p style="display: inline-block;">Jeg accepterer handelsbetingelserne</p>
-            </div>
+            </div>*@
             <div class="col-xs-12" style="text-align: center; padding-left: 30px; padding-right: 30px;">
-                @*<button class="btn btn-success form-control">Godkend og betal</button>*@
-                @Html.ActionLink("Godkend og betal", "Payment", "Order", new { id = Model.Order.Id }, new { @class = "btn btn-success form-control" })
+                @*@Html.ActionLink("Godkend og betal", "Payment", "Order", new { id = Model.Order.Id }, new { @class = "btn btn-success form-control" })*@
+                @Html.ActionLink("Reserver Produkter", "PaymentDone", "Order", new { }, new { @class = "btn btn-success form-control" })
             </div>
         </div>
     </div>
@@ -132,12 +132,16 @@
         <div id="price" class="col-xs-4">
             <p>@Model.Order.TotalPrice kr</p>
         </div>
-        <div class="col-xs-12">
+        @*<div class="col-xs-12">
             <input id="conditions" type="checkbox" style="float: left" asp-for="IAcceptTheConditions" /> <p style="float: left; margin-left: 2px;">Jeg accepterer handelsbetingelserne</p>
-        </div>
+        </div>*@
         <div class="col-xs-12" style="text-align: center;">
-            @*<button class="btn btn-success">Godkend og betal</button>*@
-            @Html.ActionLink("Godkend og betal", "Payment", "Order", new { id = Model.Order.Id }, new { @class = "btn btn-success" })
+            @*@Html.ActionLink("Godkend og betal", "Payment", "Order", new { id = Model.Order.Id }, new { @class = "btn btn-success" })*@
+            @Html.ActionLink("Reserver Produkter", "PaymentDone", "Order", new { }, new { @class = "btn btn-success" })
         </div>
     </div>
 </div>
+
+@section scripts {
+    <script src="~/js/Order/overview.js"></script>
+}

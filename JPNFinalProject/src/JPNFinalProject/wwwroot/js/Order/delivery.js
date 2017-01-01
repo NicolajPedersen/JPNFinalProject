@@ -14,7 +14,8 @@
             console.log('Error!', e);
         }
     })
-})
+});
+
 $(':radio[name=parcel-pickup]').change(function () {
     console.log($(this).filter(':checked').val());
 });

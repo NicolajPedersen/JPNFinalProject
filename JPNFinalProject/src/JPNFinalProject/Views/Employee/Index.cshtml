@@ -32,18 +32,10 @@
                 <th>Kundemail</th>
                 <th>Ordrenummer</th>
                 <th>Handling</th>
+                <th>Ordre bekræftet</th>
             </tr>
         </thead>
         <tbody>
-            @*@foreach (var order in Model.OrderList)
-            {
-                <tr>
-                    <td id="customerName">@order.Person.Name</td>
-                    <td id="customerMail">@order.CustomerMail</td>
-                    <td id="ordreNumber">@order.OrderNumber</td>
-                    <td><button id="viewProducts" type="button" class="btn btn-sm">Vis Produkter</button></td>
-                </tr>
-            }*@
         </tbody>
     </table>
 </div>
@@ -56,7 +48,6 @@
 @section scripts{
     <script src="~/js/SignalR/jquery.signalR-2.2.0.js"></script>
     <script src="/signalr/hubs"></script>
-
 
     <script src="~/js/Employee/index.js"></script>
 }

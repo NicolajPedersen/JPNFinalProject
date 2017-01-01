@@ -8,32 +8,26 @@
 }
 
 <div class="col-xs-10">
-    @*<div id="index" class="row">
-        <ul class="list-inline">
-            <li>Indkøbskurv</li>
-            <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
-            <li>Fakturering og levering</li>
-            <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
-            <li>Oversigt</li>
-            <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
-            <li>Betaling</li>
-        </ul>
-    </div>
-
-    <hr />*@
-
-    <div id="status" class="row">
-        @*<h4><b>Bestillings status:</b></h4>
-        <ul class="list-inline">
-            <li>Venter respons</li>
-            <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
-            <li>Bestilling modtaget</li>
-            <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
-            <li>Tjekker lager</li>
-            <li><span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="opacity: 0.5;"></span></li>
-            <li>Vare tilsidesat</li>
-        </ul>*@
-        <div style="display:none;" id="myDiv" class="animate-bottom"></div>
+    <div id="status" style="display: none; position: relative;" class="row">
+        @*<div id="myDiv" class="animate-bottom"></div>*@
+        <div class="col-xs-10">
+            <table id="employeeInfo" style="display: table; table-layout: fixed;" class="table">
+                <thead>
+                    <tr>
+                        <th>Produkt Navn</th>
+                        <th>Produkt Id</th>
+                        <th>På lager</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="col-xs-2" style="position: absolute; bottom: 0px; right: 0px;">
+            <button id="response" class="btn btn-success btn-sm" style="display: inline-block;" data-toggle="tooltip" data-placement="top" title="Accepter Ordre" data-orderConfirmed="true" onclick="@("window.location.href='" + @Url.Action("index", "Home") + "'");">Accepter</button>
+            <button id="response" class="btn btn-danger btn-sm" style="display: inline-block;" data-toggle="tooltip" data-placement="top" title="Afvis Ordre" data-orderConfirmed="false" onclick="@("window.location.href='" + @Url.Action("index", "Product") + "'");">Afvis</button>
+            @*<button id="response" class="btn btn-success btn-sm" style="display: inline-block;" data-toggle="tooltip" data-placement="top" title="Accepter Ordre" data-orderConfirmed="true">Accepter</button>
+            <button id="response" class="btn btn-danger btn-sm" style="display: inline-block;" data-toggle="tooltip" data-placement="top" title="Afvis Ordre" data-orderConfirmed="false">Afvis</button>*@
+        </div>
     </div>
     <div id="status2" class="row">
         <h3 id="message" style="text-align: center;"></h3>

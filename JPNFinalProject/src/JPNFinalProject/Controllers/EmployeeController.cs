@@ -42,6 +42,14 @@ namespace JPNFinalProject.Controllers
         public void NotInStock([FromBody] List<int> product)
         {
             //Her kalder vi metoden der går ud i DB og opdater ordre hvis den ikke er på lager. Og metoden som kontakter kunden med info.
+
+            var orderdto = _orderService.GetOrderByOrderNumber(product[1]);
+
+            var email = orderdto.CustomerMail;
+
+            var msg = "Hi " + orderdto.Person.Name + "\n\nDette produkt som du har prøvet at bestille er ikke på lager: " + orderdto.Products[0].Name;
+
+            //SendMail(email, orderdto, msg);
         }
 
         [HttpPost]
@@ -55,7 +63,7 @@ namespace JPNFinalProject.Controllers
 
             var msg = "Hi " + orderdto.Person.Name + "\n\nDu har købt: " + orderdto.Products[0].Name;
 
-            SendMail(email, orderdto, msg);
+            //SendMail(email, orderdto, msg);
         }
 
         private void SendMail(string email, OrderDTO order, string msg)

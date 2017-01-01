@@ -52,11 +52,11 @@
 
                                     @if (product.PutAside || product.StockAmount > 10)
                                     {
-                                        <button id="outOfStock" type="button" class="btn btn-sm" data-toggle="modal" data-target="#SendMail" disabled="disabled">Ikke på lager</button>
+                                        <button id="outOfStock" type="button" class="btn btn-sm" @*data-toggle="modal" data-target="#SendMail"*@ disabled="disabled">Ikke på lager</button>
                                     }
                                     else
                                     {
-                                        <button id="outOfStock" type="button" class="btn btn-sm" data-toggle="modal" data-target="#SendMail">Ikke på lager</button>
+                                        <button id="outOfStock" type="button" class="btn btn-sm" @*data-toggle="modal" data-target="#SendMail"*@>Ikke på lager</button>
                                     }
                                     <label id="productId">@product.Id</label>
                                     <label id="ordreNumber" hidden="hidden">@Model.Order.Id</label>
@@ -65,7 +65,12 @@
                         }
                     </tbody>
                 </table>
-               
+               <div class="row">
+                   <div class="col-xs-2 col-xs-push-10">
+                       <button id="sendMessage" class="btn btn-success" data-dismiss="modal">Send Besked</button>
+                   </div>
+               </div>
+
             </div>
         </div>
 

@@ -22,6 +22,7 @@ namespace JPNFinalProject.Services
         public SessionContainer() {
             _productService = new ProductService();
         }
+
         public void AddToSession(HttpContext context, string key, int value) {
             try {
                 var item = context.Session.GetString(key);

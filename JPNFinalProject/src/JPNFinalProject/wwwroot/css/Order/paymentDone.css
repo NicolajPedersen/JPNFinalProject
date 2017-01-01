@@ -13,17 +13,17 @@
     padding-left: 30px;
 }
 
-#status {
+/*#status {
     margin-top: 0px;
     text-align: center;
     font-size: 18px;
-}
+}*/
 
-#status ul li {
+/*#status ul li {
     display: inline-block;
     padding-right: 20px;
     padding-left: 30px;
-}
+}*/
 
 #status h4 {
     margin-left: 20px;
@@ -76,7 +76,6 @@
 #price {
     text-align: right;
 }
-
 
 
 /* Center the loader */

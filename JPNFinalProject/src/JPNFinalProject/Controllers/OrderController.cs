@@ -49,7 +49,7 @@ namespace JPNFinalProject.Controllers
         public IActionResult Delivery(DeliveryViewModel dModel)
         {
             var delivery = dModel;
-            delivery.Businesses = _orderService.GetBusinesses();
+            //delivery.Businesses = _orderService.GetBusinesses();
             return RedirectToAction("Overview", delivery); //Skal det ikke bare ligges til session, sådan at det ikke skal sendes som parameter, eventuelt order.
         }
 
@@ -60,7 +60,7 @@ namespace JPNFinalProject.Controllers
                 model.Order.Business = _orderService.GetBusinessById(Convert.ToInt32(delivery.ParcelPickup));
                 model.Order.Products = _sessionContainer.GetBasket(HttpContext, "basket");
 
-                model.Subtotal = model.Order.Products.Select(x => x.Price).Sum();
+                model.Subtotal = model.Order.Products.Select(x => x.Price * x.Amount).Sum();
                 model.VATFromPrice = (model.Subtotal / 100) * 25;
                 model.Order.TotalPrice = model.Subtotal + model.VATFromPrice;
 
@@ -79,26 +79,26 @@ namespace JPNFinalProject.Controllers
             }
         }
 
-        [HttpGet]
-        public IActionResult Payment(int id) {
-            PaymentViewModel model = new PaymentViewModel();
-            var order = _sessionContainer.GetOrderFromSession(HttpContext, "order");
-            var Subtotal = order.Products.Select(x => x.Price).Sum();
-            var VATFromPrice = (Subtotal / 100) * 25;
-            var PriceWithVAT = Subtotal + VATFromPrice;
+        //[HttpGet]
+        //public IActionResult Payment(int id) {
+        //    PaymentViewModel model = new PaymentViewModel();
+        //    var order = _sessionContainer.GetOrderFromSession(HttpContext, "order");
+        //    var Subtotal = order.Products.Select(x => x.Price).Sum();
+        //    var VATFromPrice = (Subtotal / 100) * 25;
+        //    var PriceWithVAT = Subtotal + VATFromPrice;
 
-            model.OrderNumber = order.OrderNumber.ToString();
-            model.TotalAmount = PriceWithVAT;
+        //    model.OrderNumber = order.OrderNumber.ToString();
+        //    model.TotalAmount = PriceWithVAT;
 
-            return View(model);
-        }
+        //    return View(model);
+        //}
 
         [HttpGet]
         public IActionResult PaymentDone() {
-            var orderId = _orderService.SaveOrder(HttpContext);
+            //var orderId = _orderService.SaveOrder(HttpContext);
             PaymentDoneViewModel model = new PaymentDoneViewModel();
-            model.Order = _orderService.GetOrderByOrderNumber(orderId); //Skal der ikke være orderNumber databasen
-            //model.Order = _orderService.GetOrderByOrderNumber(1024);
+            /*model.Order = _orderService.GetOrderByOrderNumber(orderId);*/ //Skal der ikke være orderNumber databasen
+            model.Order = _orderService.GetOrderByOrderNumber(1140);
 
             model.Subtotal = model.Order.Products.Select(x => x.Price * x.StockAmount).Sum();
             model.VATFromPrice = (model.Subtotal / 100) * 25;

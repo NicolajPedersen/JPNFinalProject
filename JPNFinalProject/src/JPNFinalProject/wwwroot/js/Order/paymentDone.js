@@ -1,11 +1,4 @@
-﻿$(function () {
-    window.hu = function () {
-        var hh = $.connection.hub;
-        return hh;
-    }
-});
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
     console.log(window.orderId);
     console.log(window.businessId);
 
@@ -42,15 +35,47 @@ $(document).ready(function () {
 
     $.connection.hub.start();
 
-    test.client.getMessage = function (msg) {
-        var message = msg;
-        console.log("Message: " + message);
-        $("#myDiv").append('<p>' + message + '</p>');
-        $("#myDiv").css("display", "block");
+    //var adminConnectionId;
+
+    test.client.getMessage = function (object) {
+        console.log(object);
+
+        //var message = object.message;
+        //console.log("Message: " + o.message);
+        //$("#myDiv").append('<p>' + "Produkt " + object.productId + " " + object.message + '</p>');
+        //$("#myDiv").css("display", "block");
+
+        for (var i = 0; i < object.length; i++) {
+            //adminConnectionId = object[i].AdminConnectionId;
+            if (object[i].PutASide == true) {
+                $("#employeeInfo tbody:first").append('<tr><td>' + object[i].ProductName + '</td><td>' + object[i].ProductId + '</td><td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td></tr>');
+            }
+            else {
+                $("#employeeInfo tbody:first").append('<tr><td>' + object[i].ProductName + '</td><td>' + object[i].ProductId + '</td><td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td></tr>');
+            }
+        }
+        
+        //$("#employeeInfo").css("display", "table");
+        //$("#employeeInfo tbody:first").append('<tr><td>' + object[i].ProductName + '</td><td>' + object[i].ProductId + '</td><td>' + object[i].PutASide + '</td></tr>');
+        $("#status").css("display", "block");
         $("#status2").css("display", "none");
     };
 
     $.connection.hub.start();
+
+    $(document).on("click", "#response", function () {
+        var orderConfirmed = $(this).attr("data-orderConfirmed");
+        console.log(orderConfirmed);
+        var removeProducts = new Array();
+        var rows = $("#employeeInfo tbody:first").find(".glyphicon-remove");
+        $.each(rows, function () {
+            var productId = $(this).parent().parent().find("td:eq(1)").html();
+            removeProducts.push(productId);
+        });
+        console.log(removeProducts);
+
+        test.server.sendMessageToAdmin(id, orderConfirmed, removeProducts);
+    });
 });
 
 //<input id="message" type="text" value="" />

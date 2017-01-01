@@ -8,6 +8,7 @@ using System.Collections.Concurrent;
 using JPNFinalProject.Data.DTO;
 using JPNFinalProject.Services;
 using Microsoft.AspNetCore.Http;
+using JPNFinalProject.Services.DatabaseServices;
 
 namespace JPNFinalProject.Hubs
 {
@@ -16,6 +17,7 @@ namespace JPNFinalProject.Hubs
         public int BusinessId { get; set; }
         public int OrderId { get; set; }
         public bool IsConnected { get; set; }
+        public bool? OrderConfirmed { get; set; }
     }
 
 
@@ -23,6 +25,8 @@ namespace JPNFinalProject.Hubs
     public class TestHub : Hub
     {
         public static ConcurrentDictionary<string, Storage> userL = new ConcurrentDictionary<string, Storage>();
+        private OrderService _orderService = new OrderService();
+        private ProductService _productService = new ProductService();
 
         public void SignalRConnectionIdV2(string connectionId) {
             Clients.Client(connectionId).getConnectionId($"{connectionId}");
@@ -36,18 +40,55 @@ namespace JPNFinalProject.Hubs
         }
 
         public void AddObject(string connectionId, Storage input) {
-            input.IsConnected = true;
-            //userL.TryAdd(connectionId, input);
-
-            userL[connectionId] = input;
-
-            var adminId = userL.Where(x => x.Value.User == "Admin").Select(x => x.Key).Single();
-            var l = userL.Where(x => x.Value.User == "User");
-            Clients.Client(adminId).getAll(l);
+            try {
+                var adminId = userL.Where(x => x.Value.User == "Admin").Select(x => x.Key).Single();
+                input.IsConnected = true;
+                userL[connectionId] = input;
+                var l = userL.Where(x => x.Value.User == "User");
+                Clients.Client(adminId).getAll(l);
+            }
+            catch {
+                input.IsConnected = true;
+                userL[connectionId] = input;
+            }
         }
 
-        public void SendMessage(string id, string message) {
-            Clients.Client(id).getMessage(message);
+        //public void SendMessage(string id, string message) {
+        //    Clients.Client(id).getMessage(message);
+        //}
+
+        //public void SendMessage2(string id, int productId, string message) {
+        //    var productName = _productService.GetProductById(productId).Name;
+
+        //    Clients.Client(id).getMessage(new { productId, productName, message });
+        //}
+
+        public void SendMessage3(string id, List<Object> info) {
+            Clients.Client(id).getMessage(info);
+        }
+
+        public void SendMessageToAdmin(string connectionId, bool orderConfirmed, List<int> removeProducts) {
+            try {
+                var adminId = userL.Where(x => x.Value.User == "Admin").Select(x => x.Key).Single();
+                userL[connectionId].OrderConfirmed = orderConfirmed;
+                var orderId = userL[connectionId].OrderId;
+
+                if (orderConfirmed == true && removeProducts.Any() == true) {
+                    //Her skal alle produkterne i listen så fjernes fra ordren.
+                    //Eller de kunne blive flyttet over i en anden order, hvor kunden så kunne få lov til at finde en anden butik hvor de var i.
+                    _orderService.DeleteProductsFromOrder(orderId, removeProducts);
+                }
+
+                if (orderConfirmed == false) {
+                    _orderService.DeleteOrder(orderId);
+                }
+
+                var l = userL.Where(x => x.Value.User == "User");
+                Clients.Client(adminId).getAll(l);
+            }
+            catch {
+                userL[connectionId].OrderConfirmed = orderConfirmed;
+            }
         }
 
         //Skal lige huske at have lavet sådan at når man disconnecter så bliver man fjernet fra listen.
@@ -61,10 +102,6 @@ namespace JPNFinalProject.Hubs
         }
 
         public override Task OnDisconnected(bool stopCalled) {
-            //string connectionId = Context.ConnectionId;
-            //Storage value;
-            //userL.TryRemove(connectionId, out value);
-
             string connectionId = Context.ConnectionId;
             userL[connectionId].IsConnected = false;
 
