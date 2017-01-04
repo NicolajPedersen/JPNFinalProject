@@ -1,0 +1,56 @@
+﻿@using JPNFinalProject.Data.DTO
+@model ProductDTO
+
+@{
+    ViewData["Title"] = "Promotion";
+}
+
+<div id="wrapper">
+    <div id="productInfo" style="padding-top: 8%" class="form-horizontal col-md-6 row">
+        <div><label class="labelInfo">Produkt navn:</label><label class="labelData">@Model.Name</label></div>
+        <div><label class="labelInfo">Product id:</label><label id="productId" class="labelData">@Model.Id</label></div>
+        <div><label class="labelInfo">Product pris:</label><label class="labelData">@Model.Price</label></div>
+        <div><label class="labelInfo">Product Kategori:</label><label class="labelData">@Model.Category.Name</label></div>
+        <div><input name="startAuction" type="button" id="startPromote" value="Promover" /></div>
+        <div><label class="labelInfo">Signal Id:</label><label id="signalId" class="labelData"></label></div>
+    </div>
+    <div style="padding-top: 8%" class="col-md-6">
+        <div id="chatbox"></div>
+    </div>
+
+
+</div>
+@section scripts {
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/SignalR/jquery.signalR-2.2.0.js"></script>
+<script src="/signalr/hubs"></script>
+    <script>
+        $(function () {
+            var promotion = $.connection.promotion;
+            $("#startPromote").click(function () {
+                var product = {
+                    id: "@Model.Id",
+                    name: "@Model.Name",
+                    price: "@Model.Price"
+                };
+                console.log(product);
+                promotion.server.sendPromotion(JSON.stringify(product)).done(function (value) {
+                    console.log("Message sent.");
+                });
+            });
+            $.connection.hub.start(function () {
+                console.info("Connected.");
+            });
+
+            $.connection.hub.disconnected(function() {
+                setTimeout(function() {
+                    console.info("Reconnecting…");
+                    $.connection.hub.start(function() {
+                        console.info("Connected.");
+                    });
+                }, 5000);
+            });
+        });
+</script> 
+
+}
