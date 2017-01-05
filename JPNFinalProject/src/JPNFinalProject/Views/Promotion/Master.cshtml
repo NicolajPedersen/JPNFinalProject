@@ -11,8 +11,8 @@
         <div><label class="labelInfo">Product id:</label><label id="productId" class="labelData">@Model.Id</label></div>
         <div><label class="labelInfo">Product pris:</label><label class="labelData">@Model.Price</label></div>
         <div><label class="labelInfo">Product Kategori:</label><label class="labelData">@Model.Category.Name</label></div>
-        <div><input type="button" id="womenPromote" value="Promover kvinder" /></div>
-        <div><input type="button" id="menPromote" value="Promover mænd" /></div>
+        <div><input type="button" id="womenPromote" class="gender" value="women" /></div>
+        <div><input type="button" id="menPromote" class="gender" value="men" /></div>
         <div><label class="labelInfo">Signal Id:</label><label id="signalId" class="labelData"></label></div>
     </div>
     <div style="padding-top: 8%" class="col-md-6">
@@ -28,19 +28,11 @@
     <script>
         $(function () {
             var promotion = $.connection.promotion;
-            $("#womenPromote").click(function () {
+            $(".gender").click(function (event) {
+                promotion.server.joinGroup($(this).val())
                 var message = {
-                    msg: "@Model.Name for women",
-                    group: "women"
-                }
-                promotion.server.sendPromotion(message).done(function (value) {
-                    console.log("Message sent.");
-                });
-            });
-            $("#menPromote").click(function () {
-                var message = {
-                    msg: "@Model.Name  for men",
-                    group: "men"
+                    msg: "@Model.Name for " + $(this).val(),
+                    group: $(this).val()
                 }
                 promotion.server.sendPromotion(message).done(function (value) {
                     console.log("Message sent.");

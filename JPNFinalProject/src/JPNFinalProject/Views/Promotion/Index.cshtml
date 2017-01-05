@@ -11,8 +11,8 @@
     <div style="padding-top: 8%" class="col-md-6">
         <div id="chatbox"></div>
     </div>
-    <div><input type="button" id="women" value="women" /></div>
-    <div><input type="button" id="men" value="men" /></div>
+    <div><input type="button" id="women" class="gender" value="women" /></div>
+    <div><input type="button" id="men" class="gender" value="men" /></div>
 
 
 </div>
@@ -23,22 +23,11 @@
     <script>
         $(function () {
             var promotion = $.connection.promotion;
-
-            $("#men").click(function () {
-                console.log("men");
-                promotion.server.joinGroup("men")
+            $(".gender").click(function (event) {
+                promotion.server.joinGroup($(this).val())
             });
-            $("#women").click(function () {
-                console.log("women");
-                promotion.server.joinGroup("women")
-            });
-
             promotion.client.onMessageReceived = function (message) {
-                //var product = JSON.parse(message);
-//                $('#productName').append(product.name);
                 $('#productName').append(message);
-                //$('#productId').append(product.id);
-                //$('#productPrice').append(product.price);
             };
 
             $.connection.hub.start(function () {
