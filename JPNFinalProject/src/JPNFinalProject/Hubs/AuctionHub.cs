@@ -28,7 +28,10 @@ namespace JPNFinalProject.Hubs
 
             products.TryAdd(product.Id, product);
 
-            Clients.All.auctionStarted("Auktionen på produktet: " + product.Name + " er startet. Start bud: " + product.Price, product.Id);
+            Clients.All.auctionStarted("Auktionen på produktet: " 
+                                        + product.Name 
+                                        + " er startet. Start bud: " 
+                                        + product.Price, product.Id);
         }
 
         public void SignalRConnectionId(string user)
