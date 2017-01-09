@@ -25,4 +25,12 @@
             contentType: "application/json; charset=utf-8",
         });
     });
+    $("#seedProducts").click(function () {
+        $.ajax({
+            type: "POST",
+            url: '/Home/SeedProducts',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+        });
+    });
 });

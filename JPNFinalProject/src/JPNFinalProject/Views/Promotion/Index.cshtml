@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "PromotionTest";
+}
+<div id="wrapper">
+
+    <div id="productInfo" style="padding-top: 8%" class="form-horizontal col-md-6 row">
+        <div><label class="labelInfo">Produkt navn:</label><label id="productName" class="labelData">---</label></div>
+        <div><label class="labelInfo">Product id:</label><label id="productId" class="labelData">---</label></div>
+        <div><label class="labelInfo">Product pris:</label><label id="productPrice" class="labelData"></label></div>
+    </div>
+    <div style="padding-top: 8%" class="col-md-6">
+        <div id="chatbox"></div>
+    </div>
+    <div><input type="button" id="women" class="gender" value="women" /></div>
+    <div><input type="button" id="men" class="gender" value="men" /></div>
+
+
+</div>
+@section scripts {
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/SignalR/jquery.signalR-2.2.0.js"></script>
+<script src="/signalr/hubs"></script>
+    <script>
+        $(function () {
+            var promotion = $.connection.promotion;
+            $(".gender").click(function (event) {
+                promotion.server.joinGroup($(this).val())
+            });
+            promotion.client.onMessageReceived = function (message) {
+                $('#productName').append(message);
+            };
+
+            $.connection.hub.start(function () {
+                console.info("Connected.");
+            });
+
+            $.connection.hub.disconnected(function() {
+                setTimeout(function() {
+                    console.info("Reconnecting…");
+                    $.connection.hub.start(function() {
+                        console.info("Connected.");
+                    });
+                }, 5000);
+            });
+        });
+    </script>
+
+}

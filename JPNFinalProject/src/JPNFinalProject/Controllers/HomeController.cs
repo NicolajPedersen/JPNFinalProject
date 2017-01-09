@@ -14,7 +14,7 @@ namespace JPNFinalProject.Controllers
         public HomeController()
         {
             _productService = new ProductService();
-            //Data.SeedData.Seed();
+
         }
 
         public IActionResult Index()
@@ -50,6 +50,12 @@ namespace JPNFinalProject.Controllers
         public void AddRandomCategory()
         {
             _productService.AddRandomCategory();
+        }
+
+        [HttpPost]
+        public void SeedProducts()
+        {
+            Data.SeedData.Seed();
         }
     }
 }

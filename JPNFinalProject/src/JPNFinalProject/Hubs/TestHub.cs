@@ -80,7 +80,7 @@ namespace JPNFinalProject.Hubs
                 }
 
                 if (orderConfirmed == false) {
-                    _orderService.DeleteOrder(orderId);
+                    //_orderService.DeleteOrder(orderId);
                 }
 
                 var l = userL.Where(x => x.Value.User == "User");
